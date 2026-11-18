@@ -48,6 +48,21 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
+      - name: Inspect APK native libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          for apk in app/build/outputs/apk/debug/*.apk; do
+            echo "Native libraries in $apk:"
+            unzip -l "$apk" | grep 'lib/' || true
+            echo "libgxcore.so dependencies in $apk:"
+            if unzip -p "$apk" lib/arm64-v8a/libgxcore.so > "$RUNNER_TEMP/libgxcore.so"; then
+              readelf -d "$RUNNER_TEMP/libgxcore.so"
+            else
+              echo "lib/arm64-v8a/libgxcore.so is missing from $apk"
+            fi
+          done
+
       - name: Upload debug APK
         if: success()
         uses: actions/upload-artifact@v4

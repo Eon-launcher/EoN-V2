@@ -81,6 +81,21 @@ jobs:
       - name: Build Debug, Beta and Unsigned Release APKs
         run: ./gradlew assembleDebug assembleBeta assembleRelease
 
+      - name: Inspect APK native libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          for apk in app/build/outputs/apk/{debug,beta,release}/*.apk; do
+            echo "Native libraries in $apk:"
+            unzip -l "$apk" | grep 'lib/' || true
+            echo "libgxcore.so dependencies in $apk:"
+            if unzip -p "$apk" lib/arm64-v8a/libgxcore.so > "$RUNNER_TEMP/libgxcore.so"; then
+              readelf -d "$RUNNER_TEMP/libgxcore.so"
+            else
+              echo "lib/arm64-v8a/libgxcore.so is missing from $apk"
+            fi
+          done
+
       - name: App Unit Tests
         run: ./gradlew :app:testDebugUnitTest
 
