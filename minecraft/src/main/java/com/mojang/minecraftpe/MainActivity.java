@@ -51,6 +51,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.androidgamesdk.GameActivity;
 import com.mojang.android.StringValue;
 import com.mojang.minecraftpe.platforms.Platform;
+import com.microsoft.xbox.idp.interop.Interop;
 
 import org.conscrypt.BuildConfig;
 import org.fmod.FMOD;
