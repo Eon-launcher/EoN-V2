@@ -540,6 +540,8 @@ public class SettingsActivity extends BaseActivity {
 
         SwitchMaterial switchCrashUpload = findViewById(R.id.switch_crash_upload);
         switchCrashUpload.setChecked(fs.isCrashUploadEnabled());
+        // Modified by EON Launcher V2: crash reports remain local without Firebase.
+        switchCrashUpload.setEnabled(false);
         switchCrashUpload.setOnCheckedChangeListener((btn, checked) -> {
             fs.setCrashUploadEnabled(checked);
             CrashReporter.refreshCrashlyticsCollection(this);

@@ -51,7 +51,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.androidgamesdk.GameActivity;
 import com.mojang.android.StringValue;
 import com.mojang.minecraftpe.platforms.Platform;
-import com.microsoft.xbox.idp.interop.Interop;
 
 import org.conscrypt.BuildConfig;
 import org.fmod.FMOD;
@@ -1614,19 +1613,8 @@ public class MainActivity extends GameActivity implements View.OnKeyListener, Fi
     @Override
     protected void onResume() {
         super.onResume();
+        // Modified by EON Launcher V2: Firebase-backed game notification startup is disabled.
         reportedSurfaceSize.reset();
-        NotificationListenerService.initialize(
-                getApplicationContext(),
-                getIntent().getStringExtra("MINECRAFT_FIREBASE_APP_ID"),
-                getIntent().getStringExtra("MINECRAFT_FIREBASE_API_KEY"),
-                getIntent().getStringExtra("MINECRAFT_FIREBASE_PROJECT_ID"),
-                getIntent().getStringExtra("MINECRAFT_FIREBASE_SENDER_ID")
-        );
-        NotificationListenerService.onMinecraftForeground(getApplicationContext());
-        new Handler(Looper.getMainLooper()).postDelayed(
-                () -> Interop.RegisterWithGNS(getApplicationContext()),
-                2000L
-        );
     }
 
     @Override
@@ -1650,7 +1638,6 @@ public class MainActivity extends GameActivity implements View.OnKeyListener, Fi
 
     @Override
     protected void onDestroy() {
-        NotificationListenerService.setNativeReady(false);
         if (isChangingConfigurations()) {
         }
         System.out.println("onDestroy");
@@ -2003,19 +1990,8 @@ public class MainActivity extends GameActivity implements View.OnKeyListener, Fi
     public long initializeXboxLive(final long xalInitArgs, final long xblInitArgs) {
         if (!isEduMode()) {
             final FutureTask<Long> futureTask = new FutureTask<>(() -> {
-                NotificationListenerService.initialize(
-                        getApplicationContext(),
-                        getIntent().getStringExtra("MINECRAFT_FIREBASE_APP_ID"),
-                        getIntent().getStringExtra("MINECRAFT_FIREBASE_API_KEY"),
-                        getIntent().getStringExtra("MINECRAFT_FIREBASE_PROJECT_ID"),
-                        getIntent().getStringExtra("MINECRAFT_FIREBASE_SENDER_ID")
-                );
+                // Modified by EON Launcher V2: Xbox push notification registration is disabled.
                 long result = nativeInitializeXboxLive(xalInitArgs, xblInitArgs);
-                if (result >= 0L) {
-                    Interop.RegisterWithGNS(getApplicationContext());
-                } else {
-                    NotificationListenerService.setNativeReady(false);
-                }
                 return result;
             });
             runOnUiThread(futureTask);

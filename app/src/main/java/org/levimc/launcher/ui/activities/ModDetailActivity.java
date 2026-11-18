@@ -181,6 +181,10 @@ public class ModDetailActivity extends BaseActivity {
 
     private void updateModUI(Mod mod) {
         if (mod != null) {
+            Button deleteButton = findViewById(R.id.delete_mod_button);
+            deleteButton.setVisibility(mod.isBuiltIn() ? View.GONE : View.VISIBLE);
+            modSwitch.setEnabled(!mod.isBuiltIn());
+
             String author = fallbackText(mod.getAuthor(), getString(R.string.mod_unknown_author));
             String version = fallbackText(mod.getVersion(), getString(R.string.mod_unknown_version));
 
@@ -293,7 +297,7 @@ public class ModDetailActivity extends BaseActivity {
      */
     private void confirmDeleteMod() {
         GameVersion version = ModManager.getInstance().getCurrentVersion();
-        if (currentMod == null || version == null) {
+        if (currentMod == null || currentMod.isBuiltIn() || version == null) {
             return;
         }
         PackageActions.deleteModFolder(this, version, currentMod, pkgDone(true));

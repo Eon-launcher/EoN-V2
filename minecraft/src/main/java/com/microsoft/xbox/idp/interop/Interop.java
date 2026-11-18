@@ -1,13 +1,9 @@
 package com.microsoft.xbox.idp.interop;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import com.mojang.minecraftpe.NotificationListenerService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -89,27 +85,7 @@ public class Interop {
     }
 
     public static void RegisterWithGNS(Context context) {
-        Log.i("XSAPI.Android", "trying to register..");
-        NotificationListenerService.initialize(context);
-        NotificationListenerService.requestDeviceRegistrationToken(token -> {
-            if (token == null || token.isEmpty()) {
-                NotificationListenerService.setNativeReady(false);
-                return;
-            }
-            Runnable registration = () -> {
-                try {
-                    Interop.NotificationRegisterCallback(token);
-                    NotificationListenerService.setNativeReady(true);
-                } catch (UnsatisfiedLinkError | RuntimeException error) {
-                    NotificationListenerService.setNativeReady(false);
-                }
-            };
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                registration.run();
-            } else {
-                new Handler(Looper.getMainLooper()).post(registration);
-            }
-        });
+        // Modified by EON Launcher V2: Firebase-backed Xbox notification registration is disabled.
     }
 
     public enum AuthFlowScreenStatus {

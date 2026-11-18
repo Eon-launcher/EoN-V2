@@ -474,6 +474,7 @@
     <string name="mod_id_label">Mod ID</string>
     <string name="mod_config_files_label">Config Files</string>
     <string name="mod_unknown_author">Unknown author</string>
+    <string name="mod_builtin_locked">This built-in mod cannot be removed or disabled.</string>
     <string name="mod_unknown_version">Unknown version</string>
     <string name="mod_all_versions">All supported versions</string>
     <string name="mod_no_config_files">No editable config</string>

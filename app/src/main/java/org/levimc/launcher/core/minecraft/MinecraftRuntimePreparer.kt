@@ -9,6 +9,8 @@ import org.levimc.launcher.core.auth.MsftAuthManager
 import org.levimc.launcher.core.packages.InstalledPackages
 import org.levimc.launcher.core.packages.PackageService
 import org.levimc.launcher.core.mods.Mod
+import org.levimc.launcher.core.mods.EonBuiltInModInstaller
+import org.levimc.launcher.core.mods.EonNative
 import org.levimc.launcher.core.mods.ModManager
 import org.levimc.launcher.core.mods.ModNativeLoader
 import org.levimc.launcher.core.versions.GameVersion
@@ -97,6 +99,12 @@ object MinecraftRuntimePreparer {
         checkPackageWorkspace(context, version, listener, trace)
 
         listener.onProgress(34, "Checking mods")
+        try {
+            EonBuiltInModInstaller.install(context.applicationContext, version)
+        } catch (error: java.io.IOException) {
+            trace.error("Built-in EON staging failed", error.message ?: error.javaClass.simpleName)
+            throw IllegalStateException("Failed to stage built-in EON mod", error)
+        }
         val modManager = ModManager.getInstance()
         modManager.setCurrentVersion(version)
         orderPackageMods(context, version, modManager, listener, trace)
@@ -151,6 +159,10 @@ object MinecraftRuntimePreparer {
 
         //nativeSetupRuntime(modManager.currentVersion?.modsDir?.absolutePath.toString())
         val nativeModResult = loadNativeMods(context, launchIntent, modManager, listener, trace)
+        if (EonBuiltInModInstaller.MOD_ID in nativeModResult.loadedModIds) {
+            EonNative.beginSession()
+            trace.mark("Built-in EON session initialized")
+        }
 
         try {
             val profileId = MinecraftLauncher.getStorageProfileId(version)

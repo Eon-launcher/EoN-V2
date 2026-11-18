@@ -48,6 +48,7 @@ android {
 }
 
 dependencies {
+    // Modified by EON Launcher V2: Xbox push notifications are disabled without Firebase.
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
@@ -58,9 +59,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.httpclient)
     implementation(libs.androidx.annotation)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.iid)
-
     implementation(libs.pkix)
 
     implementation(libs.gson)
@@ -91,6 +89,4 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.iid)
 }

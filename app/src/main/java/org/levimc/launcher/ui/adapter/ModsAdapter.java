@@ -146,6 +146,7 @@ public class ModsAdapter extends RecyclerView.Adapter<ModsAdapter.ModViewHolder>
 
         holder.switchBtn.setOnCheckedChangeListener((btn, isChecked) -> {
             if (isChecked == mod.isEnabled()) return;
+            if (mod.isBuiltIn()) return;
 
             mod.setEnabled(isChecked);
 
@@ -153,6 +154,7 @@ public class ModsAdapter extends RecyclerView.Adapter<ModsAdapter.ModViewHolder>
                 onModEnableChangeListener.onEnableChanged(mod, isChecked);
             }
         });
+        holder.switchBtn.setEnabled(!mod.isBuiltIn());
 
         if (holder.dragHandle != null) {
             holder.dragHandle.setVisibility(reorderEnabled ? View.VISIBLE : View.GONE);
@@ -185,14 +187,16 @@ public class ModsAdapter extends RecyclerView.Adapter<ModsAdapter.ModViewHolder>
 
     private void showActions(ModViewHolder holder, Mod mod) {
         android.content.Context context = holder.itemView.getContext();
-        new LauncherPopup(holder.more).width(220)
-                .destructiveAction(0, context.getString(R.string.pkg_menu_uninstall), R.drawable.ic_ui_delete)
-                .action(1, context.getString(R.string.crumb_details), R.drawable.ic_nav_about)
+        LauncherPopup popup = new LauncherPopup(holder.more).width(220);
+        if (!mod.isBuiltIn()) {
+            popup.destructiveAction(0, context.getString(R.string.pkg_menu_uninstall), R.drawable.ic_ui_delete);
+        }
+        popup.action(1, context.getString(R.string.crumb_details), R.drawable.ic_nav_about)
                 .onSelect(action -> {
                     int position = holder.getBindingAdapterPosition();
                     if (position == RecyclerView.NO_POSITION || position >= mods.size()
                             || !mod.getId().equals(mods.get(position).getId())) return;
-                    if (action == 0 && onModUninstallListener != null) onModUninstallListener.onModUninstall(mod);
+                    if (action == 0 && !mod.isBuiltIn() && onModUninstallListener != null) onModUninstallListener.onModUninstall(mod);
                     else if (action == 1 && onModClickListener != null) onModClickListener.onModClick(mod, position, holder.itemView);
                 }).show();
     }
