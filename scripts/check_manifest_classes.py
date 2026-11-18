@@ -29,6 +29,13 @@ def manifest_classes():
         application = root.find("application")
         if application is None:
             continue
+        application_name = application.get(ANDROID_NS + "name")
+        if application_name:
+            if application_name.startswith("."):
+                application_name = package + application_name
+            elif "." not in application_name:
+                application_name = package + "." + application_name
+            classes.add(application_name)
         for component in application:
             if component.tag not in COMPONENT_TAGS:
                 continue

@@ -56,10 +56,6 @@ public class NotificationResult {
         if (target == null) {
             return null;
         }
-
-        private static Object readNotification(Object message) {
-            return message instanceof Map ? null : invoke(message, "getNotification");
-        }
         try {
             Method method = target.getClass().getMethod(methodName);
             return method.invoke(target);
@@ -67,6 +63,10 @@ public class NotificationResult {
             Log.w("XSAPI.Android", "Could not read notification field " + methodName, error);
             return null;
         }
+    }
+
+    private static Object readNotification(Object message) {
+        return message instanceof Map ? null : invoke(message, "getNotification");
     }
 
     public enum NotificationType {
