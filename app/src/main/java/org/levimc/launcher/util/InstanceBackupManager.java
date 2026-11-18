@@ -66,8 +66,9 @@ public class InstanceBackupManager {
     private static final String SHARED_PREFIX = "shared/";
     private static final String RUNTIME_LIBS_PREFIX = "runtime_libs/";
     private static final String PACKAGE_PREFIX = "package/";
+    // Modified by EoN Launcher V2: new backups use the rebranded Downloads folder.
     private static final String DOWNLOAD_RELATIVE_PATH =
-            Environment.DIRECTORY_DOWNLOADS + "/LeviLauncher/Backups";
+            Environment.DIRECTORY_DOWNLOADS + "/EoN Launcher V2/Backups";
     private static final Gson GSON = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
 
     private final Context context;
@@ -384,7 +385,7 @@ public class InstanceBackupManager {
 
     private String buildBackupFileName(BackupManifest manifest) {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date(manifest.createdAt));
-        return "levilauncher_instance_"
+        return "eon_launcher_instance_"
                 + sanitizeFileName(firstNonEmpty(manifest.directoryName, manifest.instanceName, "instance"))
                 + "_"
                 + timestamp
@@ -416,7 +417,7 @@ public class InstanceBackupManager {
         Uri tree = getBackupDownloadsTree();
         if (tree == null) throw new IOException(context.getString(org.levimc.launcher.R.string.backup_select_downloads));
         Uri downloads = DocumentsContract.buildDocumentUriUsingTree(tree, DocumentsContract.getTreeDocumentId(tree));
-        Uri launcherFolder = getOrCreateBackupDirectory(tree, downloads, "LeviLauncher");
+        Uri launcherFolder = getOrCreateBackupDirectory(tree, downloads, "EoN Launcher V2");
         Uri backupFolder = getOrCreateBackupDirectory(tree, launcherFolder, "Backups");
         target.uri = DocumentsContract.createDocument(context.getContentResolver(), backupFolder, "application/zip", fileName);
         if (target.uri == null) throw new IOException("Cannot create backup file");

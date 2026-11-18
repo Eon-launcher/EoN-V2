@@ -1,4 +1,5 @@
 package org.levimc.launcher.core.play;
+// Modified by EoN Launcher V2: identify outbound requests with the rebranded app name.
 
 import android.content.Context;
 import android.util.AtomicFile;
@@ -69,7 +70,7 @@ public final class VersionCatalog {
                 .url(DATA_URL)
                 .header("Accept", "application/json")
                 .header("Cache-Control", "no-cache")
-                .header("User-Agent", "LeviLauncher")
+                .header("User-Agent", "EoN Launcher V2")
                 .build();
         Call call = HTTP.newCall(request);
         activeCall = call;

@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Microsoft 账号</string>
     <string name="accounts_count">已保存 %1$d 个</string>
-    <string name="accounts_auto_sign_in">通过 LeviLauncher 登录 Minecraft</string>
+    <string name="accounts_auto_sign_in">通过 EoN Launcher V2 登录 Minecraft</string>
     <string name="accounts_auto_sign_in_on">在 Minecraft 中使用当前账号，仍可离线游玩。</string>
     <string name="accounts_auto_sign_in_off">账号仍会保存。开启后可在 Minecraft 中使用当前账号。</string>
     <string name="accounts_empty_title">添加第一个账号</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">刷新登录状态</string>
     <string name="accounts_sign_in_again">重新登录</string>
     <string name="accounts_remove">移除账号</string>
-    <string name="accounts_remove_message">要从 LeviLauncher 移除 %1$s 吗？这不会删除你的 Microsoft 账号。</string>
+    <string name="accounts_remove_message">要从 EoN Launcher V2 移除 %1$s 吗？这不会删除你的 Microsoft 账号。</string>
     <string name="accounts_switching">正在切换账号…</string>
     <string name="accounts_removing">正在移除账号…</string>
     <string name="accounts_details_message">Xbox ID：%1$s\n上次更新：%2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">离线状态：启动 Minecraft，跳过在线登录。已保存的账号不会更改。</string>
     <string name="accounts_sign_in_subtitle">选择添加 Microsoft / Xbox 档案的方式。</string>
     <string name="accounts_embedded_title">在此登录</string>
-    <string name="accounts_embedded_description">在 LeviLauncher 内使用 Microsoft 的登录页面。</string>
+    <string name="accounts_embedded_description">在 EoN Launcher V2 内使用 Microsoft 的登录页面。</string>
     <string name="accounts_device_title">使用代码登录</string>
     <string name="accounts_device_description">使用浏览器，或在另一台设备上输入代码。</string>
     <string name="accounts_device_steps">打开 Microsoft 页面并确认代码。也可以在另一台设备上打开该地址。</string>
     <string name="accounts_microsoft_page">Microsoft 安全登录页面</string>
-    <string name="news_feed_subtitle">LeviLauncher 最新动态</string>
+    <string name="news_feed_subtitle">EoN Launcher V2 最新动态</string>
     <string name="news_all">全部新闻</string>
     <string name="news_count">共 %1$d 条</string>
     <string name="news_no_important">目前没有重要通知。</string>

@@ -1,4 +1,5 @@
 package org.levimc.launcher.ui.dialogs;
+// Modified by EoN Launcher V2: point source links to this repository.
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,7 +36,7 @@ import org.levimc.launcher.ui.widget.UiKit;
 public final class DownloadCreatorNotice extends Dialog {
     private static final String PREFERENCES = "download_creator_notice";
     private static final String HIDE_NOTICE = "hide_notice";
-    private static final String SOURCE_URL = "https://github.com/LiteLDev/LeviLauncher-Android/blob/HEAD/app/src/main/java/org/levimc/launcher/core/play";
+    private static final String SOURCE_URL = "https://github.com/txqeaandrei-png/EoN-V2/blob/HEAD/app/src/main/java/org/levimc/launcher/core/play";
     private final Activity activity;
     private final boolean dark;
     private final int textColor;

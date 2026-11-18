@@ -1,5 +1,7 @@
 # End-to-end launch test
 
+<!-- Modified by EoN Launcher V2: use the current debug artifact name. -->
+
 `run_e2e.py` drives the real launcher on a device or emulator from pressing **Launch** to a
 running game, using a placeholder game package instead of Minecraft. Everything on the launcher
 side runs for real: version detection, the Play Store and login gates, extraction and native image
@@ -49,7 +51,7 @@ All placeholder output is logged under the `LeviPlaceholder` tag.
   `libdiscord_partner_sdk.so`, so `app/libs/discord_partner_sdk.aar` must contain
   `jni/arm64-v8a/libdiscord_partner_sdk.so`. CI downloads the real AAR with a token; without access,
   take the library from a CI-built debug APK of the same commit
-  (`gh run download <run id> -n LeviLauncher-debug-apk`) and add it to the local AAR.
+  (`gh run download <run id> -n EoN-debug-apk`) and add it to the local AAR.
 - **Launcher-managed login** must be off (the default), as the placeholder has no account.
 - The runner never replaces a real Minecraft install: if `com.mojang.minecraftpe` on the device is
   not the placeholder, it stops and asks you to uninstall it.

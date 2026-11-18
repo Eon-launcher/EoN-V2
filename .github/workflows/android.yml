@@ -1,6 +1,6 @@
-name: Android CI
+name: EoN Launcher V2 Android CI
 
-# Modified by EON Launcher V2: source builds no longer require private SDK files or Firebase config.
+# Modified by EoN Launcher V2: source builds no longer require private SDK files or Firebase config.
 on:
   push:
     branches:
@@ -87,13 +87,13 @@ jobs:
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: LeviLauncher-debug-apk
+          name: EoN-debug-apk
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Upload R8 mappings
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: LeviLauncher-r8-mappings-${{ github.sha }}
+          name: EoN-r8-mappings-${{ github.sha }}
           path: |
             app/build/outputs/mapping/debug/
             app/build/outputs/mapping/beta/
@@ -103,13 +103,13 @@ jobs:
       - name: Upload Unsigned Release APK
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: LeviLauncher-release-unsigned-apk
+          name: EoN-release-unsigned-apk
           path: app/build/outputs/apk/release/*-unsigned.apk
 
       - name: Upload Beta APK
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: LeviLauncher-beta-apk
+          name: EoN-beta-apk
           path: app/build/outputs/apk/beta/*.apk
 
       - name: Sign Release APK
@@ -131,7 +131,7 @@ jobs:
         run: |
           TAG=${GITHUB_REF_NAME}
           SIGNED_APK="${{ steps.sign_app.outputs.signedReleaseFile }}"
-          APK_DST="LeviLauncher-${TAG}-release.apk"
+          APK_DST="EoN-${TAG}-release.apk"
           cp "$SIGNED_APK" "$APK_DST"
           echo "Signed APK renamed to $APK_DST"
 
@@ -139,8 +139,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: LeviLauncher-${{ github.ref_name }}-release.apk
-          path: LeviLauncher-${{ github.ref_name }}-release.apk
+          name: EoN-${{ github.ref_name }}-release.apk
+          path: EoN-${{ github.ref_name }}-release.apk
 
       - name: Generate GitHub release notes
         if: startsWith(github.ref, 'refs/tags/')
@@ -150,7 +150,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: LeviLauncher-${{ github.ref_name }}-release.apk
+          files: EoN-${{ github.ref_name }}-release.apk
           body_path: release-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -159,13 +159,13 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          APK_URL: "https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/LeviLauncher-${{ github.ref_name }}-release.apk"
+          APK_URL: "https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/EoN-${{ github.ref_name }}-release.apk"
           TAG_NAME: ${{ github.ref_name }}
         run: |
-          EMBED_TITLE="🚀 LeviLauncher Update!"
-          EMBED_DESC="A new version of **LeviLauncher for Android** is ready."
+          EMBED_TITLE="🚀 EoN Launcher V2 update!"
+          EMBED_DESC="A new version of **EoN Launcher V2** is ready."
           EMBED_COLOR=5814783
-          THUMB_URL='https://avatars.githubusercontent.com/u/78095377?s=200&v=4'
+          THUMB_URL='https://raw.githubusercontent.com/txqeaandrei-png/EoN-V2/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png'
 
           curl -H "Content-Type: application/json" \
           -d "{

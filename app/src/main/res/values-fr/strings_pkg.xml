@@ -2,6 +2,7 @@
 <!-- Strings of the package manager integration. Keep aligned with
      values/strings_pkg.xml: same keys, order and comments. -->
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <!-- Workspace guards (launch, backup, restore, instance deletion) -->
     <string name="pkg_err_workspace_busy">Une opération sur les paquets est en cours sur cette instance. Attendez qu\'elle se termine et réessayez.</string>
     <string name="pkg_err_recover_failed">Impossible de récupérer une opération sur les paquets interrompue : %1$s</string>
@@ -75,7 +76,7 @@
     <string name="pkg_err_invalid_github_proxy">Saisissez une URL HTTP(S) valide</string>
     <string name="pkg_err_write_file">Échec de l\'écriture du fichier</string>
     <string name="pkg_err_index_timeout">Le catalogue de mods n\'a pas répondu à temps</string>
-    <string name="pkg_err_index_unavailable">Impossible de joindre le catalogue de mods (levimc.org)</string>
+    <string name="pkg_err_index_unavailable">Impossible de joindre le catalogue de mods </string>
     <string name="pkg_err_package_not_found">Le paquet est introuvable dans le catalogue de mods</string>
     <string name="pkg_err_fetch_ll_db">Échec de la récupération de la base de données des versions de LeviLamina</string>
     <string name="pkg_err_invalid_version_format">Format de version du jeu invalide</string>
@@ -104,7 +105,7 @@
     <string name="pkg_err_cause_corrupt">Le fichier téléchargé est endommagé ou incomplet. Videz le cache des paquets dans les paramètres du gestionnaire de paquets et réessayez.</string>
 
     <!-- Browse and package screens (PackagesActivity, BrowseFragment, PackageActivity, InstallDialog) -->
-    <string name="pkg_title_mods">Mods LeviMC</string>
+    <string name="pkg_title_mods">Mods EoN Launcher V2</string>
     <string name="pkg_tab_browse">Parcourir</string>
     <string name="pkg_tab_installed">Installés</string>
     <string name="pkg_tab_details">Détails</string>
@@ -182,8 +183,8 @@
 
     <!-- Developer guide -->
     <string name="pkg_guide_open">Guide du développeur</string>
-    <string name="pkg_guide_title">Guide du développeur des mods LeviMC</string>
-    <string name="pkg_guide_description">Si vous souhaitez que votre mod apparaisse sur la page LeviMC Mods, publiez-le avec un lip.toml comme décrit dans la documentation.</string>
+    <string name="pkg_guide_title">Guide du développeur des mods EoN Launcher V2</string>
+    <string name="pkg_guide_description">Si vous souhaitez que votre mod apparaisse sur la page EoN Launcher V2 Mods, publiez-le avec un lip.toml comme décrit dans la documentation.</string>
     <string name="pkg_guide_manifest_hint">Cette boîte de dialogue n\'est qu\'un aperçu rapide destiné aux développeurs. Les noms des champs, les entrées obligatoires, les exemples et les règles de validation sont définis dans la documentation officielle.</string>
     <string name="pkg_guide_variant_hint">Le lanceur ne répertorie un paquet que si la dernière version de son lip.toml contient une entrée qui s\'exécute côté client sur la plateforme de cet appareil : side = \"client\" et platform = \"android-arm64\". Un paquet dont toutes les entrées client visent d\'autres plateformes (comme \"win-x64\") n\'est pas répertorié. Le lanceur installe d\'abord la variante nommée \"client\", puis la variante par défaut \"\", puis les autres par ordre alphabétique.</string>
     <string name="pkg_guide_android_hint">Les anciennes versions suivent la même règle : une version n\'est installable que si son lip.toml contient une entrée client pour la plateforme de cet appareil. Les entrées destinées à d\'autres plateformes ne peuvent pas être installées ici.</string>

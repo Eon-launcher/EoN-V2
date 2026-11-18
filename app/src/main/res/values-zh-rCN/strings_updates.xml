@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="external_mods_results">显示 %2$d 个模组中的 %1$d 个</string>
     <string name="options_editor_subtitle">编辑 Minecraft 选项，完成后保存。</string>
     <string name="options_editor_results">显示 %2$d 个选项中的 %1$d 个</string>
@@ -24,7 +25,7 @@
     <string name="creator_notice_headline">请勿在 YouTube 视频中展示下载页面。</string>
     <string name="creator_notice_risk">展示此页面或讨论 Android 版 Minecraft 基岩版的版本切换，即使 Minecraft 是通过 Google Play API 合法下载的，也可能被误认为未经授权的下载。这可能导致视频被移除，或收到违反《社区准则》的警告，即使视频中没有演示下载操作。</string>
     <string name="creator_notice_ownership">如果你的 Google 账号未购买 Minecraft，就无法通过启动器下载和安装游戏。</string>
-    <string name="creator_notice_source_text">LeviLauncher 使用已购买 Minecraft 的账号直接从 Google Play 下载游戏。下方源码展示了 LeviLauncher 如何通过 Google Play API 下载游戏。</string>
+    <string name="creator_notice_source_text">EoN Launcher V2 使用已购买 Minecraft 的账号直接从 Google Play 下载游戏。下方源码展示了 EoN Launcher V2 如何通过 Google Play API 下载游戏。</string>
     <string name="creator_notice_source_link">查看 Play API 源码</string>
     <string name="creator_notice_remember">不再显示</string>
     <string name="creator_notice_acknowledge">好的，我已了解</string>

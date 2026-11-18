@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Microsoft アカウント</string>
     <string name="accounts_count">保存済み：%1$d 件</string>
-    <string name="accounts_auto_sign_in">LeviLauncher で Minecraft にサインイン</string>
+    <string name="accounts_auto_sign_in">EoN Launcher V2 で Minecraft にサインイン</string>
     <string name="accounts_auto_sign_in_on">Minecraft で選択中のアカウントを使用します。オフラインでもプレイできます。</string>
     <string name="accounts_auto_sign_in_off">アカウントは保存されたままです。有効にすると Minecraft で選択中のアカウントを使用します。</string>
     <string name="accounts_empty_title">最初のアカウントを追加</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">サインインを更新</string>
     <string name="accounts_sign_in_again">もう一度サインイン</string>
     <string name="accounts_remove">アカウントを削除</string>
-    <string name="accounts_remove_message">%1$s を LeviLauncher から削除しますか？Microsoft アカウント自体は削除されません。</string>
+    <string name="accounts_remove_message">%1$s を EoN Launcher V2 から削除しますか？Microsoft アカウント自体は削除されません。</string>
     <string name="accounts_switching">アカウントを切り替えています…</string>
     <string name="accounts_removing">アカウントを削除しています…</string>
     <string name="accounts_details_message">Xbox ID：%1$s\n最終更新：%2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">オフライン：オンラインでのサインインを行わずに Minecraft を起動します。保存済みのアカウントは変更されません。</string>
     <string name="accounts_sign_in_subtitle">Microsoft / Xbox プロフィールの追加方法を選んでください。</string>
     <string name="accounts_embedded_title">ここでサインイン</string>
-    <string name="accounts_embedded_description">LeviLauncher 内で Microsoft のサインインページを開きます。</string>
+    <string name="accounts_embedded_description">EoN Launcher V2 内で Microsoft のサインインページを開きます。</string>
     <string name="accounts_device_title">コードでサインイン</string>
     <string name="accounts_device_description">ブラウザーを使うか、別の端末でコードを入力します。</string>
     <string name="accounts_device_steps">Microsoft のページを開いてコードを確認してください。別の端末でこのアドレスを開くこともできます。</string>
     <string name="accounts_microsoft_page">Microsoft の安全なサインインページ</string>
-    <string name="news_feed_subtitle">LeviLauncher の新着情報</string>
+    <string name="news_feed_subtitle">EoN Launcher V2 の新着情報</string>
     <string name="news_all">すべてのニュース</string>
     <string name="news_count">全 %1$d 件</string>
     <string name="news_no_important">現在、重要なお知らせはありません。</string>

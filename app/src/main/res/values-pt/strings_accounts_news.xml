@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Contas Microsoft</string>
     <string name="accounts_count">%1$d salvas</string>
-    <string name="accounts_auto_sign_in">Entrar no Minecraft com o LeviLauncher</string>
+    <string name="accounts_auto_sign_in">Entrar no Minecraft com o EoN Launcher V2</string>
     <string name="accounts_auto_sign_in_on">Usa a conta ativa no Minecraft. Você ainda pode jogar offline.</string>
     <string name="accounts_auto_sign_in_off">As contas continuam salvas. Ative para usar a conta ativa no Minecraft.</string>
     <string name="accounts_empty_title">Adicione sua primeira conta</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">Atualizar sessão</string>
     <string name="accounts_sign_in_again">Entrar novamente</string>
     <string name="accounts_remove">Remover conta</string>
-    <string name="accounts_remove_message">Remover %1$s do LeviLauncher? Isso não exclui sua conta Microsoft.</string>
+    <string name="accounts_remove_message">Remover %1$s do EoN Launcher V2? Isso não exclui sua conta Microsoft.</string>
     <string name="accounts_switching">Trocando de conta…</string>
     <string name="accounts_removing">Removendo conta…</string>
     <string name="accounts_details_message">ID do Xbox: %1$s\nÚltima atualização: %2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">Offline: iniciando o Minecraft sem entrar online. Suas contas salvas não serão alteradas.</string>
     <string name="accounts_sign_in_subtitle">Escolha como adicionar seu perfil Microsoft / Xbox.</string>
     <string name="accounts_embedded_title">Entrar aqui</string>
-    <string name="accounts_embedded_description">Use a página de login da Microsoft dentro do LeviLauncher.</string>
+    <string name="accounts_embedded_description">Use a página de login da Microsoft dentro do EoN Launcher V2.</string>
     <string name="accounts_device_title">Entrar com um código</string>
     <string name="accounts_device_description">Use seu navegador ou digite o código em outro dispositivo.</string>
     <string name="accounts_device_steps">Abra a página da Microsoft e confirme o código. Você também pode usar o endereço em outro dispositivo.</string>
     <string name="accounts_microsoft_page">Página de login segura da Microsoft</string>
-    <string name="news_feed_subtitle">Novidades do LeviLauncher</string>
+    <string name="news_feed_subtitle">Novidades do EoN Launcher V2</string>
     <string name="news_all">Todas as notícias</string>
     <string name="news_count">%1$d no total</string>
     <string name="news_no_important">Nenhum aviso importante no momento.</string>

@@ -11,8 +11,9 @@ if (localPropertiesFile.exists()) {
 
 def curseForgeApiKey = localProperties.getProperty('curseforge.api_key', '').trim()
 
-// Fallback for local debug builds only: the same obfuscated key LeviLauncher
-// for Windows embeds (base64, then XOR 0xAF). Release, beta, and CI builds use
+// Modified by EoN Launcher V2: retain the inherited local debug key fallback.
+// Fallback for local debug builds only: the same obfuscated key the desktop build
+// embeds (base64, then XOR 0xAF). Release, beta, and CI builds use
 // the optional value from local.properties, which may be empty in source builds.
 def curseForgeDebugApiKey = curseForgeApiKey
 if (curseForgeDebugApiKey.isEmpty() && !System.getenv('CI')) {
@@ -116,7 +117,7 @@ android {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", "LeviLauncher Beta"
+            resValue "string", "app_name", "EoN Launcher V2 Beta"
             buildConfigField "boolean", "IS_BETA", "true"
             matchingFallbacks = ["release"]
             ndk {
@@ -132,7 +133,8 @@ android {
                     "**/libpreloader.so",
                     "**/libgxcore.so",
                     "**/libinbuiltmods.so",
-                    "**/libeon.so"
+                    "**/libeon.so",
+                    "**/libdiscord_partner_sdk.so"
             ]
         }
         resources.excludes += [

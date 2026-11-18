@@ -1291,7 +1291,8 @@ public final class Catalog {
         }
     }
 
-    static final String USER_AGENT = "LeviLaunchroid";
+    // Modified by EoN Launcher V2: identify catalogue requests with the rebranded app name.
+    static final String USER_AGENT = "EoN Launcher V2";
 
     /** Reads a response; it is closed afterwards. */
     interface BodyReader<T> {

@@ -1,4 +1,5 @@
 package org.levimc.launcher.ui.activities;
+// Modified by EoN Launcher V2: use the current app name in web sign-in requests.
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -214,7 +215,7 @@ public class MsftLoginActivity extends BaseActivity {
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setUserAgentString(settings.getUserAgentString() + " LeviLauncher");
+        settings.setUserAgentString(settings.getUserAgentString() + " EoNLauncherV2");
         settings.setSupportMultipleWindows(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);

@@ -1,4 +1,5 @@
 package org.levimc.launcher.ui.activities;
+// Modified by EoN Launcher V2: route project links and release checks to this fork.
 
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -1313,7 +1314,7 @@ public class SettingsActivity extends BaseActivity {
 
     private void setupAboutSection() {
         findViewById(R.id.settings_btn_github).setOnClickListener(v ->
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LiteLDev/LeviLauncher-Android"))));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/txqeaandrei-png/EoN-V2"))));
 
         findViewById(R.id.settings_btn_discord).setOnClickListener(v ->
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/jsnzw4ueAt"))));
@@ -1333,7 +1334,7 @@ public class SettingsActivity extends BaseActivity {
             updateButtonTapCount = 0;
             triggerEasterEgg();
         } else {
-            new GithubReleaseUpdater(this, "LiteLDev", "LeviLauncher-Android", permissionResultLauncher).checkUpdate();
+            new GithubReleaseUpdater(this, "txqeaandrei-png", "EoN-V2", permissionResultLauncher).checkUpdate();
         }
     }
 

@@ -1,4 +1,5 @@
 package org.levimc.launcher.core.auth;
+// Modified by EoN Launcher V2: identify auth requests with the rebranded app name.
 
 import android.content.Context;
 import android.net.Uri;
@@ -659,7 +660,7 @@ public final class MsftAuthManager {
 
     private static HttpClient createHttpClient() {
         String version = TextUtils.isEmpty(BuildConfig.VERSION_NAME) ? "unknown" : BuildConfig.VERSION_NAME;
-        return MinecraftAuth.createHttpClient("LeviLauncher/" + version + " Android").setReadTimeout(15000);
+        return MinecraftAuth.createHttpClient("EoNLauncherV2/" + version + " Android").setReadTimeout(15000);
     }
 
     private static String normalizeError(String error) {

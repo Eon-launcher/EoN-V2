@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">ストレージ</string>
     <string name="content_ui_game_version">ゲームバージョン</string>
     <string name="content_ui_refresh">更新</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">サバイバル</string>
     <string name="flat_game_creative">クリエイティブ</string>
     <string name="flat_game_adventure">アドベンチャー</string>
-    <string name="misc_about_subtitle">LeviLauncher — 最新のMinecraft Bedrockランチャー</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — 最新のMinecraft Bedrockランチャー</string>
     <string name="misc_about_authors">作者とメンテナー</string>
-    <string name="misc_about_maintainer_role">LeviLauncher メンテナー</string>
+    <string name="misc_about_maintainer_role">元プロジェクトのメンテナー</string>
     <string name="misc_about_thanks">スペシャルサンクス</string>
-    <string name="misc_about_thanks_desc">LeviLauncherを支えてくださる皆様とプロジェクトに感謝します。</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">ウェブサイト</string>
     <string name="misc_about_sponsors">サポーター（スポンサー）</string>
     <string name="misc_about_sponsors_desc">プロジェクトの開発を支援してくださるスポンサーとサポーターの皆様に感謝します！</string>
-    <string name="misc_about_github_org">LiteLDev組織</string>
-    <string name="misc_about_license_tip">Android版LeviLauncherはApache-2.0ライセンスで提供されています。全文はリポジトリのLICENSEをご覧ください。</string>
-    <string name="misc_about_contribute_desc">LeviLauncherを改善するためのIssueやプルリクエストを歓迎します。</string>
+    <string name="misc_about_github_org">EoN Launcher V2組織</string>
+    <string name="misc_about_license_tip">Android版EoN Launcher V2はApache-2.0ライセンスで提供されています。全文はリポジトリのLICENSEをご覧ください。</string>
+    <string name="misc_about_contribute_desc">EoN Launcher V2を改善するためのIssueやプルリクエストを歓迎します。</string>
     <string name="misc_accounts_title">Microsoftアカウント</string>
     <string name="misc_accounts_subtitle">Minecraftへのサインインに使うアカウントを管理</string>
     <string name="misc_accounts_list">アカウント</string>
     <string name="misc_accounts_current">現在のアカウント</string>
     <string name="misc_accounts_disabled_title">アカウント管理はオフです</string>
-    <string name="misc_accounts_disabled_desc">Microsoftアカウントを管理するには、設定で「LeviLauncherでMinecraftにサインイン」を有効にしてください。</string>
+    <string name="misc_accounts_disabled_desc">Microsoftアカウントを管理するには、設定で「EoN Launcher V2でMinecraftにサインイン」を有効にしてください。</string>
     <string name="misc_accounts_go_settings">設定を開く</string>
     <string name="download_ui_search_hint">バージョンで検索…</string>
     <string name="download_ui_filter_all">すべて</string>
@@ -149,7 +150,7 @@
     <string name="crumb_instance_settings">インスタンス設定</string>
     <string name="crumb_content">コンテンツ管理</string>
     <string name="crumb_mods">Mod</string>
-    <string name="crumb_levimc_mods">LeviMC Mod</string>
+    <string name="crumb_levimc_mods">EoN Launcher V2 Mod</string>
     <string name="crumb_external_mods">外部Mod</string>
     <string name="crumb_settings">設定</string>
     <string name="crumb_about">このアプリについて</string>
@@ -232,8 +233,8 @@
     <string name="catalog_view">表示</string>
     <string name="catalog_order">順序</string>
     <string name="catalog_instance_tag">インスタンス: %1$s</string>
-    <string name="mods_empty_levimc">LeviMC Modはインストールされていません</string>
-    <string name="mods_empty_levimc_help">LeviMCからインストールしたModがここに表示されます。「Modを入手」からカタログを閲覧できます。</string>
+    <string name="mods_empty_levimc">EoN Launcher V2 Modはインストールされていません</string>
+    <string name="mods_empty_levimc_help">EoN Launcher V2からインストールしたModがここに表示されます。「Modを入手」からカタログを閲覧できます。</string>
     <string name="mods_empty_normal">外部Modはインストールされていません</string>
     <string name="mods_empty_normal_help">ファイルから追加したModがここに表示されます。「Modを追加」からインポートできます。</string>
     <string name="content_import_here">ここにインポート</string>
@@ -275,7 +276,7 @@
     <string name="creator_notice_headline">YouTube動画にダウンロード画面を映さないでください。</string>
     <string name="creator_notice_risk">この画面を映したり、Android版Minecraft Bedrockのバージョン切り替えについて話したりすると、Google Play APIで合法的にダウンロードした場合でも、不正なダウンロードと誤解される可能性があります。ダウンロード操作を実演していなくても、動画の削除やコミュニティガイドライン違反の警告につながることがあります。</string>
     <string name="creator_notice_ownership">GoogleアカウントでMinecraftを所有していない場合、このランチャーからダウンロードしてインストールすることはできません。</string>
-    <string name="creator_notice_source_text">LeviLauncherはMinecraftを所有するアカウントを使用して、Google Playから直接ダウンロードします。以下のソースコードで、Google Play APIを利用したダウンロード方法を確認できます。</string>
+    <string name="creator_notice_source_text">EoN Launcher V2はMinecraftを所有するアカウントを使用して、Google Playから直接ダウンロードします。以下のソースコードで、Google Play APIを利用したダウンロード方法を確認できます。</string>
     <string name="creator_notice_source_link">Play APIのソースを表示</string>
     <string name="creator_notice_remember">次回から表示しない</string>
     <string name="creator_notice_acknowledge">確認しました</string>

@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Microsoft hesapları</string>
     <string name="accounts_count">%1$d kayıtlı</string>
-    <string name="accounts_auto_sign_in">LeviLauncher ile Minecraft’a giriş yap</string>
+    <string name="accounts_auto_sign_in">EoN Launcher V2 ile Minecraft’a giriş yap</string>
     <string name="accounts_auto_sign_in_on">Minecraft’ta etkin hesabı kullanır. Çevrimdışı oynamaya devam edebilirsiniz.</string>
     <string name="accounts_auto_sign_in_off">Hesaplar kayıtlı kalır. Minecraft’ta etkin hesabı kullanmak için açın.</string>
     <string name="accounts_empty_title">İlk hesabınızı ekleyin</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">Oturumu yenile</string>
     <string name="accounts_sign_in_again">Yeniden giriş yap</string>
     <string name="accounts_remove">Hesabı kaldır</string>
-    <string name="accounts_remove_message">%1$s LeviLauncher’dan kaldırılsın mı? Microsoft hesabınız silinmez.</string>
+    <string name="accounts_remove_message">%1$s EoN Launcher V2’dan kaldırılsın mı? Microsoft hesabınız silinmez.</string>
     <string name="accounts_switching">Hesap değiştiriliyor…</string>
     <string name="accounts_removing">Hesap kaldırılıyor…</string>
     <string name="accounts_details_message">Xbox kimliği: %1$s\nSon güncelleme: %2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">Çevrimdışı: Minecraft çevrimiçi giriş yapılmadan başlatılıyor. Kayıtlı hesaplarınız değişmedi.</string>
     <string name="accounts_sign_in_subtitle">Microsoft / Xbox profilinizi nasıl ekleyeceğinizi seçin.</string>
     <string name="accounts_embedded_title">Burada giriş yap</string>
-    <string name="accounts_embedded_description">LeviLauncher içindeki Microsoft giriş sayfasını kullanın.</string>
+    <string name="accounts_embedded_description">EoN Launcher V2 içindeki Microsoft giriş sayfasını kullanın.</string>
     <string name="accounts_device_title">Kodla giriş yap</string>
     <string name="accounts_device_description">Tarayıcınızı kullanın veya kodu başka bir cihazda girin.</string>
     <string name="accounts_device_steps">Microsoft sayfasını açıp kodu onaylayın. Adresi başka bir cihazda da açabilirsiniz.</string>
     <string name="accounts_microsoft_page">Microsoft’un güvenli giriş sayfası</string>
-    <string name="news_feed_subtitle">LeviLauncher’daki yenilikler</string>
+    <string name="news_feed_subtitle">EoN Launcher V2’daki yenilikler</string>
     <string name="news_all">Tüm haberler</string>
     <string name="news_count">Toplam %1$d</string>
     <string name="news_no_important">Şu anda önemli bir duyuru yok.</string>

@@ -1,4 +1,6 @@
-name: Publish launcher news
+name: Publish EoN Launcher V2 news
+
+# Modified by EoN Launcher V2: rebrand the workflow and FCM topic.
 
 on:
   push:
@@ -93,7 +95,7 @@ jobs:
           }
           request = {
               "message": {
-                  "topic": "levilauncher-news",
+                  "topic": "eon-launcher-news",
                   "data": data,
                   "android": {"priority": "high", "ttl": "86400s"},
               }

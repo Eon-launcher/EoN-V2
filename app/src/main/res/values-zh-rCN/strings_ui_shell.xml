@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="nav_back">后退</string>
     <string name="nav_forward">前进</string>
     <string name="nav_toggle_theme">切换主题</string>
@@ -12,7 +13,7 @@
     <string name="crumb_content">内容管理</string>
     <string name="crumb_mods">模组</string>
     <string name="crumb_curseforge">CurseForge</string>
-    <string name="crumb_levimc_mods">LeviMC 模组</string>
+    <string name="crumb_levimc_mods">EoN Launcher V2 模组</string>
     <string name="crumb_external_mods">外部模组</string>
     <string name="crumb_settings">设置</string>
     <string name="crumb_about">关于</string>

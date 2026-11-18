@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">Bộ nhớ</string>
     <string name="content_ui_game_version">Phiên bản trò chơi</string>
     <string name="content_ui_refresh">Làm mới</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">Sinh tồn</string>
     <string name="flat_game_creative">Sáng tạo</string>
     <string name="flat_game_adventure">Phiêu lưu</string>
-    <string name="misc_about_subtitle">LeviLauncher — Trình khởi chạy Minecraft Bedrock hiện đại</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — Trình khởi chạy Minecraft Bedrock hiện đại</string>
     <string name="misc_about_authors">Tác giả và người bảo trì</string>
-    <string name="misc_about_maintainer_role">Người bảo trì LeviLauncher</string>
+    <string name="misc_about_maintainer_role">Người bảo trì dự án ban đầu</string>
     <string name="misc_about_thanks">Lời cảm ơn đặc biệt</string>
-    <string name="misc_about_thanks_desc">Đặc biệt cảm ơn các cá nhân và dự án đã hỗ trợ LeviLauncher.</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">Trang web</string>
     <string name="misc_about_sponsors">Người ủng hộ (nhà tài trợ)</string>
     <string name="misc_about_sponsors_desc">Cảm ơn tất cả nhà tài trợ và người ủng hộ đã hỗ trợ dự án phát triển!</string>
-    <string name="misc_about_github_org">Tổ chức LiteLDev</string>
-    <string name="misc_about_license_tip">LeviLauncher cho Android sử dụng giấy phép Apache-2.0. Xem toàn văn trong tệp LICENSE của kho mã nguồn.</string>
-    <string name="misc_about_contribute_desc">Hoan nghênh đóng góp qua Issue hoặc Pull Request để cải thiện LeviLauncher.</string>
+    <string name="misc_about_github_org">Tổ chức EoN Launcher V2</string>
+    <string name="misc_about_license_tip">EoN Launcher V2 cho Android sử dụng giấy phép Apache-2.0. Xem toàn văn trong tệp LICENSE của kho mã nguồn.</string>
+    <string name="misc_about_contribute_desc">Hoan nghênh đóng góp qua Issue hoặc Pull Request để cải thiện EoN Launcher V2.</string>
     <string name="misc_accounts_title">Tài khoản Microsoft</string>
     <string name="misc_accounts_subtitle">Quản lý các tài khoản dùng để đăng nhập Minecraft</string>
     <string name="misc_accounts_list">Tài khoản</string>
     <string name="misc_accounts_current">Tài khoản hiện tại</string>
     <string name="misc_accounts_disabled_title">Quản lý tài khoản đang tắt</string>
-    <string name="misc_accounts_disabled_desc">Bật “Đăng nhập Minecraft bằng LeviLauncher” trong Cài đặt để quản lý tài khoản Microsoft.</string>
+    <string name="misc_accounts_disabled_desc">Bật “Đăng nhập Minecraft bằng EoN Launcher V2” trong Cài đặt để quản lý tài khoản Microsoft.</string>
     <string name="misc_accounts_go_settings">Mở Cài đặt</string>
     <string name="download_ui_search_hint">Tìm theo phiên bản…</string>
     <string name="download_ui_filter_all">Tất cả</string>
@@ -149,7 +150,7 @@
     <string name="crumb_instance_settings">Cài đặt bản cài</string>
     <string name="crumb_content">Quản lý nội dung</string>
     <string name="crumb_mods">Mod</string>
-    <string name="crumb_levimc_mods">Mod LeviMC</string>
+    <string name="crumb_levimc_mods">Mod EoN Launcher V2</string>
     <string name="crumb_external_mods">Mod bên ngoài</string>
     <string name="crumb_settings">Cài đặt</string>
     <string name="crumb_about">Giới thiệu</string>
@@ -232,8 +233,8 @@
     <string name="catalog_view">Xem</string>
     <string name="catalog_order">Thứ tự</string>
     <string name="catalog_instance_tag">Bản cài: %1$s</string>
-    <string name="mods_empty_levimc">Chưa cài mod LeviMC nào</string>
-    <string name="mods_empty_levimc_help">Mod cài từ LeviMC sẽ xuất hiện ở đây. Dùng Tìm mod để duyệt danh mục.</string>
+    <string name="mods_empty_levimc">Chưa cài mod EoN Launcher V2 nào</string>
+    <string name="mods_empty_levimc_help">Mod cài từ EoN Launcher V2 sẽ xuất hiện ở đây. Dùng Tìm mod để duyệt danh mục.</string>
     <string name="mods_empty_normal">Chưa cài mod bên ngoài nào</string>
     <string name="mods_empty_normal_help">Mod thêm từ tệp sẽ xuất hiện ở đây. Dùng Thêm mod để nhập.</string>
     <string name="content_import_here">Nhập vào đây</string>
@@ -275,7 +276,7 @@
     <string name="creator_notice_headline">Không đưa trang Tải xuống vào video YouTube của bạn.</string>
     <string name="creator_notice_risk">Việc hiển thị trang này hoặc nói về chuyển đổi phiên bản Minecraft Bedrock trên Android có thể bị hiểu nhầm là tải trái phép, ngay cả khi Minecraft được tải hợp pháp qua Google Play API. Điều này có thể khiến video bị gỡ hoặc nhận cảnh cáo vi phạm Nguyên tắc cộng đồng, kể cả khi không minh họa việc tải xuống.</string>
     <string name="creator_notice_ownership">Nếu tài khoản Google của bạn không sở hữu Minecraft, bạn không thể tải và cài trò chơi từ trình khởi chạy.</string>
-    <string name="creator_notice_source_text">LeviLauncher dùng tài khoản sở hữu Minecraft để tải trực tiếp từ Google Play. Mã nguồn bên dưới cho biết cách LeviLauncher tải qua Google Play API.</string>
+    <string name="creator_notice_source_text">EoN Launcher V2 dùng tài khoản sở hữu Minecraft để tải trực tiếp từ Google Play. Mã nguồn bên dưới cho biết cách EoN Launcher V2 tải qua Google Play API.</string>
     <string name="creator_notice_source_link">Xem mã nguồn Play API</string>
     <string name="creator_notice_remember">Không hiện lại</string>
     <string name="creator_notice_acknowledge">Được, tôi đã hiểu</string>

@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Tài khoản Microsoft</string>
     <string name="accounts_count">Đã lưu: %1$d</string>
-    <string name="accounts_auto_sign_in">Đăng nhập Minecraft bằng LeviLauncher</string>
+    <string name="accounts_auto_sign_in">Đăng nhập Minecraft bằng EoN Launcher V2</string>
     <string name="accounts_auto_sign_in_on">Dùng tài khoản đang chọn trong Minecraft. Bạn vẫn có thể chơi ngoại tuyến.</string>
     <string name="accounts_auto_sign_in_off">Các tài khoản vẫn được lưu. Bật để dùng tài khoản đang chọn trong Minecraft.</string>
     <string name="accounts_empty_title">Thêm tài khoản đầu tiên</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">Làm mới phiên đăng nhập</string>
     <string name="accounts_sign_in_again">Đăng nhập lại</string>
     <string name="accounts_remove">Xóa tài khoản</string>
-    <string name="accounts_remove_message">Xóa %1$s khỏi LeviLauncher? Thao tác này không xóa tài khoản Microsoft của bạn.</string>
+    <string name="accounts_remove_message">Xóa %1$s khỏi EoN Launcher V2? Thao tác này không xóa tài khoản Microsoft của bạn.</string>
     <string name="accounts_switching">Đang chuyển tài khoản…</string>
     <string name="accounts_removing">Đang xóa tài khoản…</string>
     <string name="accounts_details_message">ID Xbox: %1$s\nCập nhật lần cuối: %2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">Ngoại tuyến: khởi chạy Minecraft mà không đăng nhập trực tuyến. Các tài khoản đã lưu vẫn giữ nguyên.</string>
     <string name="accounts_sign_in_subtitle">Chọn cách thêm hồ sơ Microsoft / Xbox của bạn.</string>
     <string name="accounts_embedded_title">Đăng nhập tại đây</string>
-    <string name="accounts_embedded_description">Dùng trang đăng nhập Microsoft ngay trong LeviLauncher.</string>
+    <string name="accounts_embedded_description">Dùng trang đăng nhập Microsoft ngay trong EoN Launcher V2.</string>
     <string name="accounts_device_title">Đăng nhập bằng mã</string>
     <string name="accounts_device_description">Dùng trình duyệt hoặc nhập mã trên thiết bị khác.</string>
     <string name="accounts_device_steps">Mở trang Microsoft và xác nhận mã. Bạn cũng có thể mở địa chỉ này trên thiết bị khác.</string>
     <string name="accounts_microsoft_page">Trang đăng nhập bảo mật của Microsoft</string>
-    <string name="news_feed_subtitle">Có gì mới trong LeviLauncher</string>
+    <string name="news_feed_subtitle">Có gì mới trong EoN Launcher V2</string>
     <string name="news_all">Tất cả tin tức</string>
     <string name="news_count">Tổng cộng %1$d</string>
     <string name="news_no_important">Hiện chưa có thông báo quan trọng.</string>

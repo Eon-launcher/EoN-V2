@@ -1,4 +1,5 @@
 package org.levimc.launcher.core.packages.engine;
+// Modified by EoN Launcher V2: use the current name in surfaced package errors.
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -116,7 +117,7 @@ public final class PackageEngine {
             if (old == null) old = new StateFile(SIDE, devicePlatform, Collections.<StateFile.Pkg>emptyList());
             if (!old.side.equals(SIDE)) {
                 throw new PackageException(PackageException.Kind.ENV_MISMATCH, null, "The state file " + StateFile.PATH
-                        + " records the side \"" + old.side + "\" in its \"side\" field, but LeviLauncher manages client"
+                        + " records the side \"" + old.side + "\" in its \"side\" field, but EoN Launcher V2 manages client"
                         + " workspaces only (\"" + SIDE + "\"). Server workspaces are managed by lip.");
             }
             try (Resolver r = new Resolver(SIDE, old.platform, http)) {

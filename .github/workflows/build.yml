@@ -1,6 +1,6 @@
-name: EON Debug APK
+name: EoN Launcher V2 Debug APK
 
-# Modified by EON Launcher V2: standalone source-build workflow without private SDKs.
+# Modified by EoN Launcher V2: standalone source-build workflow without private SDKs.
 on:
   push:
     branches:

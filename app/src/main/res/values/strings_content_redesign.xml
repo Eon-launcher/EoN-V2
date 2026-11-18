@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mods_empty_levimc">No LeviMC mods installed</string>
-    <string name="mods_empty_levimc_help">Mods installed from LeviMC appear here. Use Get mods to browse the catalog.</string>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
+    <string name="mods_empty_levimc">No EoN Launcher V2 mods installed</string>
+    <string name="mods_empty_levimc_help">Mods installed from EoN Launcher V2 appear here. Use Get mods to browse the catalog.</string>
     <string name="mods_empty_normal">No external mods installed</string>
     <string name="mods_empty_normal_help">Mods added from files appear here. Use Add mod to import one.</string>
     <string name="content_import_here">Import here</string>

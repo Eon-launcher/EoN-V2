@@ -1,7 +1,8 @@
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="accounts_page_title">Учётные записи Microsoft</string>
     <string name="accounts_count">Сохранено: %1$d</string>
-    <string name="accounts_auto_sign_in">Вход в Minecraft через LeviLauncher</string>
+    <string name="accounts_auto_sign_in">Вход в Minecraft через EoN Launcher V2</string>
     <string name="accounts_auto_sign_in_on">Использовать активную учётную запись в Minecraft. Игра без интернета остаётся доступной.</string>
     <string name="accounts_auto_sign_in_off">Учётные записи сохранены. Включите, чтобы использовать активную учётную запись в Minecraft.</string>
     <string name="accounts_empty_title">Добавьте первую учётную запись</string>
@@ -13,7 +14,7 @@
     <string name="accounts_refresh_sign_in">Обновить сеанс</string>
     <string name="accounts_sign_in_again">Войти снова</string>
     <string name="accounts_remove">Удалить учётную запись</string>
-    <string name="accounts_remove_message">Убрать %1$s из LeviLauncher? Учётная запись Microsoft не будет удалена.</string>
+    <string name="accounts_remove_message">Убрать %1$s из EoN Launcher V2? Учётная запись Microsoft не будет удалена.</string>
     <string name="accounts_switching">Смена учётной записи…</string>
     <string name="accounts_removing">Удаление учётной записи…</string>
     <string name="accounts_details_message">Идентификатор Xbox: %1$s\nОбновлено: %2$s</string>
@@ -22,12 +23,12 @@
     <string name="accounts_launch_signed_out_offline">Нет интернета: запуск Minecraft без входа в сетевые службы. Сохранённые учётные записи не изменены.</string>
     <string name="accounts_sign_in_subtitle">Выберите способ добавления профиля Microsoft / Xbox.</string>
     <string name="accounts_embedded_title">Войти здесь</string>
-    <string name="accounts_embedded_description">Откройте страницу входа Microsoft внутри LeviLauncher.</string>
+    <string name="accounts_embedded_description">Откройте страницу входа Microsoft внутри EoN Launcher V2.</string>
     <string name="accounts_device_title">Войти по коду</string>
     <string name="accounts_device_description">Используйте браузер или введите код на другом устройстве.</string>
     <string name="accounts_device_steps">Откройте страницу Microsoft и подтвердите код. Этот адрес можно открыть и на другом устройстве.</string>
     <string name="accounts_microsoft_page">Защищённая страница входа Microsoft</string>
-    <string name="news_feed_subtitle">Новое в LeviLauncher</string>
+    <string name="news_feed_subtitle">Новое в EoN Launcher V2</string>
     <string name="news_all">Все новости</string>
     <string name="news_count">Всего: %1$d</string>
     <string name="news_no_important">Сейчас нет важных уведомлений.</string>
