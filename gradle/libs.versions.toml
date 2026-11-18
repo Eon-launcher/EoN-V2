@@ -36,12 +36,17 @@ commonmark = "0.24.0"
 sqliteFramework = "2.6.2"
 dynamicanimation = "1.1.0"
 xcrash = "3.1.2"
+# Modified by EON Launcher V2: declare AndroidX libraries used by Minecraft sources.
+documentFile = "1.1.0"
+loader = "1.1.0"
 
 [libraries]
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-sqlite-framework = { module = "androidx.sqlite:sqlite-framework", version.ref = "sqliteFramework" }
+androidx-documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentFile" }
+androidx-loader = { module = "androidx.loader:loader", version.ref = "loader" }
 annotations = { module = "org.jetbrains:annotations", version = "26.0.2-1" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }

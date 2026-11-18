@@ -49,6 +49,9 @@ android {
 
 dependencies {
     // Modified by EON Launcher V2: Xbox push notifications are disabled without Firebase.
+    // Modified by EON Launcher V2: declare AndroidX document and loader source dependencies.
+    implementation(libs.androidx.documentfile)
+    implementation(libs.androidx.loader)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
