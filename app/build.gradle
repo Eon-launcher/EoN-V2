@@ -54,7 +54,6 @@ android {
     // Modified by EON Launcher V2: pin the SDK package versions used by CI.
     buildToolsVersion "36.0.0"
     defaultConfig {
-        // Modified by EoN Launcher V2: bundled native libraries require the original package ID.
         applicationId "org.levimc.launcher"
         minSdkVersion 28
         targetSdkVersion 35

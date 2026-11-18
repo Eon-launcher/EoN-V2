@@ -16,4 +16,7 @@ add_subdirectory(worldtools)
 add_subdirectory(eon)
 
 # Modified by EoN Launcher V2: satisfy libgxcore.so's removed Discord SDK dependency.
-add_library(discord_partner_sdk SHARED discord_stub/discord_stub.c)
+add_library(discord_partner_sdk SHARED
+    discord_stub/discord_stub.c
+    discord_stub/emutls_shim.c
+)

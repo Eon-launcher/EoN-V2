@@ -81,6 +81,21 @@ jobs:
       - name: Build Debug, Beta and Unsigned Release APKs
         run: ./gradlew assembleDebug assembleBeta assembleRelease
 
+      - name: Verify native emutls export and inspect gxcore imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          for apk in app/build/outputs/apk/{debug,beta,release}/*.apk; do
+            unzip -p "$apk" lib/arm64-v8a/libdiscord_partner_sdk.so > "$RUNNER_TEMP/libdiscord_partner_sdk.so"
+            unzip -p "$apk" lib/arm64-v8a/libgxcore.so > "$RUNNER_TEMP/libgxcore.so"
+            echo "Defined symbols in libdiscord_partner_sdk.so ($apk):"
+            nm -D --defined-only "$RUNNER_TEMP/libdiscord_partner_sdk.so" > "$RUNNER_TEMP/discord_symbols.txt"
+            cat "$RUNNER_TEMP/discord_symbols.txt"
+            awk '{print $NF}' "$RUNNER_TEMP/discord_symbols.txt" | grep -Fx '__emutls_get_address'
+            echo "libgxcore.so undefined symbols without version tags ($apk):"
+            nm -D --undefined-only "$RUNNER_TEMP/libgxcore.so" | grep -v '@' || true
+          done
+
       - name: Inspect APK native libraries
         shell: bash
         run: |
