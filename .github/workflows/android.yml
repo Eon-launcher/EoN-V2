@@ -81,6 +81,9 @@ jobs:
       - name: Build Debug, Beta and Unsigned Release APKs
         run: ./gradlew assembleDebug assembleBeta assembleRelease
 
+      - name: Verify manifest classes in APK
+        run: python3 scripts/check_manifest_classes.py app/build/outputs/apk/{debug,beta,release}/*.apk
+
       - name: Verify native emutls export and inspect gxcore imports
         shell: bash
         run: |

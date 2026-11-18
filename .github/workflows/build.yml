@@ -48,6 +48,9 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
+      - name: Verify manifest classes in APK
+        run: python3 scripts/check_manifest_classes.py app/build/outputs/apk/debug/*.apk
+
       - name: Verify native emutls export and inspect gxcore imports
         shell: bash
         run: |
