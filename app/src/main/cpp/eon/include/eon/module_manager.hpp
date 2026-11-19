@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 #pragma once
 
 #include "eon/module.hpp"
@@ -16,6 +17,8 @@ public:
 
     void registerModule(std::unique_ptr<Module> module);
     bool setEnabled(std::string_view name, bool enabled);
+    bool setSetting(std::string_view moduleName, std::string_view settingName,
+                    SettingValue value);
     void setModFriendlyServer(bool enabled);
     bool modFriendlyServer() const;
     std::size_t moduleCount() const noexcept;

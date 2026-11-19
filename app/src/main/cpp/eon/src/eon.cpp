@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 #include "eon/module_manager.hpp"
 #include "eon/modules.hpp"
 
@@ -10,6 +11,7 @@ namespace {
 
 constexpr char kLogTag[] = "EON";
 std::once_flag gInitialization;
+int gModuleCount = 0;
 
 }  // namespace
 
@@ -23,15 +25,17 @@ extern "C" int eon_init() {
         manager.registerModule(std::make_unique<eon::FlyModule>());
         manager.registerModule(std::make_unique<eon::SpeedModule>());
         manager.registerModule(std::make_unique<eon::HighJumpModule>());
+        gModuleCount = static_cast<int>(manager.moduleCount());
+        __android_log_print(ANDROID_LOG_INFO, kLogTag, "EON loaded: %d modules",
+                            gModuleCount);
     });
-    manager.resetSession();
-    __android_log_print(ANDROID_LOG_INFO, kLogTag, "EON loaded: %zu modules", manager.moduleCount());
-    return static_cast<int>(manager.moduleCount());
+    return gModuleCount;
 }
 
 extern "C" JNIEXPORT void JNICALL
 Java_org_levimc_launcher_core_mods_EonNative_beginSession(JNIEnv*, jclass) {
     eon_init();
+    eon::ModuleManager::instance().resetSession();
 }
 
 extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM*, void*) {

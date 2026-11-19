@@ -1,8 +1,10 @@
+# Modified by EoN Launcher V2.
 cmake_minimum_required(VERSION 3.22)
 project(eon LANGUAGES CXX)
 
 add_library(eon SHARED
         src/eon.cpp
+        src/mod_lifecycle.cpp
         src/module.cpp
         src/module_manager.cpp
         src/modules.cpp)
@@ -13,4 +15,9 @@ target_compile_options(eon PRIVATE -Wall -Wextra -Wpedantic)
 target_link_options(eon PRIVATE -Wl,-z,max-page-size=16384)
 
 find_library(log-lib log)
-target_link_libraries(eon PRIVATE ${log-lib})
+target_link_libraries(eon PRIVATE
+        ${log-lib}
+        preloader
+        nlohmann_json::nlohmann_json
+        Boost::pfr
+        magic_enum::magic_enum)

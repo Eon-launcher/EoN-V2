@@ -1,7 +1,9 @@
+// Modified by EoN Launcher V2.
 #pragma once
 
 #include <atomic>
 #include <string>
+#include <string_view>
 #include <variant>
 #include <vector>
 
@@ -43,6 +45,7 @@ private:
     friend class ModuleManager;
 
     void setEnabled(bool enabled) noexcept;
+    bool setSetting(std::string_view name, SettingValue value);
 
     std::string name_;
     Category category_;

@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 #include "eon/module_manager.hpp"
 
 #include <algorithm>
@@ -31,6 +32,18 @@ bool ModuleManager::setEnabled(std::string_view name, bool enabled) {
     }
     (*module)->setEnabled(enabled);
     return true;
+}
+
+bool ModuleManager::setSetting(std::string_view moduleName,
+                               std::string_view settingName,
+                               SettingValue value) {
+    std::lock_guard lock(stateMutex_);
+    const auto module = std::find_if(modules_.begin(), modules_.end(),
+                                     [moduleName](const auto& candidate) {
+                                         return candidate->name() == moduleName;
+                                     });
+    return module != modules_.end() &&
+           (*module)->setSetting(settingName, std::move(value));
 }
 
 void ModuleManager::setModFriendlyServer(bool enabled) {

@@ -1,5 +1,7 @@
+// Modified by EoN Launcher V2.
 #include "eon/module.hpp"
 
+#include <algorithm>
 #include <utility>
 
 namespace eon {
@@ -25,6 +27,18 @@ const std::vector<Setting>& Module::settings() const noexcept {
 
 void Module::setEnabled(bool enabled) noexcept {
     enabled_.store(enabled, std::memory_order_relaxed);
+}
+
+bool Module::setSetting(std::string_view name, SettingValue value) {
+    const auto setting = std::find_if(settings_.begin(), settings_.end(),
+                                      [name](const Setting& candidate) {
+                                          return candidate.name == name;
+                                      });
+    if (setting == settings_.end()) {
+        return false;
+    }
+    setting->value = std::move(value);
+    return true;
 }
 
 void Module::addSetting(Setting setting) {
