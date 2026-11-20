@@ -53,6 +53,7 @@ private:
     friend class ModuleManager;
 
     void setEnabled(bool enabled) noexcept;
+    void setImplementationReady(bool ready) noexcept;
     bool setSetting(std::string_view name, SettingValue value);
 
     std::string name_;
@@ -60,7 +61,7 @@ private:
     std::atomic_bool enabled_{false};
     std::vector<Setting> settings_;
     std::vector<FunctionSlot> requiredSlots_;
-    bool implementationReady_;
+    std::atomic_bool implementationReady_;
 };
 
 }  // namespace eon

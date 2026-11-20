@@ -35,11 +35,15 @@ std::span<const FunctionSlot> Module::requiredSlots() const noexcept {
 }
 
 bool Module::implementationReady() const noexcept {
-    return implementationReady_;
+    return implementationReady_.load(std::memory_order_relaxed);
 }
 
 void Module::setEnabled(bool enabled) noexcept {
     enabled_.store(enabled, std::memory_order_relaxed);
+}
+
+void Module::setImplementationReady(bool ready) noexcept {
+    implementationReady_.store(ready, std::memory_order_relaxed);
 }
 
 bool Module::setSetting(std::string_view name, SettingValue value) {

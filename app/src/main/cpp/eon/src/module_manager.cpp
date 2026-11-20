@@ -50,6 +50,22 @@ bool ModuleManager::setSetting(std::string_view moduleName,
            (*module)->setSetting(settingName, std::move(value));
 }
 
+bool ModuleManager::setImplementationReady(std::string_view name, bool ready) {
+    std::lock_guard lock(stateMutex_);
+    const auto module = std::find_if(modules_.begin(), modules_.end(),
+                                     [name](const auto& candidate) {
+                                         return candidate->name() == name;
+                                     });
+    if (module == modules_.end()) {
+        return false;
+    }
+    (*module)->setImplementationReady(ready);
+    if (!ready) {
+        (*module)->setEnabled(false);
+    }
+    return true;
+}
+
 std::string ModuleManager::availabilityMessage(std::string_view name) const {
     std::lock_guard lock(stateMutex_);
     const auto module = std::find_if(modules_.begin(), modules_.end(),
@@ -62,8 +78,7 @@ std::string ModuleManager::availabilityMessage(std::string_view name) const {
 
     std::vector<std::string> reasons;
     if (!(*module)->implementationReady()) {
-        reasons.emplace_back(
-                "verified 1.26.60.4 ARM64 hook ABI is not implemented");
+        reasons.emplace_back("verified game implementation is unavailable");
     }
     if (!(*module)->requiredSlots().empty() &&
         !Game::instance().ready((*module)->requiredSlots())) {
@@ -117,6 +132,7 @@ const std::vector<std::unique_ptr<Module>>& ModuleManager::modules() const noexc
 }
 
 void ModuleManager::onTick() {
+    std::lock_guard lock(stateMutex_);
     for (const auto& module : modules_) {
         if (module->enabled()) {
             module->onTick();
@@ -125,6 +141,7 @@ void ModuleManager::onTick() {
 }
 
 void ModuleManager::onRender() {
+    std::lock_guard lock(stateMutex_);
     for (const auto& module : modules_) {
         if (module->enabled()) {
             module->onRender();

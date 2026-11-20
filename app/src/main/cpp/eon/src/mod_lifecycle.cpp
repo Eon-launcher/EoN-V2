@@ -1,5 +1,6 @@
 // Modified by EoN Launcher V2.
 #include "eon/config.hpp"
+#include "eon/game_hooks.hpp"
 #include "eon/game_profile.hpp"
 #include "eon/module_manager.hpp"
 
@@ -111,17 +112,19 @@ constexpr std::array kHighJumpSettings{
 constexpr std::array kModules{
         ModuleDescriptor{"eon.combat.mob_aura", "MobAura",
                          "Combat module settings.", "combat", "Combat",
-                         kMobAuraSettings.data(), kMobAuraSettings.size()},
+                         kMobAuraSettings.data(), kMobAuraSettings.size(),
+                         true},
         ModuleDescriptor{"eon.movement.scaffold", "Scaffold",
                          "Movement module settings.", "movement", "Movement",
-                         kScaffoldSettings.data(), kScaffoldSettings.size()},
+                         kScaffoldSettings.data(), kScaffoldSettings.size(),
+                         true},
         ModuleDescriptor{"eon.render.esp", "ESP",
                          "Player and mob ESP settings.",
                          "render", "Render", kEspSettings.data(),
                          kEspSettings.size(), true},
         ModuleDescriptor{"eon.render.xray", "Xray", "Render module settings.",
                          "render", "Render", kXraySettings.data(),
-                         kXraySettings.size()},
+                         kXraySettings.size(), true},
         ModuleDescriptor{"eon.movement.fly", "Fly", "Movement module settings.",
                          "movement", "Movement", kFlySettings.data(),
                          kFlySettings.size(), true},
@@ -341,7 +344,7 @@ ConfigNodeV2 makeProfileStatusNode(const ModuleDescriptor& module) {
     ConfigNodeV2 node;
     node.id = "game-profile-status";
     node.category = std::string(module.categoryId);
-    node.title = "Game profile status";
+    node.title = "Runtime availability";
     node.description = eon::ModuleManager::instance().availabilityMessage(
             module.name);
     node.type = ConfigControlTypeV2::Info;
@@ -488,6 +491,18 @@ public:
                             "Game profile", std::span<const eon::FunctionSlot>{}));
         }
         eon::ModuleManager::instance().resetSession();
+        std::string hookUnavailableReason;
+        const bool espHooksReady =
+                eon::installGameHooks(hookUnavailableReason);
+        if (!eon::ModuleManager::instance().setImplementationReady(
+                    "ESP", espHooksReady)) {
+            context.logger().error(
+                    "Could not update EON ESP runtime availability.");
+        }
+        if (!espHooksReady) {
+            context.logger().warn("EON ESP is unavailable: {}",
+                                  hookUnavailableReason);
+        }
 
         const auto configPath = context.configDir() / "config.json";
         const auto schemaPath = context.configDir() / "config.schema.json";
@@ -536,18 +551,30 @@ public:
     }
 
     bool enable() {
+        std::string hookUnavailableReason;
+        const bool espHooksReady =
+                eon::installGameHooks(hookUnavailableReason);
+        if (!eon::ModuleManager::instance().setImplementationReady(
+                    "ESP", espHooksReady)) {
+            logError("Could not update EON ESP runtime availability.");
+        }
+        if (!espHooksReady) {
+            logError(hookUnavailableReason);
+        }
         return true;
     }
 
     bool disable() {
         eon::ModuleManager::instance().resetSession();
         resetMenuModules();
+        eon::uninstallGameHooks();
         return true;
     }
 
     bool unload() {
         eon::ModuleManager::instance().resetSession();
         resetMenuModules();
+        eon::uninstallGameHooks();
         bool saved = true;
         {
             std::lock_guard lock(gConfigMutex);

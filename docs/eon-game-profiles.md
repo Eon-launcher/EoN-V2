@@ -52,3 +52,19 @@ HighJump changes the jump-height result. Its older function declarations are
 not treated as verified 1.26.60.4 ARM64 ABIs. The movement modules remain
 fail-closed and install no hooks until those ABIs and profile offsets are
 verified. No raw fields or ABI assumptions were copied from the reference.
+
+## Phase 4b: ESP
+
+ESP has a separate Android ARM64 path. It installs NormalTick and RenderLevel
+hooks only when the loaded `libminecraftpe.so` GNU Build ID is
+`eb291b883dfdfaff70c4999c2eabd61885ae3e15`, then resolves the three expected
+functions by signature. It reads actor bounds and camera state, projects
+visible bounds onto the preloader HUD surface, and submits boxes and distances
+as HUD draw commands. If the build ID, signatures, or hooks are unavailable,
+ESP cannot be enabled.
+
+This gate identifies the exact library image, not the game account, server, or
+world. The actor/renderer field offsets and function ABIs are specific to that
+image; validate ESP in-game on the matching ARM64 build before treating it as
+runtime-verified. Xray, MobAura, and Scaffold remain unavailable until their
+own implementations and target-build interfaces are verified.

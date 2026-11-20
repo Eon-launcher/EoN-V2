@@ -20,6 +20,7 @@ public:
     bool setEnabled(std::string_view name, bool enabled);
     bool setSetting(std::string_view moduleName, std::string_view settingName,
                     SettingValue value);
+    bool setImplementationReady(std::string_view name, bool ready);
     std::string availabilityMessage(std::string_view name) const;
     void setModFriendlyServer(bool enabled);
     bool modFriendlyServer() const;
