@@ -3,6 +3,8 @@ package org.levimc.launcher.ui.activities;
 
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +21,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import org.levimc.launcher.R;
 import org.levimc.launcher.core.crash.CrashReporter;
 import org.levimc.launcher.core.discord.DiscordPresence;
+import org.levimc.launcher.core.mods.EonNative;
 import org.levimc.launcher.preloader.PreloaderSignatureRulesManager;
 import org.levimc.launcher.settings.FeatureSettings;
 import org.levimc.launcher.ui.animation.DynamicAnim;
@@ -64,7 +68,11 @@ import org.levimc.launcher.util.UiSettings;
 import org.levimc.launcher.util.WallpaperFolder;
 
 import java.lang.ref.WeakReference;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,6 +113,7 @@ public class SettingsActivity extends BaseActivity {
     private ActivityResultLauncher<Intent> permissionResultLauncher;
     private ActivityResultLauncher<Intent> bgImagePickerLauncher;
     private ActivityResultLauncher<Uri> bgFolderPickerLauncher;
+    private ActivityResultLauncher<String> eonEspLogExportLauncher;
     private int updateButtonTapCount = 0;
     private long lastUpdateButtonTapTime = 0;
 
@@ -149,6 +158,9 @@ public class SettingsActivity extends BaseActivity {
     private TextView preloaderSigsLastUpdateText;
     private MaterialButton preloaderSigsUpdateButton;
     private SettingsCard pkgSettingsSection;
+    private TextView eonEspLogsView;
+    private ScrollView eonEspLogsScroll;
+    private String pendingEonEspLogExport = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,10 +221,14 @@ public class SettingsActivity extends BaseActivity {
         );
         bgFolderPickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.OpenDocumentTree(), this::onFolderPicked);
+        eonEspLogExportLauncher = registerForActivityResult(
+                new ActivityResultContracts.CreateDocument("text/plain"),
+                this::saveEonEspLogs);
 
         initTabs();
         setupSearch();
         setupBasicSection();
+        setupEonEspDiagnostics();
         pkgSettingsSection = new SettingsCard(this, findViewById(R.id.pkg_settings_card));
         setupThemeSection();
         setupWallpaperSection();
@@ -559,6 +575,69 @@ public class SettingsActivity extends BaseActivity {
         SwitchMaterial switchManagedLogin = findViewById(R.id.switch_managed_login);
         switchManagedLogin.setChecked(fs.isLauncherManagedMcLoginEnabled());
         switchManagedLogin.setOnCheckedChangeListener((btn, checked) -> fs.setLauncherManagedMcLoginEnabled(checked));
+    }
+
+    private void setupEonEspDiagnostics() {
+        eonEspLogsView = findViewById(R.id.eon_esp_logs);
+        eonEspLogsScroll = findViewById(R.id.eon_esp_logs_scroll);
+        findViewById(R.id.eon_esp_copy_logs).setOnClickListener(v -> {
+            String logs = refreshEonEspLogs();
+            ClipboardManager clipboard =
+                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard == null) {
+                Toast.makeText(this, R.string.eon_esp_logs_copy_failed,
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            clipboard.setPrimaryClip(ClipData.newPlainText(
+                    getString(R.string.eon_esp_logs_title), logs));
+            Toast.makeText(this, R.string.eon_esp_logs_copied,
+                    Toast.LENGTH_SHORT).show();
+        });
+        findViewById(R.id.eon_esp_download_logs).setOnClickListener(v -> {
+            pendingEonEspLogExport = refreshEonEspLogs();
+            String timestamp = new SimpleDateFormat("yyyyMMdd-HHmmss",
+                    Locale.US).format(new Date());
+            eonEspLogExportLauncher.launch("eon-esp-logs-" + timestamp + ".txt");
+        });
+    }
+
+    private String refreshEonEspLogs() {
+        String logs;
+        try {
+            logs = EonNative.getEspLogs();
+            if (logs == null || logs.isEmpty()) {
+                logs = getString(R.string.eon_esp_logs_empty);
+            }
+        } catch (UnsatisfiedLinkError error) {
+            logs = getString(R.string.eon_esp_logs_not_loaded);
+        }
+        eonEspLogsView.setText(logs);
+        eonEspLogsScroll.post(
+                () -> eonEspLogsScroll.fullScroll(View.FOCUS_DOWN));
+        return logs;
+    }
+
+    private void saveEonEspLogs(Uri uri) {
+        if (uri == null) {
+            pendingEonEspLogExport = "";
+            return;
+        }
+        String logs = pendingEonEspLogExport.isEmpty()
+                ? refreshEonEspLogs() : pendingEonEspLogExport;
+        pendingEonEspLogExport = "";
+        try (OutputStream output = getContentResolver().openOutputStream(uri)) {
+            if (output == null) {
+                throw new IOException("Could not open the selected log file.");
+            }
+            output.write(logs.getBytes(StandardCharsets.UTF_8));
+            Toast.makeText(this, R.string.eon_esp_logs_saved,
+                    Toast.LENGTH_SHORT).show();
+        } catch (IOException error) {
+            Log.e("SettingsActivity", "Could not save EON ESP logs.", error);
+            Toast.makeText(this, R.string.eon_esp_logs_save_failed,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     // #endregion
@@ -1237,6 +1316,9 @@ public class SettingsActivity extends BaseActivity {
         }
         if (pkgSettingsSection != null) {
             pkgSettingsSection.onResume();
+        }
+        if (eonEspLogsView != null) {
+            refreshEonEspLogs();
         }
     }
 

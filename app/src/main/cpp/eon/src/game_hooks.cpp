@@ -1,6 +1,7 @@
 // Modified by EoN Launcher V2.
 #include "eon/game_hooks.hpp"
 
+#include "eon/esp_log.hpp"
 #include "eon/module_manager.hpp"
 
 #include <elf.h>
@@ -197,10 +198,10 @@ int findMinecraftBuildId(dl_phdr_info* info, std::size_t, void* data) {
     return 1;
 }
 
-bool supportedBuild() {
+std::string loadedMinecraftBuildId() {
     std::string actualBuildId;
     dl_iterate_phdr(findMinecraftBuildId, &actualBuildId);
-    return actualBuildId == kSupportedBuildId;
+    return actualBuildId;
 }
 
 void captureCamera(void* renderer) {
@@ -251,22 +252,34 @@ bool readableBounds(const esp::Bounds& bounds) {
            height < 64.0f && depth > 0.0f && depth < 32.0f;
 }
 
+bool frameUnavailable(std::string& reason, std::string_view message) {
+    reason = message;
+    return false;
+}
+
 }  // namespace
 
 bool installGameHooks(std::string& unavailableReason) {
     std::lock_guard lock(gHookMutex);
     if (gHooksInstalled.load(std::memory_order_acquire)) {
         unavailableReason.clear();
+        logEspEvent("INFO", "Verified game hooks are already installed.");
         return true;
     }
-    if (!supportedBuild()) {
-        unavailableReason =
-                "loaded libminecraftpe.so build ID does not match the verified "
-                "1.26.60.4 ARM64 image";
+    logEspEvent("INFO", "Checking the Minecraft build and ESP hook signatures.");
+    const std::string actualBuildId = loadedMinecraftBuildId();
+    if (actualBuildId != kSupportedBuildId) {
+        unavailableReason = "libminecraftpe.so build ID mismatch (loaded: ";
+        unavailableReason += actualBuildId.empty() ? "not found" : actualBuildId;
+        unavailableReason += "; expected: ";
+        unavailableReason += kSupportedBuildId;
+        unavailableReason += ")";
+        logEspEvent("WARN", unavailableReason);
         return false;
     }
     if (!gReadableMemory.load()) {
         unavailableReason = "could not read the process memory map";
+        logEspEvent("WARN", unavailableReason);
         return false;
     }
 
@@ -277,8 +290,17 @@ bool installGameHooks(std::string& unavailableReason) {
     const auto render = pl::memory::resolveSignature(kRenderLevelSignature,
                                                       "libminecraftpe.so");
     if (!tick || !actorList || !render) {
-        unavailableReason =
-                "one or more verified ARM64 function signatures were not found";
+        unavailableReason = "verified ARM64 function signatures not found:";
+        if (!tick) {
+            unavailableReason += " NormalTick";
+        }
+        if (!actorList) {
+            unavailableReason += " ActorManagerList";
+        }
+        if (!render) {
+            unavailableReason += " RenderLevel";
+        }
+        logEspEvent("WARN", unavailableReason);
         return false;
     }
 
@@ -299,11 +321,13 @@ bool installGameHooks(std::string& unavailableReason) {
         gNormalTickOriginal = nullptr;
         gRenderLevelOriginal = nullptr;
         unavailableReason = "could not install the verified game hooks";
+        logEspEvent("ERROR", unavailableReason);
         return false;
     }
 
     gHooksInstalled.store(true, std::memory_order_release);
     unavailableReason.clear();
+    logEspEvent("INFO", "Verified NormalTick and RenderLevel hooks installed.");
     return true;
 }
 
@@ -321,29 +345,35 @@ void uninstallGameHooks() noexcept {
     gCameraState = {};
 }
 
-bool readEspWorldFrame(EspWorldFrame& frame) {
+bool readEspWorldFrame(EspWorldFrame& frame,
+                       std::string& unavailableReason) {
+    unavailableReason.clear();
     if (!gHooksInstalled.load(std::memory_order_acquire) ||
         !gActorManagerList) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "verified game hooks are not installed");
     }
 
     const auto localPlayer =
             reinterpret_cast<std::uintptr_t>(
                     gLocalPlayer.load(std::memory_order_acquire));
     if (!localPlayer) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "waiting for the local player tick");
     }
 
     const auto& memory = gReadableMemory;
     const auto localLevel =
             memory.read<std::uintptr_t>(localPlayer + kActorLevelOffset);
     if (!localLevel || !*localLevel) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "local player level is unavailable");
     }
     const auto actorManager =
             memory.read<std::uintptr_t>(*localLevel + kLevelActorManagerOffset);
     if (!actorManager || !*actorManager) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "level actor manager is unavailable");
     }
     const auto localStateVector =
             memory.read<std::uintptr_t>(localPlayer + kActorStateVectorOffset);
@@ -351,13 +381,15 @@ bool readEspWorldFrame(EspWorldFrame& frame) {
             memory.read<std::uintptr_t>(localPlayer + kActorRotationOffset);
     if (!localStateVector || !*localStateVector || !rotationComponent ||
         !*rotationComponent) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "local player position or rotation is unavailable");
     }
     const auto localPosition = memory.read<esp::Vec3>(*localStateVector);
     const auto rotation = memory.read<Rotation>(*rotationComponent);
     if (!localPosition || !rotation || !esp::finite(*localPosition) ||
         !std::isfinite(rotation->pitch) || !std::isfinite(rotation->yaw)) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "local player position or rotation is invalid");
     }
 
     frame.camera.position = {
@@ -373,7 +405,8 @@ bool readEspWorldFrame(EspWorldFrame& frame) {
 
     auto actors = gActorManagerList(reinterpret_cast<void*>(*actorManager));
     if (actors.size() > kMaxActorCount) {
-        return false;
+        return frameUnavailable(unavailableReason,
+                                "actor list exceeds the safety limit");
     }
 
     frame.entities.clear();

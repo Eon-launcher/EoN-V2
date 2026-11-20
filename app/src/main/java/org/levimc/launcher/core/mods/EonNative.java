@@ -5,4 +5,6 @@ public final class EonNative {
     }
 
     public static native void beginSession();
+
+    public static native String getEspLogs();
 }

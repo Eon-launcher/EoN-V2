@@ -4,6 +4,7 @@ project(eon LANGUAGES CXX)
 
 add_library(eon SHARED
         src/eon.cpp
+        src/esp_log.cpp
         src/game_profile.cpp
         src/game_hooks.cpp
         src/mod_lifecycle.cpp

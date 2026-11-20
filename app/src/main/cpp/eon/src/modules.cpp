@@ -1,10 +1,13 @@
 // Modified by EoN Launcher V2.
 #include "eon/modules.hpp"
+#include "eon/esp_log.hpp"
 #include "eon/game_hooks.hpp"
 
 #include <pl/ModMenu.hpp>
 
+#include <cstddef>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <variant>
 #include <vector>
@@ -34,6 +37,8 @@ EspModule::EspModule() : Module("ESP", Category::Render, {}, false) {
     addSetting({"range", 32.0f});
 }
 void EspModule::onTick() {
+    static std::string lastFrameStatus;
+
     float range = 32.0f;
     for (const auto& setting : settings()) {
         if (setting.name == "range") {
@@ -47,37 +52,76 @@ void EspModule::onTick() {
     std::vector<pl::modmenu::DrawCommand> commands;
     const auto surface = pl::modmenu::getHudSurfaceSize();
     EspWorldFrame frame;
-    if (surface.width > 0.0f && surface.height > 0.0f &&
-        readEspWorldFrame(frame)) {
-        commands.reserve(frame.entities.size() * 2);
-        for (const auto& bounds : frame.entities) {
-            const auto projected = esp::projectBounds(
-                    bounds, frame.camera, surface.width, surface.height, range);
-            if (!projected) {
-                continue;
+    if (surface.width <= 0.0f || surface.height <= 0.0f) {
+        constexpr std::string_view status = "HUD drawing surface is not ready";
+        if (lastFrameStatus != status) {
+            logEspEvent("WARN", status);
+            lastFrameStatus = status;
+        }
+    } else {
+        std::string unavailableReason;
+        if (!readEspWorldFrame(frame, unavailableReason)) {
+            if (lastFrameStatus != unavailableReason) {
+                logEspEvent("WARN", unavailableReason);
+                lastFrameStatus = unavailableReason;
             }
+        } else {
+            if (lastFrameStatus != "ready") {
+                logEspEvent("INFO", "ESP frame acquisition active; " +
+                                            std::to_string(frame.entities.size()) +
+                                            " actor bounds acquired.");
+                lastFrameStatus = "ready";
+            }
+            commands.reserve(frame.entities.size() * 2);
+            std::size_t projectedBoxes = 0;
+            for (const auto& bounds : frame.entities) {
+                const auto projected = esp::projectBounds(
+                        bounds, frame.camera, surface.width, surface.height,
+                        range);
+                if (!projected) {
+                    continue;
+                }
+                ++projectedBoxes;
 
-            pl::modmenu::DrawCommand box;
-            box.type = pl::modmenu::DrawCommandType::Rect;
-            box.x = projected->left;
-            box.y = projected->top;
-            box.w = projected->right - projected->left;
-            box.h = projected->bottom - projected->top;
-            box.color = 0xFF40FF80;
-            box.size = 2.0f;
-            commands.push_back(std::move(box));
+                pl::modmenu::DrawCommand box;
+                box.type = pl::modmenu::DrawCommandType::Rect;
+                box.x = projected->left;
+                box.y = projected->top;
+                box.w = projected->right - projected->left;
+                box.h = projected->bottom - projected->top;
+                box.color = 0xFF40FF80;
+                box.size = 2.0f;
+                commands.push_back(std::move(box));
 
-            pl::modmenu::DrawCommand distance;
-            distance.type = pl::modmenu::DrawCommandType::Text;
-            distance.x = projected->left;
-            distance.y = projected->top - 16.0f;
-            distance.h = 14.0f;
-            distance.size = 14.0f;
-            distance.color = 0xFFFFFFFF;
-            distance.text =
-                    std::to_string(static_cast<int>(projected->distance)) +
-                    "m";
-            commands.push_back(std::move(distance));
+                pl::modmenu::DrawCommand distance;
+                distance.type = pl::modmenu::DrawCommandType::Text;
+                distance.x = projected->left;
+                distance.y = projected->top - 16.0f;
+                distance.h = 14.0f;
+                distance.size = 14.0f;
+                distance.color = 0xFFFFFFFF;
+                distance.text =
+                        std::to_string(static_cast<int>(projected->distance)) +
+                        "m";
+                commands.push_back(std::move(distance));
+            }
+            static int lastDrawState = -1;
+            const int drawState = projectedBoxes == 0 ? 0 : 1;
+            if (lastDrawState != drawState) {
+                if (drawState == 0) {
+                    logEspEvent(
+                            "WARN",
+                            frame.entities.empty()
+                                    ? "No entity bounds are available to draw."
+                                    : "Actor bounds are available, but none pass "
+                                      "ESP projection or range checks.");
+                } else {
+                    logEspEvent("INFO", "ESP is drawing " +
+                                                std::to_string(projectedBoxes) +
+                                                " entity boxes.");
+                }
+                lastDrawState = drawState;
+            }
         }
     }
     pl::modmenu::submitDrawCommands("eon.render.esp", commands);

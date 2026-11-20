@@ -1,5 +1,6 @@
 // Modified by EoN Launcher V2.
 #include "eon/config.hpp"
+#include "eon/esp_log.hpp"
 #include "eon/game_hooks.hpp"
 #include "eon/game_profile.hpp"
 #include "eon/module_manager.hpp"
@@ -344,9 +345,13 @@ ConfigNodeV2 makeProfileStatusNode(const ModuleDescriptor& module) {
     ConfigNodeV2 node;
     node.id = "game-profile-status";
     node.category = std::string(module.categoryId);
-    node.title = "Runtime availability";
+    node.title = module.name == "ESP" ? "EON ESP status"
+                                      : "Runtime availability";
     node.description = eon::ModuleManager::instance().availabilityMessage(
             module.name);
+    if (module.name == "ESP") {
+        node.description.insert(0, "EON ");
+    }
     node.type = ConfigControlTypeV2::Info;
     return node;
 }
@@ -413,6 +418,12 @@ void onModuleToggle(std::string_view moduleId, std::string_view moduleName,
     auto& manager = eon::ModuleManager::instance();
     if (!manager.setEnabled(moduleName, enabled) && enabled) {
         pl::modmenu::setModuleEnabled(moduleId, false);
+        if (moduleName == "ESP") {
+            eon::logEspEvent("WARN", manager.availabilityMessage(moduleName));
+        }
+    } else if (moduleName == "ESP") {
+        eon::logEspEvent("INFO", enabled ? "ESP module enabled."
+                                         : "ESP module disabled.");
     }
 }
 
@@ -463,6 +474,10 @@ void onConfigChanged(std::string_view moduleId, std::string_view key,
         }
     } else {
         applyModuleSettings(updated);
+        if (key == "esp_range") {
+            eon::logEspEvent("INFO", "ESP display range changed to " +
+                                             std::string(value) + ".");
+        }
     }
     publishSchemas(updated);
 }
@@ -484,11 +499,15 @@ public:
         const auto gameProfilePath =
                 context.configDir() / "profiles" / "1.26.60.4.json";
         if (!eon::Game::instance().loadProfile(gameProfilePath)) {
+            const auto profileMessage =
+                    eon::Game::instance().unavailableMessage(
+                            "Game profile",
+                            std::span<const eon::FunctionSlot>{});
             context.logger().warn(
                     "EON game profile is unavailable or invalid at {}: {}",
-                    gameProfilePath.string(),
-                    eon::Game::instance().unavailableMessage(
-                            "Game profile", std::span<const eon::FunctionSlot>{}));
+                    gameProfilePath.string(), profileMessage);
+            eon::logEspEvent("WARN",
+                             "EON game profile unavailable: " + profileMessage);
         }
         eon::ModuleManager::instance().resetSession();
         std::string hookUnavailableReason;
@@ -565,6 +584,7 @@ public:
     }
 
     bool disable() {
+        eon::logEspEvent("INFO", "EON game session disabled.");
         eon::ModuleManager::instance().resetSession();
         resetMenuModules();
         eon::uninstallGameHooks();
@@ -572,6 +592,7 @@ public:
     }
 
     bool unload() {
+        eon::logEspEvent("INFO", "EON native module unloaded.");
         eon::ModuleManager::instance().resetSession();
         resetMenuModules();
         eon::uninstallGameHooks();

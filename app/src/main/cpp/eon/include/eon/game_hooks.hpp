@@ -15,6 +15,6 @@ struct EspWorldFrame {
 
 bool installGameHooks(std::string& unavailableReason);
 void uninstallGameHooks() noexcept;
-bool readEspWorldFrame(EspWorldFrame& frame);
+bool readEspWorldFrame(EspWorldFrame& frame, std::string& unavailableReason);
 
 }  // namespace eon
