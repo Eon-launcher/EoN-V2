@@ -416,6 +416,13 @@ void resetMenuModules() {
 void onModuleToggle(std::string_view moduleId, std::string_view moduleName,
                     bool enabled) {
     auto& manager = eon::ModuleManager::instance();
+    if (moduleName == "ESP" && enabled && manager.modFriendlyServer()) {
+        std::string hookUnavailableReason;
+        const bool hooksReady = eon::installGameHooks(hookUnavailableReason);
+        if (!manager.setImplementationReady("ESP", hooksReady)) {
+            logError("Could not update EON ESP runtime availability.");
+        }
+    }
     if (!manager.setEnabled(moduleName, enabled) && enabled) {
         pl::modmenu::setModuleEnabled(moduleId, false);
         if (moduleName == "ESP") {
