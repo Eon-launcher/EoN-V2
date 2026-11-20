@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 #pragma once
 
 #include "eon/module.hpp"

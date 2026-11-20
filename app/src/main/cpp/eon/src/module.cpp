@@ -6,8 +6,13 @@
 
 namespace eon {
 
-Module::Module(std::string name, Category category)
-    : name_(std::move(name)), category_(category) {}
+Module::Module(std::string name, Category category,
+               std::initializer_list<FunctionSlot> requiredSlots,
+               bool implementationReady)
+    : name_(std::move(name)),
+      category_(category),
+      requiredSlots_(requiredSlots),
+      implementationReady_(implementationReady) {}
 
 const std::string& Module::name() const noexcept {
     return name_;
@@ -23,6 +28,14 @@ bool Module::enabled() const noexcept {
 
 const std::vector<Setting>& Module::settings() const noexcept {
     return settings_;
+}
+
+std::span<const FunctionSlot> Module::requiredSlots() const noexcept {
+    return requiredSlots_;
+}
+
+bool Module::implementationReady() const noexcept {
+    return implementationReady_;
 }
 
 void Module::setEnabled(bool enabled) noexcept {

@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <memory>
 #include <mutex>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -19,6 +20,7 @@ public:
     bool setEnabled(std::string_view name, bool enabled);
     bool setSetting(std::string_view moduleName, std::string_view settingName,
                     SettingValue value);
+    std::string availabilityMessage(std::string_view name) const;
     void setModFriendlyServer(bool enabled);
     bool modFriendlyServer() const;
     std::size_t moduleCount() const noexcept;

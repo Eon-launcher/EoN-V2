@@ -36,27 +36,39 @@ void XrayModule::onRender() {
     // TODO: Implement only after supported game APIs and signatures are verified.
 }
 
-FlyModule::FlyModule() : Module("Fly", Category::Movement) {
+FlyModule::FlyModule()
+    : Module("Fly", Category::Movement,
+             {FunctionSlot::LocalPlayer_normalTick,
+              FunctionSlot::Player_getAbilities,
+              FunctionSlot::LayeredAbilities_getLayer,
+              FunctionSlot::Abilities_setAbility},
+             false) {
     addSetting({"speed", 1.0f});
 }
 void FlyModule::onTick() {
-    // TODO: Implement only after supported game APIs and signatures are verified.
+    // Fail closed until the 1.26.60.4 function ABIs are verified.
 }
 void FlyModule::onRender() {}
 
-SpeedModule::SpeedModule() : Module("Speed", Category::Movement) {
+SpeedModule::SpeedModule()
+    : Module("Speed", Category::Movement,
+             {FunctionSlot::SpeedMoveSystem},
+             false) {
     addSetting({"multiplier", 1.2f});
 }
 void SpeedModule::onTick() {
-    // TODO: Implement only after supported game APIs and signatures are verified.
+    // Fail closed until the 1.26.60.4 function ABI is verified.
 }
 void SpeedModule::onRender() {}
 
-HighJumpModule::HighJumpModule() : Module("HighJump", Category::Movement) {
+HighJumpModule::HighJumpModule()
+    : Module("HighJump", Category::Movement,
+             {FunctionSlot::JumpHeight},
+             false) {
     addSetting({"height", 1.5f});
 }
 void HighJumpModule::onTick() {
-    // TODO: Implement only after supported game APIs and signatures are verified.
+    // Fail closed until the 1.26.60.4 function ABI is verified.
 }
 void HighJumpModule::onRender() {}
 

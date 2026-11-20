@@ -1,5 +1,6 @@
 // Modified by EoN Launcher V2.
 #include "eon/module_manager.hpp"
+#include "eon/game_profile.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -19,15 +20,18 @@ void ModuleManager::registerModule(std::unique_ptr<Module> module) {
 
 bool ModuleManager::setEnabled(std::string_view name, bool enabled) {
     std::lock_guard lock(stateMutex_);
-    if (enabled && !modFriendlyServer_) {
-        return false;
-    }
-
     const auto module = std::find_if(modules_.begin(), modules_.end(),
                                      [name](const auto& candidate) {
                                          return candidate->name() == name;
                                      });
     if (module == modules_.end()) {
+        return false;
+    }
+    if (enabled &&
+        (!modFriendlyServer_ ||
+         !(*module)->implementationReady() ||
+         (!(*module)->requiredSlots().empty() &&
+          !Game::instance().ready((*module)->requiredSlots())))) {
         return false;
     }
     (*module)->setEnabled(enabled);
@@ -44,6 +48,49 @@ bool ModuleManager::setSetting(std::string_view moduleName,
                                      });
     return module != modules_.end() &&
            (*module)->setSetting(settingName, std::move(value));
+}
+
+std::string ModuleManager::availabilityMessage(std::string_view name) const {
+    std::lock_guard lock(stateMutex_);
+    const auto module = std::find_if(modules_.begin(), modules_.end(),
+                                     [name](const auto& candidate) {
+                                         return candidate->name() == name;
+                                     });
+    if (module == modules_.end()) {
+        return std::string(name) + " unavailable: module is not registered";
+    }
+
+    std::vector<std::string> reasons;
+    if (!(*module)->implementationReady()) {
+        reasons.emplace_back(
+                "verified 1.26.60.4 ARM64 hook ABI is not implemented");
+    }
+    if (!(*module)->requiredSlots().empty() &&
+        !Game::instance().ready((*module)->requiredSlots())) {
+        const auto profileMessage = Game::instance().unavailableMessage(
+                name, (*module)->requiredSlots());
+        const auto separator = profileMessage.find(": ");
+        reasons.emplace_back(
+                separator == std::string::npos
+                        ? profileMessage
+                        : profileMessage.substr(separator + 2));
+    }
+    if (!modFriendlyServer_) {
+        reasons.emplace_back("Mod-friendly server switch is off");
+    }
+    if (reasons.empty()) {
+        return std::string(name) + " available";
+    }
+
+    std::string message(name);
+    message += " unavailable: ";
+    for (std::size_t index = 0; index < reasons.size(); ++index) {
+        if (index != 0) {
+            message += "; ";
+        }
+        message += reasons[index];
+    }
+    return message;
 }
 
 void ModuleManager::setModFriendlyServer(bool enabled) {

@@ -1,5 +1,6 @@
 // Modified by EoN Launcher V2.
 #include "eon/config.hpp"
+#include "eon/game_profile.hpp"
 #include "eon/module_manager.hpp"
 
 #include <android/log.h>
@@ -60,6 +61,7 @@ struct ModuleDescriptor {
     std::string_view categoryTitle;
     const SettingDescriptor* settings;
     std::size_t settingCount;
+    bool profileGated{false};
 };
 
 constexpr std::array kMobAuraSettings{
@@ -121,13 +123,14 @@ constexpr std::array kModules{
                          kXraySettings.size()},
         ModuleDescriptor{"eon.movement.fly", "Fly", "Movement module settings.",
                          "movement", "Movement", kFlySettings.data(),
-                         kFlySettings.size()},
+                         kFlySettings.size(), true},
         ModuleDescriptor{"eon.movement.speed", "Speed",
                          "Movement module settings.", "movement", "Movement",
-                         kSpeedSettings.data(), kSpeedSettings.size()},
+                         kSpeedSettings.data(), kSpeedSettings.size(), true},
         ModuleDescriptor{"eon.movement.high_jump", "HighJump",
                          "Movement module settings.", "movement", "Movement",
-                         kHighJumpSettings.data(), kHighJumpSettings.size()},
+                         kHighJumpSettings.data(), kHighJumpSettings.size(),
+                         true},
 };
 
 std::mutex gConfigMutex;
@@ -333,6 +336,17 @@ ConfigNodeV2 makeSafeguardNode(const eon::EonConfig& config) {
     return node;
 }
 
+ConfigNodeV2 makeProfileStatusNode(const ModuleDescriptor& module) {
+    ConfigNodeV2 node;
+    node.id = "game-profile-status";
+    node.category = std::string(module.categoryId);
+    node.title = "Game profile status";
+    node.description = eon::ModuleManager::instance().availabilityMessage(
+            module.name);
+    node.type = ConfigControlTypeV2::Info;
+    return node;
+}
+
 ConfigNodeV2 makeSettingNode(const SettingDescriptor& setting,
                              std::string_view category,
                              const eon::EonConfig& config) {
@@ -363,6 +377,9 @@ bool publishSchema(const ModuleDescriptor& module,
             .defaultCategory("safety")
             .node(makeSafetyNote())
             .node(makeSafeguardNode(config));
+    if (module.profileGated) {
+        builder.node(makeProfileStatusNode(module));
+    }
     for (std::size_t index = 0; index < module.settingCount; ++index) {
         builder.node(makeSettingNode(module.settings[index], module.categoryId,
                                      config));
@@ -459,6 +476,15 @@ public:
         if (eon_init() != static_cast<int>(kModules.size())) {
             context.logger().error("EON did not initialize all native modules.");
             return false;
+        }
+        const auto gameProfilePath =
+                context.configDir() / "profiles" / "1.26.60.4.json";
+        if (!eon::Game::instance().loadProfile(gameProfilePath)) {
+            context.logger().warn(
+                    "EON game profile is unavailable or invalid at {}: {}",
+                    gameProfilePath.string(),
+                    eon::Game::instance().unavailableMessage(
+                            "Game profile", std::span<const eon::FunctionSlot>{}));
         }
         eon::ModuleManager::instance().resetSession();
 
