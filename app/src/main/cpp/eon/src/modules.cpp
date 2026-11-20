@@ -20,7 +20,7 @@ void ScaffoldModule::onTick() {
 }
 void ScaffoldModule::onRender() {}
 
-EspModule::EspModule() : Module("ESP", Category::Render) {
+EspModule::EspModule() : Module("ESP", Category::Render, {}, false) {
     addSetting({"range", 32.0f});
 }
 void EspModule::onTick() {}
