@@ -12,7 +12,7 @@ Branch: `re/1.26.60.4-analysis`
 | 2. Vtables | Done | Contiguous relocation-backed slots and up to 40 instructions from each distinct slot-0 target are recorded; methods remain unnamed. |
 | 3. Player chain | Blocked | The supplied offsets are recorded as unverified; `game_hooks.cpp` and the three claimed signature definitions are absent from this checkout. |
 | 4. Feature targets | Done | FOV, HUD, block-render, and actor/bounds string leads are rated; no feature function addresses were established. |
-| 5. Signatures | Blocked | No target byte patterns can be derived from absent signature definitions; do not treat an empty signature list as completed coverage. |
+| 5. Signatures | Blocked | `signatures.json` contains no fabricated patterns; the verifier exits blocked for an empty list. |
 
 ## Environment and inputs
 

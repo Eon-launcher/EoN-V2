@@ -53,6 +53,8 @@ Evidence labels:
 - Recover feature paths from verified call sites or symbols. String matches
   alone do not prove a FOV, HUD, block-visibility, or entity-iteration hook.
 - Generate and verify signatures only after identifying each target routine.
+- `signatures.json` intentionally contains an empty list and blocked status;
+  no exact-once signature claim is made.
 
 See [classes.md](./classes.md), [vtables.md](./vtables.md),
 [player-chain.md](./player-chain.md),

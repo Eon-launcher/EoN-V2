@@ -54,5 +54,15 @@ Markdown report.
 No verified feature signatures are included yet: the EoN hook source described
 in the task is not present in this checkout, and the three claimed pattern
 definitions could not be located. Do not manufacture replacement patterns.
-When verified patterns are added to `docs/re/1.26.60.4/signatures.json`, record
-the exact build ID and rerun their scanner against that same local binary.
+The verifier checks the build ID, wildcard bytes (`??`), exact match count,
+and file offset for each future entry. The current empty list intentionally
+returns exit code 2 (`BLOCKED`) rather than a success-shaped result:
+
+```sh
+python3 tools/re/verify_signatures.py libminecraftpe.so \
+  docs/re/1.26.60.4/signatures.json
+```
+
+When verified patterns are added, include the required fields `name`,
+`signature`, `match_offset`, `match_count`, `confidence`, and `notes`, then
+rerun the verifier against that same local binary.
