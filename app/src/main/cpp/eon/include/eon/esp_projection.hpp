@@ -102,8 +102,10 @@ inline std::optional<ProjectedBounds> projectBounds(
         const float relX = point.x - camera.position.x;
         const float relY = point.y - camera.position.y;
         const float relZ = point.z - camera.position.z;
-        const float right = relX * cosYaw + relZ * sinYaw;
-        const float up = relX * sinYaw * sinPitch + relY * cosPitch -
+        // Minecraft is right-handed: yaw 0 looks toward +Z, so screen-right is -X.
+        const float right = -(relX * cosYaw + relZ * sinYaw);
+        // Camera up vector = (-sinY*sinP, cosP, cosY*sinP); orthogonal to forward.
+        const float up = -relX * sinYaw * sinPitch + relY * cosPitch +
                          relZ * cosYaw * sinPitch;
         const float depth = -relX * sinYaw * cosPitch -
                             relY * sinPitch + relZ * cosYaw * cosPitch;
