@@ -1,0 +1,16 @@
+{
+  "library": "libminecraftpe.so",
+  "build_id": "eb291b883dfdfaff70c4999c2eabd61885ae3e15",
+  "status": "blocked",
+  "reason": "The EoN hook source and claimed target signatures are absent from this checkout; no feature function entry point was established from the available string/RTTI evidence. No byte pattern or match offset is claimed.",
+  "signatures": [],
+  "unresolved_targets": [
+    "NormalTick",
+    "ActorManagerList",
+    "RenderLevel",
+    "Zoom FOV getter/camera setup",
+    "Local HUD visibility toggle",
+    "Block face/chunk render decision",
+    "Entity list iteration"
+  ]
+}
