@@ -1,0 +1,719 @@
+{
+  "library": "libminecraftpe.so",
+  "architecture": "AArch64 ELF64 little-endian",
+  "build_id": "eb291b883dfdfaff70c4999c2eabd61885ae3e15",
+  "classes": [
+    {
+      "class": "LocalPlayer",
+      "typeinfo": [
+        {
+          "address": "0x139f7ec0",
+          "name_address": "0x2e3bbdb",
+          "name_pointer_relocation": "0x139f7ec8",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x139f6e90",
+              "rtti_pointer_location": "0x139f6e98",
+              "offset_to_top": 0,
+              "slot0_function": "0xfa86d38",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Player",
+      "typeinfo": [
+        {
+          "address": "0x13d449f0",
+          "name_address": "0x33ea0a4",
+          "name_pointer_relocation": "0x13d449f8",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x139f7ec8",
+              "rtti_pointer_location": "0x139f7ed0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x139f7f28",
+              "rtti_pointer_location": "0x139f7f30",
+              "offset_to_top": 8589934592,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13c7ead8",
+              "rtti_pointer_location": "0x13c7eae0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d42cc8",
+              "rtti_pointer_location": "0x13d42cd0",
+              "offset_to_top": 0,
+              "slot0_function": "0xfa86d38",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Actor",
+      "typeinfo": [
+        {
+          "address": "0x13d06510",
+          "name_address": "0x33605f6",
+          "name_pointer_relocation": "0x13d06518",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13cc5b40",
+              "rtti_pointer_location": "0x13cc5b48",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc5b58",
+              "rtti_pointer_location": "0x13cc5b60",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc5b98",
+              "rtti_pointer_location": "0x13cc5ba0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc5bf8",
+              "rtti_pointer_location": "0x13cc5c00",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc81f8",
+              "rtti_pointer_location": "0x13cc8200",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc8818",
+              "rtti_pointer_location": "0x13cc8820",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cf56d8",
+              "rtti_pointer_location": "0x13cf56e0",
+              "offset_to_top": 0,
+              "slot0_function": "0xfd955ac",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d40128",
+              "rtti_pointer_location": "0x13d40130",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d41398",
+              "rtti_pointer_location": "0x13d413a0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54ac8",
+              "rtti_pointer_location": "0x13d54ad0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54ae0",
+              "rtti_pointer_location": "0x13d54ae8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54b28",
+              "rtti_pointer_location": "0x13d54b30",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54b40",
+              "rtti_pointer_location": "0x13d54b48",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54c60",
+              "rtti_pointer_location": "0x13d54c68",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d571a0",
+              "rtti_pointer_location": "0x13d571a8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d571d0",
+              "rtti_pointer_location": "0x13d571d8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Mob",
+      "typeinfo": [
+        {
+          "address": "0x13cc81f0",
+          "name_address": "0x32f30ed",
+          "name_pointer_relocation": "0x13cc81f8",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13cb83b0",
+              "rtti_pointer_location": "0x13cb83b8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cb83f8",
+              "rtti_pointer_location": "0x13cb8400",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cb84d0",
+              "rtti_pointer_location": "0x13cb84d8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cb8500",
+              "rtti_pointer_location": "0x13cb8508",
+              "offset_to_top": 0,
+              "slot0_function": "0x90968e0",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cb9590",
+              "rtti_pointer_location": "0x13cb9598",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc2878",
+              "rtti_pointer_location": "0x13cc2880",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc4cc0",
+              "rtti_pointer_location": "0x13cc4cc8",
+              "offset_to_top": 0,
+              "slot0_function": "0xfa86d38",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13cc5b28",
+              "rtti_pointer_location": "0x13cc5b30",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d43570",
+              "rtti_pointer_location": "0x13d43578",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d43680",
+              "rtti_pointer_location": "0x13d43688",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d449f8",
+              "rtti_pointer_location": "0x13d44a00",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d4ccb0",
+              "rtti_pointer_location": "0x13d4ccb8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d4cdd0",
+              "rtti_pointer_location": "0x13d4cdd8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d4d2e8",
+              "rtti_pointer_location": "0x13d4d2f0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d54be8",
+              "rtti_pointer_location": "0x13d54bf0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d60a78",
+              "rtti_pointer_location": "0x13d60a80",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d6ae80",
+              "rtti_pointer_location": "0x13d6ae88",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d6ae98",
+              "rtti_pointer_location": "0x13d6aea0",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Level",
+      "typeinfo": [
+        {
+          "address": "0x13e0ca68",
+          "name_address": "0x346db24",
+          "name_pointer_relocation": "0x13e0ca70",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13950540",
+              "rtti_pointer_location": "0x13950548",
+              "offset_to_top": 468992,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13c7c920",
+              "rtti_pointer_location": "0x13c7c928",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0a0e8",
+              "rtti_pointer_location": "0x13e0a0f0",
+              "offset_to_top": 0,
+              "slot0_function": "0x10b0a674",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0ade0",
+              "rtti_pointer_location": "0x13e0ade8",
+              "offset_to_top": -24,
+              "slot0_function": "0x10b0cdac",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0ae40",
+              "rtti_pointer_location": "0x13e0ae48",
+              "offset_to_top": -32,
+              "slot0_function": "0x10b0cdb4",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "ClientInstance",
+      "typeinfo": [
+        {
+          "address": "0x13890f40",
+          "name_address": "0x2c57ed7",
+          "name_pointer_relocation": "0x13890f48",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x1388fe60",
+              "rtti_pointer_location": "0x1388fe68",
+              "offset_to_top": 0,
+              "slot0_function": "0x9b727d8",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13890c10",
+              "rtti_pointer_location": "0x13890c18",
+              "offset_to_top": -24,
+              "slot0_function": "0x9b99144",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13890c28",
+              "rtti_pointer_location": "0x13890c30",
+              "offset_to_top": -32,
+              "slot0_function": "0x9b73b64",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13890c68",
+              "rtti_pointer_location": "0x13890c70",
+              "offset_to_top": -96,
+              "slot0_function": "0x9b73b6c",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13890cd0",
+              "rtti_pointer_location": "0x13890cd8",
+              "offset_to_top": -104,
+              "slot0_function": "0x9b73b74",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13890d08",
+              "rtti_pointer_location": "0x13890d10",
+              "offset_to_top": -112,
+              "slot0_function": "0x9b73b7c",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "LevelRenderer",
+      "typeinfo": [
+        {
+          "address": "0x13a56258",
+          "name_address": "0x2ef5899",
+          "name_pointer_relocation": "0x13a56260",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13a54f70",
+              "rtti_pointer_location": "0x13a54f78",
+              "offset_to_top": 0,
+              "slot0_function": "0xb79b734",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13a550a0",
+              "rtti_pointer_location": "0x13a550a8",
+              "offset_to_top": -8,
+              "slot0_function": "0xb79c280",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "BlockSource",
+      "typeinfo": [
+        {
+          "address": "0x13d6eaf0",
+          "name_address": "0x340a63e",
+          "name_pointer_relocation": "0x13d6eaf8",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13795388",
+              "rtti_pointer_location": "0x13795390",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13d6dcc0",
+              "rtti_pointer_location": "0x13d6dcc8",
+              "offset_to_top": 0,
+              "slot0_function": "0x1036e1ec",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Dimension",
+      "typeinfo": [
+        {
+          "address": "0x13e0d750",
+          "name_address": "0x346fa33",
+          "name_pointer_relocation": "0x13e0d758",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x137e3400",
+              "rtti_pointer_location": "0x137e3408",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x137e3418",
+              "rtti_pointer_location": "0x137e3420",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x137e3430",
+              "rtti_pointer_location": "0x137e3438",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0cec8",
+              "rtti_pointer_location": "0x13e0ced0",
+              "offset_to_top": 0,
+              "slot0_function": "0x10b39bec",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0d070",
+              "rtti_pointer_location": "0x13e0d078",
+              "offset_to_top": -8,
+              "slot0_function": "0x10b3b4bc",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0d180",
+              "rtti_pointer_location": "0x13e0d188",
+              "offset_to_top": -16,
+              "slot0_function": "0x10b3b4c4",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0d1b0",
+              "rtti_pointer_location": "0x13e0d1b8",
+              "offset_to_top": -56,
+              "slot0_function": "0x10b3b4cc",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0d7d0",
+              "rtti_pointer_location": "0x13e0d7d8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "LevelChunk",
+      "typeinfo": [],
+      "status": "not recovered"
+    },
+    {
+      "class": "LevelRendererPlayer",
+      "typeinfo": [
+        {
+          "address": "0x13a56318",
+          "name_address": "0x2ef591a",
+          "name_pointer_relocation": "0x13a56320",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x13a557c0",
+              "rtti_pointer_location": "0x13a557c8",
+              "offset_to_top": 0,
+              "slot0_function": "0xb7be24c",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13a55930",
+              "rtti_pointer_location": "0x13a55938",
+              "offset_to_top": -3152,
+              "slot0_function": "0xb7be9a8",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13a55a40",
+              "rtti_pointer_location": "0x13a55a48",
+              "offset_to_top": -3160,
+              "slot0_function": "0xb7be9b0",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13a55a78",
+              "rtti_pointer_location": "0x13a55a80",
+              "offset_to_top": -3168,
+              "slot0_function": "0xb7be9b8",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13a55aa0",
+              "rtti_pointer_location": "0x13a55aa8",
+              "offset_to_top": -3192,
+              "slot0_function": "0xb7be9c0",
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    },
+    {
+      "class": "Chunk",
+      "typeinfo": [],
+      "status": "not recovered"
+    },
+    {
+      "class": "SubChunk",
+      "typeinfo": [],
+      "status": "not recovered"
+    },
+    {
+      "class": "ChunkSource",
+      "typeinfo": [
+        {
+          "address": "0x13e126a0",
+          "name_address": "0x3473a47",
+          "name_pointer_relocation": "0x13e126a8",
+          "confidence": "CONFIRMED",
+          "vtable_candidates": [
+            {
+              "address": "0x137dd168",
+              "rtti_pointer_location": "0x137dd170",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0e898",
+              "rtti_pointer_location": "0x13e0e8a0",
+              "offset_to_top": 8589934592,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0f130",
+              "rtti_pointer_location": "0x13e0f138",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0f170",
+              "rtti_pointer_location": "0x13e0f178",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e0f200",
+              "rtti_pointer_location": "0x13e0f208",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e11408",
+              "rtti_pointer_location": "0x13e11410",
+              "offset_to_top": 0,
+              "slot0_function": "0x10befe14",
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e116f8",
+              "rtti_pointer_location": "0x13e11700",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e11710",
+              "rtti_pointer_location": "0x13e11718",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e11728",
+              "rtti_pointer_location": "0x13e11730",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            },
+            {
+              "address": "0x13e703e0",
+              "rtti_pointer_location": "0x13e703e8",
+              "offset_to_top": 0,
+              "slot0_function": null,
+              "confidence": "LIKELY"
+            }
+          ]
+        }
+      ],
+      "status": "found"
+    }
+  ],
+  "notes": [
+    "Vtable candidates are RTTI-pointer locations with a preceding two-word Itanium ABI prefix; verify table extent and class role.",
+    "Missing classes were not assigned addresses."
+  ]
+}
