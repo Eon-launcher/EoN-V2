@@ -1615,6 +1615,7 @@ public class MainActivity extends GameActivity implements View.OnKeyListener, Fi
     protected void onResume() {
         super.onResume();
         reportedSurfaceSize.reset();
+        // Modified by EoN Launcher V2: initialize the preserved Firebase-free JNI notification bridge.
         NotificationListenerService.initialize(
                 getApplicationContext(),
                 getIntent().getStringExtra("MINECRAFT_FIREBASE_APP_ID"),

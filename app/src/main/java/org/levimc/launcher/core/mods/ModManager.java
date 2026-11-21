@@ -310,7 +310,7 @@ public class ModManager {
                     descriptor.configDir.getAbsolutePath(),
                     descriptor.configFileCount > 0,
                     descriptor.configFileCount,
-                    enabledMap.getOrDefault(modId, true),
+                    EonBuiltInModInstaller.MOD_ID.equals(modId) || enabledMap.getOrDefault(modId, true),
                     i
             ));
         }
@@ -320,6 +320,9 @@ public class ModManager {
 
     public synchronized void setModEnabled(String modId, boolean enabled) {
         if (modsDir == null) return;
+        if (EonBuiltInModInstaller.MOD_ID.equals(modId) && !enabled) {
+            return;
+        }
         if (enabledMap.containsKey(modId)) {
             enabledMap.put(modId, enabled);
             saveConfig();
@@ -411,6 +414,10 @@ public class ModManager {
      */
     public synchronized boolean deleteMod(String modId) {
         if (modsDir == null) return false;
+        if (EonBuiltInModInstaller.MOD_ID.equals(modId)) {
+            Log.w(TAG, "Not deleting built-in EON");
+            return false;
+        }
 
         String pkgRefusal = pkgDeleteRefusal(modId);
         if (pkgRefusal != null) {
@@ -441,6 +448,12 @@ public class ModManager {
      * (deleting it, or importing files into it), or null when it does not.
      */
     public static String packageRefusal(File modsDir, String modId) {
+        if (EonBuiltInModInstaller.MOD_ID.equals(modId)) {
+            return "it is the built-in EON mod";
+        }
+        if (modsDir == null) {
+            return null;
+        }
         File workspace = modsDir.getParentFile();
         if (workspace == null) {
             return null;

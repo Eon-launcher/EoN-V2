@@ -3,6 +3,11 @@
 -keep class com.discord.** { *; }
 -keep class org.levimc.launcher.core.discord.DiscordPresenceNative { *; }
 
+# Modified by EoN Launcher V2: retain legacy Java entry points referenced by game native code.
+-keep class com.mojang.minecraftpe.NotificationListenerService { *; }
+-keep class com.microsoft.xbox.service.notification.** { *; }
+-keep class org.levimc.launcher.core.news.LauncherNewsMessagingService { *; }
+
 -keep,includedescriptorclasses class org.levimc.** { *; }
 
 -keepclasseswithmembers,includedescriptorclasses class * {

@@ -98,3 +98,7 @@ commit_msg.txt
 *.patch
 !/app/src/main/cpp/worldtools/vendor/zstd/build/
 /.vs
+
+# Modified by EoN Launcher V2: proprietary game libraries for local reverse engineering.
+/workspaces/game-lib/
+libminecraftpe.so

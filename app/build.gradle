@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
 }
 
 def localProperties = new Properties()
@@ -11,27 +9,12 @@ if (localPropertiesFile.exists()) {
     localProperties.load(new FileInputStream(localPropertiesFile))
 }
 
-def discordProperties = new Properties()
-def discordPropertiesFile = rootProject.file('discord.properties')
-if (discordPropertiesFile.exists()) {
-    discordPropertiesFile.withInputStream { discordProperties.load(it) }
-}
-def discordApplicationId = providers.gradleProperty('discord.application_id')
-        .getOrElse(discordProperties.getProperty('application_id', '0')).trim()
-if (!(discordApplicationId ==~ /[0-9]+/) ||
-        new BigInteger(discordApplicationId) > BigInteger.valueOf(Long.MAX_VALUE)) {
-    throw new GradleException('discord.application_id must be a numeric Discord Application ID, or 0 to disable the integration.')
-}
-discordApplicationId = new BigInteger(discordApplicationId).toString()
-def discordLargeImage = providers.gradleProperty('discord.large_image')
-        .getOrElse(discordProperties.getProperty('large_image', '')).trim()
-
 def curseForgeApiKey = localProperties.getProperty('curseforge.api_key', '').trim()
 
-// Fallback for local debug builds only: the same obfuscated key LeviLauncher
-// for Windows embeds (base64, then XOR 0xAF). Release and beta builds, and
-// every CI build, keep using the key from local.properties (CI fills it from
-// a secret).
+// Modified by EoN Launcher V2: retain the inherited local debug key fallback.
+// Fallback for local debug builds only: the same obfuscated key the desktop build
+// embeds (base64, then XOR 0xAF). Release, beta, and CI builds use
+// the optional value from local.properties, which may be empty in source builds.
 def curseForgeDebugApiKey = curseForgeApiKey
 if (curseForgeDebugApiKey.isEmpty() && !System.getenv('CI')) {
     def embeddedKeyFile = file('curseforge-debug-apikey.bin')
@@ -68,7 +51,10 @@ static def getVersionCodeByTimestamp() {
 android {
     namespace 'org.levimc.launcher'
     compileSdkVersion 36
+    // Modified by EON Launcher V2: pin the SDK package versions used by CI.
+    buildToolsVersion "36.0.0"
     defaultConfig {
+        // Modified by EoN Launcher V2: prebuilt game libraries require the original package ID.
         applicationId "org.levimc.launcher"
         minSdkVersion 28
         targetSdkVersion 35
@@ -76,8 +62,6 @@ android {
         versionName getGitTag()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "CURSEFORGE_API_KEY", groovy.json.JsonOutput.toJson(curseForgeApiKey)
-        buildConfigField 'long', 'DISCORD_APPLICATION_ID', "${discordApplicationId}L"
-        buildConfigField 'String', 'DISCORD_LARGE_IMAGE', groovy.json.JsonOutput.toJson(discordLargeImage)
         buildConfigField 'boolean', 'SKIP_PLAY_STORE_CHECK', 'false'
         ndk {
             //noinspection ChromeOsAbiSupport
@@ -109,10 +93,6 @@ android {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                mappingFileUploadEnabled true
-                nativeSymbolUploadEnabled true
-            }
             ndk {
                 debugSymbolLevel 'FULL'
             }
@@ -123,10 +103,6 @@ android {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                mappingFileUploadEnabled true
-                nativeSymbolUploadEnabled true
-            }
             ndk {
                 debugSymbolLevel 'FULL'
             }
@@ -142,11 +118,7 @@ android {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseCrashlytics {
-                mappingFileUploadEnabled true
-                nativeSymbolUploadEnabled true
-            }
-            resValue "string", "app_name", "LeviLauncher Beta"
+            resValue "string", "app_name", "EoN Launcher V2 Beta"
             buildConfigField "boolean", "IS_BETA", "true"
             matchingFallbacks = ["release"]
             ndk {
@@ -161,7 +133,9 @@ android {
             keepDebugSymbols += [
                     "**/libpreloader.so",
                     "**/libgxcore.so",
-                    "**/libinbuiltmods.so"
+                    "**/libinbuiltmods.so",
+                    "**/libeon.so",
+                    "**/libdiscord_partner_sdk.so"
             ]
         }
         resources.excludes += [
@@ -182,6 +156,7 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
         }
     }
 
@@ -189,7 +164,7 @@ android {
 }
 
 dependencies {
-    implementation files('libs/discord_partner_sdk.aar')
+    // Modified by EON Launcher V2: source builds do not require the private Discord AAR or Firebase.
     implementation project(':minecraft')
     implementation project(':pojav_controls')
     implementation libs.commonmark
@@ -199,11 +174,6 @@ dependencies {
     implementation libs.minecraftauth
     implementation libs.commons.httpclient
     implementation libs.commons.gson
-    implementation platform(libs.firebase.bom)
-    implementation libs.firebase.analytics
-    implementation libs.firebase.crashlytics
-    implementation libs.firebase.crashlytics.ndk
-    implementation libs.firebase.messaging
     implementation libs.core.splashscreen
     implementation libs.appcompat
     implementation libs.conscrypt.android

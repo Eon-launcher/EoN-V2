@@ -1,17 +1,13 @@
 package com.mojang.minecraftpe;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
 import com.microsoft.xbox.service.notification.NotificationHelper;
 import com.microsoft.xbox.service.notification.NotificationResult;
 
@@ -19,14 +15,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class NotificationListenerService extends FirebaseMessagingService {
+/* Modified by EoN Launcher V2: retain the JNI notification bridge without Firebase. */
+public class NotificationListenerService extends Service {
     private static final String APP_NAME = "minecraft-xbox-notifications";
     private static final String DEFAULT_SENDER_ID = "486187589451";
     private static final String PREFERENCES = "minecraft_xbox_notifications";
@@ -38,14 +34,8 @@ public class NotificationListenerService extends FirebaseMessagingService {
     private static final String SENDER_ID_KEY = "firebase_sender_id";
     private static final String CONFIG_KEY = "firebase_config";
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-    private static final Object TOKEN_LOCK = new Object();
     private static volatile Context applicationContext;
     private static volatile NotificationListenerService activeService;
-    private static volatile String registrationToken = "";
-    private static volatile String firebaseAppId = "";
-    private static volatile String firebaseApiKey = "";
-    private static volatile String firebaseProjectId = "";
-    private static volatile String firebaseSenderId = DEFAULT_SENDER_ID;
     private static volatile boolean nativeReady;
 
     public native void nativePushNotificationReceived(int type, String title, String body, String payload);
@@ -55,6 +45,11 @@ public class NotificationListenerService extends FirebaseMessagingService {
         super.onCreate();
         activeService = this;
         initialize(this);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
@@ -70,19 +65,6 @@ public class NotificationListenerService extends FirebaseMessagingService {
             return;
         }
         applicationContext = context.getApplicationContext();
-        SharedPreferences preferences = preferences();
-        if (firebaseAppId.isEmpty()) {
-            firebaseAppId = preferences.getString(APP_ID_KEY, "");
-            firebaseApiKey = preferences.getString(API_KEY_KEY, "");
-            firebaseProjectId = preferences.getString(PROJECT_ID_KEY, "");
-            firebaseSenderId = preferences.getString(SENDER_ID_KEY, DEFAULT_SENDER_ID);
-            registrationToken = preferences.getString(TOKEN_KEY, "");
-        }
-        if (hasFirebaseConfig()) {
-            retrieveDeviceToken();
-        } else if (registrationToken.isEmpty()) {
-        } else {
-        }
     }
 
     public static void initialize(
@@ -92,61 +74,15 @@ public class NotificationListenerService extends FirebaseMessagingService {
             String projectId,
             String senderId
     ) {
-        if (context == null) {
-            return;
-        }
-        applicationContext = context.getApplicationContext();
-        String resolvedAppId = clean(appId);
-        String resolvedApiKey = clean(apiKey);
-        String resolvedProjectId = clean(projectId);
-        String resolvedSenderId = clean(senderId);
-        if (resolvedSenderId.isEmpty()) {
-            resolvedSenderId = DEFAULT_SENDER_ID;
-        }
-        SharedPreferences preferences = preferences();
-        String newConfig = resolvedAppId + "|" + resolvedProjectId + "|" + resolvedSenderId + "|" + resolvedApiKey;
-        String oldConfig = preferences.getString(CONFIG_KEY, "");
-        if (!newConfig.equals(oldConfig)) {
-            registrationToken = "";
-            preferences.edit().remove(TOKEN_KEY).apply();
-            deleteMinecraftFirebaseApp();
-        } else if (registrationToken.isEmpty()) {
-            registrationToken = preferences.getString(TOKEN_KEY, "");
-        }
-        firebaseAppId = resolvedAppId;
-        firebaseApiKey = resolvedApiKey;
-        firebaseProjectId = resolvedProjectId;
-        firebaseSenderId = resolvedSenderId;
-        preferences.edit()
-                .putString(APP_ID_KEY, firebaseAppId)
-                .putString(API_KEY_KEY, firebaseApiKey)
-                .putString(PROJECT_ID_KEY, firebaseProjectId)
-                .putString(SENDER_ID_KEY, firebaseSenderId)
-                .putString(CONFIG_KEY, newConfig)
-                .apply();
-        if (hasFirebaseConfig()) {
-            retrieveDeviceToken();
-        } else {
-        }
+        initialize(context);
     }
 
     public static String getDeviceRegistrationToken() {
-        if (applicationContext != null && registrationToken.isEmpty()) {
-            registrationToken = preferences().getString(TOKEN_KEY, "");
-        }
-        if (registrationToken.isEmpty() && hasFirebaseConfig()) {
-            retrieveDeviceToken();
-        }
-        return registrationToken;
+        return "";
     }
 
     public static void requestDeviceRegistrationToken(TokenCallback callback) {
-        String token = getDeviceRegistrationToken();
-        if (!token.isEmpty()) {
-            callback.onToken(token);
-            return;
-        }
-        EXECUTOR.execute(() -> callback.onToken(fetchDeviceToken(false)));
+        EXECUTOR.execute(() -> callback.onToken(""));
     }
 
     public static void setNativeReady(boolean ready) {
@@ -168,96 +104,30 @@ public class NotificationListenerService extends FirebaseMessagingService {
         if (context != null) {
             applicationContext = context.getApplicationContext();
         }
-        EXECUTOR.execute(() -> fetchDeviceToken(true));
-    }
-
-    private static void retrieveDeviceToken() {
-        EXECUTOR.execute(() -> fetchDeviceToken(false));
-    }
-
-    @SuppressWarnings("deprecation")
-    private static String fetchDeviceToken(boolean force) {
-        synchronized (TOKEN_LOCK) {
-            if (!force && !registrationToken.isEmpty()) {
-                return registrationToken;
-            }
-            FirebaseApp app = getMinecraftFirebaseApp();
-            if (app == null) {
-                return "";
-            }
-            try {
-                String token = FirebaseInstanceId.getInstance(app).getToken(firebaseSenderId, "FCM");
-                if (token != null && !token.isEmpty()) {
-                    registrationToken = token;
-                    preferences().edit().putString(TOKEN_KEY, token).apply();
-                    return token;
-                }
-            } catch (IOException | RuntimeException error) {
-            }
-            return "";
-        }
-    }
-
-    private static FirebaseApp getMinecraftFirebaseApp() {
-        if (applicationContext == null || !hasFirebaseConfig()) {
-            return null;
-        }
-        try {
-            return FirebaseApp.getInstance(APP_NAME);
-        } catch (IllegalStateException ignored) {
-        }
-        try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setApplicationId(firebaseAppId)
-                    .setApiKey(firebaseApiKey)
-                    .setProjectId(firebaseProjectId)
-                    .setGcmSenderId(firebaseSenderId)
-                    .build();
-            FirebaseApp app = FirebaseApp.initializeApp(applicationContext, options, APP_NAME);
-            return app;
-        } catch (RuntimeException error) {
-            return null;
-        }
-    }
-
-    private static void deleteMinecraftFirebaseApp() {
-        try {
-            FirebaseApp.getInstance(APP_NAME).delete();
-        } catch (IllegalStateException ignored) {
-        }
     }
 
     private static boolean hasFirebaseConfig() {
-        return !firebaseAppId.isEmpty()
-                && !firebaseApiKey.isEmpty()
-                && !firebaseProjectId.isEmpty()
-                && !firebaseSenderId.isEmpty();
+        return false;
     }
 
     private static String clean(String value) {
         return value == null ? "" : value.trim();
     }
 
-    @Override
-    public void onNewToken(@NonNull String token) {
-        super.onNewToken(token);
+    public void onNewToken(String token) {
         refreshDeviceRegistrationToken(this);
     }
 
-    @Override
-    public void onMessageReceived(@NonNull RemoteMessage message) {
-        super.onMessageReceived(message);
-        applicationContext = getApplicationContext();
-        activeService = this;
+    public void onMessageReceived(Object message) {
         NotificationResult result = NotificationHelper.tryParseXboxLiveNotification(message, this);
         String payload = result.data == null ? "" : result.data;
-        int type = result.notificationType.ordinal();
         if (result.notificationType == NotificationResult.NotificationType.Unknown || payload.isEmpty()) {
             return;
         }
         String title = result.title;
         String body = result.body;
-        if (result.notificationType == NotificationResult.NotificationType.Invite) {
+        if (result.notificationType == NotificationResult.NotificationType.Invite
+                && (title == null || title.isEmpty() || body == null || body.isEmpty())) {
             String[] inviteText = resolveInviteText(payload);
             if (title == null || title.isEmpty()) {
                 title = inviteText[0];
@@ -267,16 +137,11 @@ public class NotificationListenerService extends FirebaseMessagingService {
             }
         }
         NotificationData notification = new NotificationData(
-                type,
-                title,
-                body,
-                payload
-        );
+                result.notificationType.ordinal(), title, body, payload);
         if (!dispatch(notification)) {
             enqueue(notification);
         }
     }
-
 
     private static String[] resolveInviteText(String payload) {
         String title = "Game invite";
@@ -324,11 +189,7 @@ public class NotificationListenerService extends FirebaseMessagingService {
         Runnable delivery = () -> {
             try {
                 target.nativePushNotificationReceived(
-                        notification.type,
-                        notification.title,
-                        notification.body,
-                        notification.payload
-                );
+                        notification.type, notification.title, notification.body, notification.payload);
                 nativeReady = true;
                 delivered.set(true);
             } catch (UnsatisfiedLinkError | RuntimeException error) {
@@ -441,8 +302,7 @@ public class NotificationListenerService extends FirebaseMessagingService {
                     object.optInt("type", 2),
                     object.optString("title", ""),
                     object.optString("body", ""),
-                    object.optString("payload", "")
-            );
+                    object.optString("payload", ""));
         }
     }
 }

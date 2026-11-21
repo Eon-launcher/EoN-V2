@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- CurseForge and LeviMC mods pages (Windows-aligned layout). -->
+<!-- CurseForge and EoN Launcher V2 mods pages (Windows-aligned layout). -->
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="catalog_cf_search_hint">Search game resources…</string>
     <string name="catalog_cf_search">Search</string>
     <string name="catalog_cf_class">Class</string>

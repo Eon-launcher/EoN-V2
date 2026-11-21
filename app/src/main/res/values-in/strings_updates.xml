@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">Penyimpanan</string>
     <string name="content_ui_game_version">Versi game</string>
     <string name="content_ui_refresh">Segarkan</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">Bertahan Hidup</string>
     <string name="flat_game_creative">Kreatif</string>
     <string name="flat_game_adventure">Petualangan</string>
-    <string name="misc_about_subtitle">LeviLauncher — Peluncur modern untuk Minecraft Bedrock</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — Peluncur modern untuk Minecraft Bedrock</string>
     <string name="misc_about_authors">Pembuat dan pengelola</string>
-    <string name="misc_about_maintainer_role">Pengelola LeviLauncher</string>
+    <string name="misc_about_maintainer_role">Pengelola proyek asli</string>
     <string name="misc_about_thanks">Terima kasih khusus</string>
-    <string name="misc_about_thanks_desc">Terima kasih khusus kepada individu dan proyek yang mendukung LeviLauncher.</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">Situs web</string>
     <string name="misc_about_sponsors">Pendukung (sponsor)</string>
     <string name="misc_about_sponsors_desc">Terima kasih kepada semua sponsor dan pendukung atas dukungan untuk pengembangan proyek ini!</string>
-    <string name="misc_about_github_org">Organisasi LiteLDev</string>
-    <string name="misc_about_license_tip">LeviLauncher untuk Android menggunakan lisensi Apache-2.0. Lihat berkas LICENSE di repositori untuk teks lengkapnya.</string>
-    <string name="misc_about_contribute_desc">Kontribusi melalui Issue atau Pull Request untuk menyempurnakan LeviLauncher sangat diterima.</string>
+    <string name="misc_about_github_org">Organisasi EoN Launcher V2</string>
+    <string name="misc_about_license_tip">EoN Launcher V2 untuk Android menggunakan lisensi Apache-2.0. Lihat berkas LICENSE di repositori untuk teks lengkapnya.</string>
+    <string name="misc_about_contribute_desc">Kontribusi melalui Issue atau Pull Request untuk menyempurnakan EoN Launcher V2 sangat diterima.</string>
     <string name="misc_accounts_title">Akun Microsoft</string>
     <string name="misc_accounts_subtitle">Kelola akun yang digunakan untuk masuk ke Minecraft</string>
     <string name="misc_accounts_list">Akun</string>
     <string name="misc_accounts_current">Akun saat ini</string>
     <string name="misc_accounts_disabled_title">Pengelolaan akun dinonaktifkan</string>
-    <string name="misc_accounts_disabled_desc">Aktifkan “Masuk ke Minecraft dengan LeviLauncher” di Pengaturan untuk mengelola akun Microsoft.</string>
+    <string name="misc_accounts_disabled_desc">Aktifkan “Masuk ke Minecraft dengan EoN Launcher V2” di Pengaturan untuk mengelola akun Microsoft.</string>
     <string name="misc_accounts_go_settings">Buka Pengaturan</string>
     <string name="download_ui_search_hint">Cari berdasarkan versi…</string>
     <string name="download_ui_filter_all">Semua</string>
@@ -149,7 +150,7 @@
     <string name="crumb_instance_settings">Pengaturan instans</string>
     <string name="crumb_content">Pengelolaan konten</string>
     <string name="crumb_mods">Mod</string>
-    <string name="crumb_levimc_mods">Mod LeviMC</string>
+    <string name="crumb_levimc_mods">Mod EoN Launcher V2</string>
     <string name="crumb_external_mods">Mod eksternal</string>
     <string name="crumb_settings">Pengaturan</string>
     <string name="crumb_about">Tentang</string>
@@ -232,8 +233,8 @@
     <string name="catalog_view">Lihat</string>
     <string name="catalog_order">Urutan</string>
     <string name="catalog_instance_tag">Instans: %1$s</string>
-    <string name="mods_empty_levimc">Tidak ada mod LeviMC yang terpasang</string>
-    <string name="mods_empty_levimc_help">Mod yang dipasang dari LeviMC muncul di sini. Gunakan Dapatkan mod untuk menjelajahi katalog.</string>
+    <string name="mods_empty_levimc">Tidak ada mod EoN Launcher V2 yang terpasang</string>
+    <string name="mods_empty_levimc_help">Mod yang dipasang dari EoN Launcher V2 muncul di sini. Gunakan Dapatkan mod untuk menjelajahi katalog.</string>
     <string name="mods_empty_normal">Tidak ada mod eksternal yang terpasang</string>
     <string name="mods_empty_normal_help">Mod yang ditambahkan dari berkas muncul di sini. Gunakan Tambah mod untuk mengimpornya.</string>
     <string name="content_import_here">Impor di sini</string>
@@ -275,7 +276,7 @@
     <string name="creator_notice_headline">Jangan tampilkan halaman Unduhan dalam video YouTube Anda.</string>
     <string name="creator_notice_risk">Menampilkan halaman ini atau membahas pergantian versi Minecraft Bedrock di Android dapat dianggap sebagai unduhan tidak sah, meskipun Minecraft diunduh secara legal melalui Google Play API. Hal ini dapat menyebabkan video dihapus atau terkena teguran Pedoman Komunitas, bahkan tanpa memperlihatkan proses pengunduhan.</string>
     <string name="creator_notice_ownership">Jika akun Google Anda tidak memiliki Minecraft, Anda tidak dapat mengunduh dan menginstalnya dari peluncur.</string>
-    <string name="creator_notice_source_text">LeviLauncher menggunakan akun yang memiliki Minecraft untuk mengunduh langsung dari Google Play. Kode sumber di bawah menunjukkan cara LeviLauncher mengunduh melalui Google Play API.</string>
+    <string name="creator_notice_source_text">EoN Launcher V2 menggunakan akun yang memiliki Minecraft untuk mengunduh langsung dari Google Play. Kode sumber di bawah menunjukkan cara EoN Launcher V2 mengunduh melalui Google Play API.</string>
     <string name="creator_notice_source_link">Lihat kode sumber Play API</string>
     <string name="creator_notice_remember">Jangan tampilkan lagi</string>
     <string name="creator_notice_acknowledge">Baik, saya mengerti</string>

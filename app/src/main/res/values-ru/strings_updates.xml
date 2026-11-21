@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">Хранилище</string>
     <string name="content_ui_game_version">Версия игры</string>
     <string name="content_ui_refresh">Обновить</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">Выживание</string>
     <string name="flat_game_creative">Творчество</string>
     <string name="flat_game_adventure">Приключение</string>
-    <string name="misc_about_subtitle">LeviLauncher — современный лаунчер Minecraft Bedrock</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — современный лаунчер Minecraft Bedrock</string>
     <string name="misc_about_authors">Авторы и сопровождающие</string>
-    <string name="misc_about_maintainer_role">Сопровождающий LeviLauncher</string>
+    <string name="misc_about_maintainer_role">Сопровождающий исходный проект</string>
     <string name="misc_about_thanks">Особая благодарность</string>
-    <string name="misc_about_thanks_desc">Особая благодарность людям и проектам, поддерживающим LeviLauncher.</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">Веб-сайт</string>
     <string name="misc_about_sponsors">Спонсоры и сторонники</string>
     <string name="misc_about_sponsors_desc">Спасибо всем спонсорам и сторонникам за поддержку развития проекта!</string>
-    <string name="misc_about_github_org">Организация LiteLDev</string>
-    <string name="misc_about_license_tip">LeviLauncher для Android распространяется по лицензии Apache-2.0. Полный текст находится в файле LICENSE в репозитории.</string>
-    <string name="misc_about_contribute_desc">Приветствуются сообщения об ошибках и запросы на слияние для улучшения LeviLauncher.</string>
+    <string name="misc_about_github_org">Организация EoN Launcher V2</string>
+    <string name="misc_about_license_tip">EoN Launcher V2 для Android распространяется по лицензии Apache-2.0. Полный текст находится в файле LICENSE в репозитории.</string>
+    <string name="misc_about_contribute_desc">Приветствуются сообщения об ошибках и запросы на слияние для улучшения EoN Launcher V2.</string>
     <string name="misc_accounts_title">Учётная запись Microsoft</string>
     <string name="misc_accounts_subtitle">Управляйте учётными записями для входа в Minecraft</string>
     <string name="misc_accounts_list">Учётные записи</string>
     <string name="misc_accounts_current">Текущая учётная запись</string>
     <string name="misc_accounts_disabled_title">Управление учётными записями отключено</string>
-    <string name="misc_accounts_disabled_desc">Для управления учётными записями Microsoft включите «Вход в Minecraft через LeviLauncher» в настройках.</string>
+    <string name="misc_accounts_disabled_desc">Для управления учётными записями Microsoft включите «Вход в Minecraft через EoN Launcher V2» в настройках.</string>
     <string name="misc_accounts_go_settings">Открыть настройки</string>
     <string name="download_ui_search_hint">Поиск по версии…</string>
     <string name="download_ui_filter_all">Все</string>
@@ -152,7 +153,7 @@
     <string name="crumb_instance_settings">Настройки экземпляра</string>
     <string name="crumb_content">Управление контентом</string>
     <string name="crumb_mods">Моды</string>
-    <string name="crumb_levimc_mods">Моды LeviMC</string>
+    <string name="crumb_levimc_mods">Моды EoN Launcher V2</string>
     <string name="crumb_external_mods">Внешние моды</string>
     <string name="crumb_settings">Настройки</string>
     <string name="crumb_about">О приложении</string>
@@ -235,8 +236,8 @@
     <string name="catalog_view">Открыть</string>
     <string name="catalog_order">Порядок</string>
     <string name="catalog_instance_tag">Экземпляр: %1$s</string>
-    <string name="mods_empty_levimc">Моды LeviMC не установлены</string>
-    <string name="mods_empty_levimc_help">Здесь отображаются моды, установленные из LeviMC. Откройте «Найти моды» для просмотра каталога.</string>
+    <string name="mods_empty_levimc">Моды EoN Launcher V2 не установлены</string>
+    <string name="mods_empty_levimc_help">Здесь отображаются моды, установленные из EoN Launcher V2. Откройте «Найти моды» для просмотра каталога.</string>
     <string name="mods_empty_normal">Внешние моды не установлены</string>
     <string name="mods_empty_normal_help">Здесь отображаются моды, добавленные из файлов. Нажмите «Добавить мод» для импорта.</string>
     <string name="content_import_here">Импортировать сюда</string>
@@ -281,7 +282,7 @@
     <string name="creator_notice_headline">Не показывайте раздел «Загрузки» в видео на YouTube.</string>
     <string name="creator_notice_risk">Показ этой страницы или обсуждение смены версий Minecraft Bedrock на Android могут принять за несанкционированное скачивание, даже если Minecraft скачан законно через Google Play API. Это может привести к удалению видео или предупреждению о нарушении правил сообщества, даже без демонстрации скачивания.</string>
     <string name="creator_notice_ownership">Если Minecraft не приобретён на вашем аккаунте Google, скачать и установить его через лаунчер нельзя.</string>
-    <string name="creator_notice_source_text">LeviLauncher скачивает Minecraft напрямую из Google Play с аккаунта, на котором куплена игра. В исходном коде ниже показано, как LeviLauncher использует Google Play API для скачивания.</string>
+    <string name="creator_notice_source_text">EoN Launcher V2 скачивает Minecraft напрямую из Google Play с аккаунта, на котором куплена игра. В исходном коде ниже показано, как EoN Launcher V2 использует Google Play API для скачивания.</string>
     <string name="creator_notice_source_link">Исходный код Play API</string>
     <string name="creator_notice_remember">Больше не показывать</string>
     <string name="creator_notice_acknowledge">Хорошо, понятно</string>

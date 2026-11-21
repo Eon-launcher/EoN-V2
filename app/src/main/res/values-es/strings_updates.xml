@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">Almacenamiento</string>
     <string name="content_ui_game_version">Versión del juego</string>
     <string name="content_ui_refresh">Actualizar</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">Supervivencia</string>
     <string name="flat_game_creative">Creativo</string>
     <string name="flat_game_adventure">Aventura</string>
-    <string name="misc_about_subtitle">LeviLauncher: un lanzador moderno para Minecraft Bedrock</string>
+    <string name="misc_about_subtitle">EoN Launcher V2: un lanzador moderno para Minecraft Bedrock</string>
     <string name="misc_about_authors">Autores y responsables de mantenimiento</string>
-    <string name="misc_about_maintainer_role">Responsable de LeviLauncher</string>
+    <string name="misc_about_maintainer_role">Responsable del proyecto original</string>
     <string name="misc_about_thanks">Agradecimientos especiales</string>
-    <string name="misc_about_thanks_desc">Gracias especialmente a las personas y proyectos que apoyan LeviLauncher.</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">Sitio web</string>
     <string name="misc_about_sponsors">Colaboradores (patrocinadores)</string>
     <string name="misc_about_sponsors_desc">¡Gracias a todos los patrocinadores y colaboradores por apoyar el desarrollo del proyecto!</string>
-    <string name="misc_about_github_org">Organización LiteLDev</string>
-    <string name="misc_about_license_tip">LeviLauncher para Android tiene licencia Apache-2.0. Consulta el archivo LICENSE del repositorio para leer el texto completo.</string>
-    <string name="misc_about_contribute_desc">Se agradecen las contribuciones mediante incidencias o solicitudes de cambios para mejorar LeviLauncher.</string>
+    <string name="misc_about_github_org">Organización EoN Launcher V2</string>
+    <string name="misc_about_license_tip">EoN Launcher V2 para Android tiene licencia Apache-2.0. Consulta el archivo LICENSE del repositorio para leer el texto completo.</string>
+    <string name="misc_about_contribute_desc">Se agradecen las contribuciones mediante incidencias o solicitudes de cambios para mejorar EoN Launcher V2.</string>
     <string name="misc_accounts_title">Cuenta de Microsoft</string>
     <string name="misc_accounts_subtitle">Gestiona las cuentas que usas para iniciar sesión en Minecraft</string>
     <string name="misc_accounts_list">Cuentas</string>
     <string name="misc_accounts_current">Cuenta actual</string>
     <string name="misc_accounts_disabled_title">La gestión de cuentas está desactivada</string>
-    <string name="misc_accounts_disabled_desc">Activa «Iniciar sesión en Minecraft con LeviLauncher» en Ajustes para gestionar cuentas de Microsoft.</string>
+    <string name="misc_accounts_disabled_desc">Activa «Iniciar sesión en Minecraft con EoN Launcher V2» en Ajustes para gestionar cuentas de Microsoft.</string>
     <string name="misc_accounts_go_settings">Ir a Ajustes</string>
     <string name="download_ui_search_hint">Buscar por versión…</string>
     <string name="download_ui_filter_all">Todo</string>
@@ -150,7 +151,7 @@
     <string name="crumb_instance_settings">Ajustes de la instancia</string>
     <string name="crumb_content">Gestión de contenido</string>
     <string name="crumb_mods">Mods</string>
-    <string name="crumb_levimc_mods">Mods de LeviMC</string>
+    <string name="crumb_levimc_mods">Mods de EoN Launcher V2</string>
     <string name="crumb_external_mods">Mods externos</string>
     <string name="crumb_settings">Ajustes</string>
     <string name="crumb_about">Acerca de</string>
@@ -233,8 +234,8 @@
     <string name="catalog_view">Ver</string>
     <string name="catalog_order">Orden</string>
     <string name="catalog_instance_tag">Instancia: %1$s</string>
-    <string name="mods_empty_levimc">No hay mods de LeviMC instalados</string>
-    <string name="mods_empty_levimc_help">Los mods instalados desde LeviMC aparecen aquí. Usa Obtener mods para explorar el catálogo.</string>
+    <string name="mods_empty_levimc">No hay mods de EoN Launcher V2 instalados</string>
+    <string name="mods_empty_levimc_help">Los mods instalados desde EoN Launcher V2 aparecen aquí. Usa Obtener mods para explorar el catálogo.</string>
     <string name="mods_empty_normal">No hay mods externos instalados</string>
     <string name="mods_empty_normal_help">Los mods añadidos desde archivos aparecen aquí. Usa Añadir mod para importar uno.</string>
     <string name="content_import_here">Importar aquí</string>
@@ -277,7 +278,7 @@
     <string name="creator_notice_headline">No muestres Descargas en tus vídeos de YouTube.</string>
     <string name="creator_notice_risk">Mostrar esta página o hablar sobre el cambio de versiones de Minecraft Bedrock en Android puede interpretarse como descargas no autorizadas, incluso si Minecraft se descargó legalmente mediante la API de Google Play. Esto puede provocar la retirada del vídeo o una falta por incumplimiento de las Normas de la Comunidad, incluso sin mostrar una descarga.</string>
     <string name="creator_notice_ownership">Si tu cuenta de Google no posee Minecraft, no podrás descargarlo ni instalarlo desde el lanzador.</string>
-    <string name="creator_notice_source_text">LeviLauncher usa una cuenta que posee Minecraft para descargarlo directamente de Google Play. El código fuente de abajo muestra cómo LeviLauncher descarga el juego mediante la API de Google Play.</string>
+    <string name="creator_notice_source_text">EoN Launcher V2 usa una cuenta que posee Minecraft para descargarlo directamente de Google Play. El código fuente de abajo muestra cómo EoN Launcher V2 descarga el juego mediante la API de Google Play.</string>
     <string name="creator_notice_source_link">Ver el código de Play API</string>
     <string name="creator_notice_remember">No volver a mostrar</string>
     <string name="creator_notice_acknowledge">Vale, lo entiendo</string>

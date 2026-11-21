@@ -9,6 +9,8 @@ import org.levimc.launcher.core.auth.MsftAuthManager
 import org.levimc.launcher.core.packages.InstalledPackages
 import org.levimc.launcher.core.packages.PackageService
 import org.levimc.launcher.core.mods.Mod
+import org.levimc.launcher.core.mods.EonBuiltInModInstaller
+import org.levimc.launcher.core.mods.EonNative
 import org.levimc.launcher.core.mods.ModManager
 import org.levimc.launcher.core.mods.ModNativeLoader
 import org.levimc.launcher.core.versions.GameVersion
@@ -97,6 +99,12 @@ object MinecraftRuntimePreparer {
         checkPackageWorkspace(context, version, listener, trace)
 
         listener.onProgress(34, "Checking mods")
+        try {
+            EonBuiltInModInstaller.install(context.applicationContext, version)
+        } catch (error: java.io.IOException) {
+            trace.error("Built-in EON staging failed", error.message ?: error.javaClass.simpleName)
+            throw IllegalStateException("Failed to stage built-in EON mod", error)
+        }
         val modManager = ModManager.getInstance()
         modManager.setCurrentVersion(version)
         orderPackageMods(context, version, modManager, listener, trace)
@@ -151,6 +159,10 @@ object MinecraftRuntimePreparer {
 
         //nativeSetupRuntime(modManager.currentVersion?.modsDir?.absolutePath.toString())
         val nativeModResult = loadNativeMods(context, launchIntent, modManager, listener, trace)
+        if (EonBuiltInModInstaller.MOD_ID in nativeModResult.loadedModIds) {
+            EonNative.beginSession()
+            trace.mark("Built-in EON session initialized")
+        }
 
         try {
             val profileId = MinecraftLauncher.getStorageProfileId(version)
@@ -435,6 +447,11 @@ object MinecraftRuntimePreparer {
                     val progress = 80 + ((index - 1) * 15 / total.coerceAtLeast(1))
                     val label = "$index/$total"
                     modLoadLabels[mod] = label
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "INFO", "Loading EON native library."
+                        )
+                    }
                     listener.onProgress(progress, "Loading native mods", "$label ${mod.displayName}")
                     trace.mark("Native mod load started", "$label ${mod.displayName}")
                 }
@@ -442,6 +459,11 @@ object MinecraftRuntimePreparer {
                 override fun onModLoadFinished(mod: Mod) {
                     val label = modLoadLabels.remove(mod)?.let { "$it " }.orEmpty()
                     loadedModIds.add(mod.id)
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "INFO", "EON native library loaded."
+                        )
+                    }
                     listener.onLog("Loaded mod: $label${mod.displayName}")
                     trace.mark("Native mod load finished", mod.displayName)
                 }
@@ -449,11 +471,25 @@ object MinecraftRuntimePreparer {
                 override fun onModLoadSkipped(mod: Mod, minecraftVersion: String) {
                     val label = modLoadLabels.remove(mod)?.let { "$it " }.orEmpty()
                     skippedIncompatibleMods.add(mod.displayName)
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "WARN",
+                            "EON skipped as incompatible with Minecraft "
+                                + minecraftVersion + "."
+                        )
+                    }
                     listener.onLog("Skipped incompatible mod ${label}${mod.displayName} for Minecraft $minecraftVersion")
                     trace.warning("Native mod skipped as incompatible", "${mod.displayName}: $minecraftVersion")
                 }
 
                 override fun onModLoadFailed(mod: Mod, error: Throwable) {
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "ERROR",
+                            "EON native load failed: "
+                                + (error.message ?: error.javaClass.simpleName)
+                        )
+                    }
                     trace.warning("Native mod load failed", "${mod.displayName}: ${error.message ?: error.javaClass.simpleName}")
                     listener.onLog("Failed to load mod ${mod.displayName}: ${error.message ?: error.javaClass.simpleName}")
                 }

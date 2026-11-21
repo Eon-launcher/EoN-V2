@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Shared launcher UI styles, aligned with LeviLauncher for Windows (HeroUI + launcher overrides).
+<!-- Shared launcher UI styles, aligned with EoN Launcher V2 for Windows (HeroUI + launcher overrides).
      Touch sizes: buttons at least 40dp tall, icon buttons 40dp, segmented tabs 40dp. -->
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
 
     <!-- Cards -->
     <style name="Widget.Levi.Card" parent="Widget.MaterialComponents.CardView">

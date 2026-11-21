@@ -381,6 +381,16 @@ public class ModsFullscreenActivity extends BaseActivity {
             }
 
             @Override
+            public int getSwipeDirs(@NonNull RecyclerView recycler, @NonNull RecyclerView.ViewHolder holder) {
+                int position = holder.getBindingAdapterPosition();
+                if (position < 0 || position >= modsAdapter.getItemCount()
+                        || modsAdapter.getItem(position).isBuiltIn()) {
+                    return 0;
+                }
+                return super.getSwipeDirs(recycler, holder);
+            }
+
+            @Override
             public int getDragDirs(@NonNull RecyclerView recycler, @NonNull RecyclerView.ViewHolder holder) {
                 return modsAdapter.isReorderEnabled() ? super.getDragDirs(recycler, holder) : 0;
             }
@@ -411,6 +421,10 @@ public class ModsFullscreenActivity extends BaseActivity {
                 int position = holder.getBindingAdapterPosition();
                 if (position < 0 || position >= modsAdapter.getItemCount()) return;
                 Mod mod = modsAdapter.getItem(position);
+                if (mod.isBuiltIn()) {
+                    modsAdapter.notifyItemChanged(position);
+                    return;
+                }
                 GameVersion version = currentVersion();
                 if (version == null) {
                     modsAdapter.notifyItemChanged(position);

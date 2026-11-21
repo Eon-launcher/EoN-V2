@@ -1,4 +1,5 @@
 package org.levimc.launcher.ui.activities;
+// Modified by EoN Launcher V2: check releases from this repository.
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -111,7 +112,7 @@ public class MainActivity extends BaseActivity {
         setupNavBar();
         setupManagersAndHandlers();
         if (!isInstanceShortcutIntent()) {
-            new GithubReleaseUpdater(this, "LiteLDev", "LeviLauncher-Android", permissionResultLauncher).checkUpdateOnLaunch();
+            new GithubReleaseUpdater(this, "txqeaandrei-png", "EoN-V2", permissionResultLauncher).checkUpdateOnLaunch();
         }
         showEulaIfNeeded();
         setupOnBackPressedCallback();

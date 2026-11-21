@@ -65,6 +65,10 @@ public class Mod {
         return id;
     }
 
+    public boolean isBuiltIn() {
+        return EonBuiltInModInstaller.MOD_ID.equals(id);
+    }
+
     public String getFileName() {
         return fileName;
     }

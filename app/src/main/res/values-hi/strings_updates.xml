@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">स्टोरेज</string>
     <string name="content_ui_game_version">गेम का संस्करण</string>
     <string name="content_ui_refresh">रीफ़्रेश करें</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">सर्वाइवल</string>
     <string name="flat_game_creative">क्रिएटिव</string>
     <string name="flat_game_adventure">एडवेंचर</string>
-    <string name="misc_about_subtitle">LeviLauncher — Minecraft Bedrock के लिए एक आधुनिक लॉन्चर</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — Minecraft Bedrock के लिए एक आधुनिक लॉन्चर</string>
     <string name="misc_about_authors">लेखक और रखरखावकर्ता</string>
-    <string name="misc_about_maintainer_role">LeviLauncher रखरखावकर्ता</string>
+    <string name="misc_about_maintainer_role">मूल परियोजना के अनुरक्षक</string>
     <string name="misc_about_thanks">विशेष धन्यवाद</string>
-    <string name="misc_about_thanks_desc">LeviLauncher का समर्थन करने वाले व्यक्तियों और प्रोजेक्ट को विशेष धन्यवाद।</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">वेबसाइट</string>
     <string name="misc_about_sponsors">समर्थक (प्रायोजक)</string>
     <string name="misc_about_sponsors_desc">प्रोजेक्ट के विकास में सहयोग देने वाले सभी प्रायोजकों और समर्थकों को धन्यवाद!</string>
-    <string name="misc_about_github_org">LiteLDev संगठन</string>
-    <string name="misc_about_license_tip">Android के लिए LeviLauncher का लाइसेंस Apache-2.0 है। पूरा पाठ रिपॉज़िटरी की LICENSE फ़ाइल में देखें।</string>
-    <string name="misc_about_contribute_desc">LeviLauncher को बेहतर बनाने के लिए Issues या Pull Requests के ज़रिए योगदान का स्वागत है।</string>
+    <string name="misc_about_github_org">EoN Launcher V2 संगठन</string>
+    <string name="misc_about_license_tip">Android के लिए EoN Launcher V2 का लाइसेंस Apache-2.0 है। पूरा पाठ रिपॉज़िटरी की LICENSE फ़ाइल में देखें।</string>
+    <string name="misc_about_contribute_desc">EoN Launcher V2 को बेहतर बनाने के लिए Issues या Pull Requests के ज़रिए योगदान का स्वागत है।</string>
     <string name="misc_accounts_title">Microsoft खाता</string>
     <string name="misc_accounts_subtitle">Minecraft में साइन इन करने के लिए उपयोग किए जाने वाले खाते प्रबंधित करें</string>
     <string name="misc_accounts_list">खाते</string>
     <string name="misc_accounts_current">वर्तमान खाता</string>
     <string name="misc_accounts_disabled_title">खाता प्रबंधन बंद है</string>
-    <string name="misc_accounts_disabled_desc">Microsoft खाते प्रबंधित करने के लिए सेटिंग्स में “LeviLauncher से Minecraft में साइन इन करें” चालू करें।</string>
+    <string name="misc_accounts_disabled_desc">Microsoft खाते प्रबंधित करने के लिए सेटिंग्स में “EoN Launcher V2 से Minecraft में साइन इन करें” चालू करें।</string>
     <string name="misc_accounts_go_settings">सेटिंग्स खोलें</string>
     <string name="download_ui_search_hint">संस्करण से खोजें…</string>
     <string name="download_ui_filter_all">सभी</string>
@@ -150,7 +151,7 @@
     <string name="crumb_instance_settings">इंस्टेंस की सेटिंग्स</string>
     <string name="crumb_content">कॉन्टेंट प्रबंधन</string>
     <string name="crumb_mods">मॉड्स</string>
-    <string name="crumb_levimc_mods">LeviMC मॉड्स</string>
+    <string name="crumb_levimc_mods">EoN Launcher V2 मॉड्स</string>
     <string name="crumb_external_mods">बाहरी मॉड्स</string>
     <string name="crumb_settings">सेटिंग्स</string>
     <string name="crumb_about">परिचय</string>
@@ -233,8 +234,8 @@
     <string name="catalog_view">देखें</string>
     <string name="catalog_order">क्रम</string>
     <string name="catalog_instance_tag">इंस्टेंस: %1$s</string>
-    <string name="mods_empty_levimc">कोई LeviMC मॉड इंस्टॉल नहीं है</string>
-    <string name="mods_empty_levimc_help">LeviMC से इंस्टॉल किए गए मॉड यहाँ दिखाई देते हैं। कैटलॉग देखने के लिए मॉड पाएँ का उपयोग करें।</string>
+    <string name="mods_empty_levimc">कोई EoN Launcher V2 मॉड इंस्टॉल नहीं है</string>
+    <string name="mods_empty_levimc_help">EoN Launcher V2 से इंस्टॉल किए गए मॉड यहाँ दिखाई देते हैं। कैटलॉग देखने के लिए मॉड पाएँ का उपयोग करें।</string>
     <string name="mods_empty_normal">कोई बाहरी मॉड इंस्टॉल नहीं है</string>
     <string name="mods_empty_normal_help">फ़ाइलों से जोड़े गए मॉड यहाँ दिखाई देते हैं। इंपोर्ट करने के लिए मॉड जोड़ें का उपयोग करें।</string>
     <string name="content_import_here">यहाँ इंपोर्ट करें</string>
@@ -277,7 +278,7 @@
     <string name="creator_notice_headline">अपने YouTube वीडियो में डाउनलोड पेज न दिखाएँ।</string>
     <string name="creator_notice_risk">यह पेज दिखाने या Android पर Minecraft Bedrock के संस्करण बदलने के बारे में बात करने को अनधिकृत डाउनलोड समझा जा सकता है, भले ही Minecraft को Google Play API से कानूनी रूप से डाउनलोड किया गया हो। इससे वीडियो हट सकता है या सामुदायिक दिशा-निर्देशों की स्ट्राइक मिल सकती है, भले ही आपने डाउनलोड करके न दिखाया हो।</string>
     <string name="creator_notice_ownership">अगर आपके Google खाते पर Minecraft खरीदा नहीं गया है, तो आप लॉन्चर से उसे डाउनलोड और इंस्टॉल नहीं कर सकते।</string>
-    <string name="creator_notice_source_text">LeviLauncher, Minecraft खरीद चुके खाते का उपयोग करके सीधे Google Play से डाउनलोड करता है। नीचे दिया गया सोर्स कोड दिखाता है कि LeviLauncher Google Play API से कैसे डाउनलोड करता है।</string>
+    <string name="creator_notice_source_text">EoN Launcher V2, Minecraft खरीद चुके खाते का उपयोग करके सीधे Google Play से डाउनलोड करता है। नीचे दिया गया सोर्स कोड दिखाता है कि EoN Launcher V2 Google Play API से कैसे डाउनलोड करता है।</string>
     <string name="creator_notice_source_link">Play API का सोर्स कोड देखें</string>
     <string name="creator_notice_remember">दोबारा न दिखाएँ</string>
     <string name="creator_notice_acknowledge">ठीक है, मैं समझ गया</string>

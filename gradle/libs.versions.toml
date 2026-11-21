@@ -1,4 +1,5 @@
 [versions]
+# Modified by EON Launcher V2: remove Firebase and Google Services plugin versions.
 agp = "8.13.2"
 bcprovJdk15on = "1.70"
 bedrockConnection = "3.0.0.Beta10-SNAPSHOT"
@@ -11,11 +12,6 @@ conscryptAndroid = "2.5.3"
 constraintlayout = "2.2.1"
 core = "1.58.0.0"
 coreSplashscreen = "1.2.0"
-firebase-bom = "34.14.0"
-firebase-crashlytics-gradle = "3.0.7"
-firebase-iid = "21.1.0"
-firebase-messaging = "25.0.1"
-google-services = "4.4.4"
 fragmentKtx = "1.8.9"
 gamesActivity = "4.4.2"
 glide = "5.0.5"
@@ -40,12 +36,17 @@ commonmark = "0.24.0"
 sqliteFramework = "2.6.2"
 dynamicanimation = "1.1.0"
 xcrash = "3.1.2"
+# Modified by EON Launcher V2: declare AndroidX libraries used by Minecraft sources.
+documentFile = "1.1.0"
+loader = "1.1.0"
 
 [libraries]
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-sqlite-framework = { module = "androidx.sqlite:sqlite-framework", version.ref = "sqliteFramework" }
+androidx-documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentFile" }
+androidx-loader = { module = "androidx.loader:loader", version.ref = "loader" }
 annotations = { module = "org.jetbrains:annotations", version = "26.0.2-1" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
@@ -68,12 +69,6 @@ core = { module = "com.madgag.spongycastle:core", version.ref = "core" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
-firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
-firebase-iid = { module = "com.google.firebase:firebase-iid", version.ref = "firebase-iid" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase-messaging" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -98,5 +93,3 @@ commonmark-ext-autolink = { module = "org.commonmark:commonmark-ext-autolink", v
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }

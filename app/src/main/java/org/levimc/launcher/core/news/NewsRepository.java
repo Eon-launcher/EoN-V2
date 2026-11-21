@@ -1,4 +1,5 @@
 package org.levimc.launcher.core.news;
+// Modified by EoN Launcher V2: load launcher news from this repository.
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -30,7 +31,7 @@ public final class NewsRepository {
         void onResult(NewsFeed feed, Throwable error);
     }
 
-    public static final String REMOTE_URL = "https://raw.githubusercontent.com/LiteLDev/LeviLauncher-Android/main/resources/launcher/news.json";
+    public static final String REMOTE_URL = "https://raw.githubusercontent.com/txqeaandrei-png/EoN-V2/main/resources/launcher/news.json";
     private static final String ASSET_PATH = "launcher/news.json";
     private static final String CACHE_FILE = "launcher_news.json";
     private static final String PREFS = "launcher_news_repository";

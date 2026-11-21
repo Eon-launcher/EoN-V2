@@ -1,0 +1,32 @@
+{
+  "modified_by": "EoN Launcher V2",
+  "game_version": "1.26.60.4",
+  "architecture": "arm64-v8a",
+  "running_game_version": null,
+  "functions": {
+    "LocalPlayer_normalTick": null,
+    "ClientInstance_onTick": null,
+    "Player_getAbilities": null,
+    "LayeredAbilities_getLayer": null,
+    "Abilities_setAbility": null,
+    "SpeedMoveSystem": null,
+    "JumpHeight": null,
+    "Gravity": null,
+    "Actor_setClimbing": null,
+    "MobJump_setNoJumpDelay": null
+  },
+  "fields": {},
+  "slot_descriptions": {
+    "LocalPlayer_normalTick": "Local player tick entry point; required by Fly.",
+    "ClientInstance_onTick": "Client tick entry point; reserved for verified player acquisition.",
+    "Player_getAbilities": "Player ability accessor; required by Fly.",
+    "LayeredAbilities_getLayer": "Ability layer accessor; required by Fly.",
+    "Abilities_setAbility": "Ability setter; required by Fly.",
+    "SpeedMoveSystem": "Default movement system; required by Speed.",
+    "JumpHeight": "Jump height function; required by HighJump.",
+    "Gravity": "Gravity function; not required by the abilities-based Fly module.",
+    "Actor_setClimbing": "Climbing state setter; not required by the abilities-based Fly module.",
+    "MobJump_setNoJumpDelay": "Jump delay setter; not required by the current HighJump behavior."
+  },
+  "field_slot_descriptions": {}
+}

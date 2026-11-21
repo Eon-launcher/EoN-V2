@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 package org.levimc.launcher.core.mods.inbuilt;
 
 import android.app.Activity;
@@ -61,10 +62,18 @@ public final class ExternalModuleProvider {
             String modId = obj.optString("mod_id", "").trim();
             boolean nativeEnabled = obj.optBoolean("enabled", false);
             boolean enabled = resolveEnabled(activity, moduleId, nativeEnabled);
-            String groupId = modId.isEmpty() ? UNGROUPED_GROUP_ID : GROUP_PREFIX + modId;
-            String groupName = modId.isEmpty()
-                    ? activity.getString(R.string.mod_menu_group_external_ungrouped)
-                    : externalGroupNames.getOrDefault(modId, modId);
+            String eonCategory = eonCategory(moduleId, modId);
+            String groupId = eonCategory != null
+                    ? GROUP_PREFIX + modId + ":" + eonCategory.toLowerCase(java.util.Locale.ROOT)
+                    : modId.isEmpty() ? UNGROUPED_GROUP_ID : GROUP_PREFIX + modId;
+            String groupName;
+            if (eonCategory != null) {
+                groupName = eonCategory;
+            } else if (modId.isEmpty()) {
+                groupName = activity.getString(R.string.mod_menu_group_external_ungrouped);
+            } else {
+                groupName = externalGroupNames.getOrDefault(modId, modId);
+            }
 
             UnifiedMod result = new UnifiedMod(
                     moduleId,
@@ -130,6 +139,7 @@ public final class ExternalModuleProvider {
     }
 
     private static boolean resolveEnabled(Activity activity, String moduleId, boolean nativeEnabled) {
+        if (isEonModule(moduleId)) return nativeEnabled;
         InbuiltModManager manager = InbuiltModManager.getInstance(activity);
         boolean enabled = manager.resolveExternalModuleEnabled(moduleId, nativeEnabled);
         if (enabled != nativeEnabled) {
@@ -139,8 +149,39 @@ public final class ExternalModuleProvider {
     }
 
     private static void setEnabled(Activity activity, UnifiedMod mod, boolean enabled) {
-        InbuiltModManager.getInstance(activity).setExternalModuleEnabled(mod.getId(), enabled);
+        if (!isEonModule(mod.getId())) {
+            InbuiltModManager.getInstance(activity).setExternalModuleEnabled(mod.getId(), enabled);
+        }
         applyNativeEnabled(mod.getId(), enabled);
+        if (isEonModule(mod.getId())) {
+            mod.setEnabledState(readNativeEnabled(mod.getId(), false));
+        }
+    }
+
+    private static boolean isEonModule(String moduleId) {
+        return moduleId != null && moduleId.startsWith("eon.");
+    }
+
+    private static String eonCategory(String moduleId, String modId) {
+        if (!"eon".equals(modId)) return null;
+        if (moduleId.startsWith("eon.combat.")) return "Combat";
+        if (moduleId.startsWith("eon.movement.")) return "Movement";
+        if (moduleId.startsWith("eon.render.")) return "Render";
+        return null;
+    }
+
+    private static boolean readNativeEnabled(String moduleId, boolean fallback) {
+        int count = ExternalModBridge.getExternalModCount();
+        for (int index = 0; index < count; index++) {
+            try {
+                JSONObject obj = new JSONObject(ExternalModBridge.getExternalModInfo(index));
+                if (moduleId.equals(obj.optString("module_id", ""))) {
+                    return obj.optBoolean("enabled", fallback);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return fallback;
     }
 
     private static void applyNativeEnabled(String moduleId, boolean enabled) {

@@ -22,7 +22,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "levilauncher"
+// Modified by EoN Launcher V2: rename the IDE/root project label.
+rootProject.name = "EoN Launcher V2"
 include ':app'
 include ':minecraft'
 include ':pojav_controls'

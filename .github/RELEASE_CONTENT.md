@@ -1,6 +1,8 @@
-# Changelogs and launcher news
+<!-- Modified by EoN Launcher V2: rebrand release-content documentation. -->
 
-LeviLauncher for Android uses two small JSON files as the source of truth. Both files are bundled into the APK, validated in CI, and intentionally stay in English.
+# EoN Launcher V2 changelogs and news
+
+EoN Launcher V2 uses two small JSON files as the source of truth. Both files are bundled into the APK, validated in CI, and intentionally stay in English.
 
 ## Prepare a launcher release
 
@@ -33,7 +35,7 @@ Add one new object to the beginning of `resources/launcher/news.json`. Use a per
   "summary": "The short text users will see in the inbox and notification.",
   "publishedAt": "2026-08-27T12:00:00Z",
   "category": "Announcement",
-  "url": "https://github.com/LiteLDev/LeviLauncher-Android/releases",
+  "url": "https://github.com/txqeaandrei-png/EoN-V2/releases",
   "important": false,
   "notify": true
 }
@@ -50,7 +52,7 @@ git push origin main
 
 Confirm that the public feed opens before testing refresh in the app:
 
-`https://raw.githubusercontent.com/LiteLDev/LeviLauncher-Android/main/resources/launcher/news.json`
+`https://raw.githubusercontent.com/txqeaandrei-png/EoN-V2/main/resources/launcher/news.json`
 
 If that URL returns `404: Not Found`, the `resources/launcher` files were not committed to `main`. Add and push them:
 

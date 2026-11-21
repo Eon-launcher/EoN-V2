@@ -1,3 +1,4 @@
+// Modified by EoN Launcher V2.
 package org.levimc.launcher.core.mods.inbuilt;
 
 import java.util.Collections;
@@ -134,6 +135,10 @@ public class UnifiedMod {
         if (enabledHandler != null) {
             enabledHandler.onEnabledChanged(this, enabled);
         }
+    }
+
+    public void setEnabledState(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void updateConfig(ConfigEntry config, String value) {

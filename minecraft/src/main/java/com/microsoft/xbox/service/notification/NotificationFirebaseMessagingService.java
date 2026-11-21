@@ -1,11 +1,22 @@
 package com.microsoft.xbox.service.notification;
 
-import com.google.firebase.messaging.FirebaseMessagingService;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
 import com.mojang.minecraftpe.NotificationListenerService;
 
-public class NotificationFirebaseMessagingService extends FirebaseMessagingService {
-    @Override
-    public void onNewToken(String str) {
+/* Modified by EoN Launcher V2: retain the legacy service class without Firebase. */
+public class NotificationFirebaseMessagingService extends Service {
+    public void onNewToken(String token) {
         NotificationListenerService.refreshDeviceRegistrationToken(this);
+    }
+
+    public void onMessageReceived(Object message) {
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

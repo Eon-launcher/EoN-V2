@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <string name="content_ui_storage_location">Depolama</string>
     <string name="content_ui_game_version">Oyun sürümü</string>
     <string name="content_ui_refresh">Yenile</string>
@@ -30,23 +31,23 @@
     <string name="flat_game_survival">Hayatta Kalma</string>
     <string name="flat_game_creative">Yaratıcı</string>
     <string name="flat_game_adventure">Macera</string>
-    <string name="misc_about_subtitle">LeviLauncher — Minecraft Bedrock için modern bir başlatıcı</string>
+    <string name="misc_about_subtitle">EoN Launcher V2 — Minecraft Bedrock için modern bir başlatıcı</string>
     <string name="misc_about_authors">Yazarlar ve bakım sorumluları</string>
-    <string name="misc_about_maintainer_role">LeviLauncher bakım sorumlusu</string>
+    <string name="misc_about_maintainer_role">Özgün proje sorumlusu</string>
     <string name="misc_about_thanks">Özel teşekkürler</string>
-    <string name="misc_about_thanks_desc">LeviLauncher’ı destekleyen kişilere ve projelere özel teşekkürler.</string>
+    <string name="misc_about_thanks_desc">Based on LeviLauncher-Android by LiteLDev (Apache 2.0)</string>
     <string name="misc_about_website">Web sitesi</string>
     <string name="misc_about_sponsors">Destekçiler (sponsorlar)</string>
     <string name="misc_about_sponsors_desc">Projenin geliştirilmesine destek olan tüm sponsorlara ve destekçilere teşekkürler!</string>
-    <string name="misc_about_github_org">LiteLDev kuruluşu</string>
-    <string name="misc_about_license_tip">Android için LeviLauncher, Apache-2.0 lisansıyla sunulur. Tam metin için depodaki LICENSE dosyasına bakın.</string>
-    <string name="misc_about_contribute_desc">LeviLauncher’ı geliştirmek için Issue veya Pull Request yoluyla katkıda bulunabilirsiniz.</string>
+    <string name="misc_about_github_org">EoN Launcher V2 kuruluşu</string>
+    <string name="misc_about_license_tip">Android için EoN Launcher V2, Apache-2.0 lisansıyla sunulur. Tam metin için depodaki LICENSE dosyasına bakın.</string>
+    <string name="misc_about_contribute_desc">EoN Launcher V2’ı geliştirmek için Issue veya Pull Request yoluyla katkıda bulunabilirsiniz.</string>
     <string name="misc_accounts_title">Microsoft hesabı</string>
     <string name="misc_accounts_subtitle">Minecraft’a giriş yapmak için kullanılan hesapları yönetin</string>
     <string name="misc_accounts_list">Hesaplar</string>
     <string name="misc_accounts_current">Geçerli hesap</string>
     <string name="misc_accounts_disabled_title">Hesap yönetimi kapalı</string>
-    <string name="misc_accounts_disabled_desc">Microsoft hesaplarını yönetmek için Ayarlar’da “Minecraft’a LeviLauncher ile giriş yap” seçeneğini açın.</string>
+    <string name="misc_accounts_disabled_desc">Microsoft hesaplarını yönetmek için Ayarlar’da “Minecraft’a EoN Launcher V2 ile giriş yap” seçeneğini açın.</string>
     <string name="misc_accounts_go_settings">Ayarlara git</string>
     <string name="download_ui_search_hint">Sürüme göre ara…</string>
     <string name="download_ui_filter_all">Tümü</string>
@@ -150,7 +151,7 @@
     <string name="crumb_instance_settings">Örnek ayarları</string>
     <string name="crumb_content">İçerik yönetimi</string>
     <string name="crumb_mods">Modlar</string>
-    <string name="crumb_levimc_mods">LeviMC modları</string>
+    <string name="crumb_levimc_mods">EoN Launcher V2 modları</string>
     <string name="crumb_external_mods">Harici modlar</string>
     <string name="crumb_settings">Ayarlar</string>
     <string name="crumb_about">Hakkında</string>
@@ -233,8 +234,8 @@
     <string name="catalog_view">Görüntüle</string>
     <string name="catalog_order">Sıra</string>
     <string name="catalog_instance_tag">Örnek: %1$s</string>
-    <string name="mods_empty_levimc">Yüklü LeviMC modu yok</string>
-    <string name="mods_empty_levimc_help">LeviMC’den yüklenen modlar burada görünür. Kataloğa göz atmak için Mod edin’i kullanın.</string>
+    <string name="mods_empty_levimc">Yüklü EoN Launcher V2 modu yok</string>
+    <string name="mods_empty_levimc_help">EoN Launcher V2’den yüklenen modlar burada görünür. Kataloğa göz atmak için Mod edin’i kullanın.</string>
     <string name="mods_empty_normal">Yüklü harici mod yok</string>
     <string name="mods_empty_normal_help">Dosyalardan eklenen modlar burada görünür. İçe aktarmak için Mod ekle’yi kullanın.</string>
     <string name="content_import_here">Buraya içe aktar</string>
@@ -277,7 +278,7 @@
     <string name="creator_notice_headline">YouTube videolarınızda İndirilenler sayfasını göstermeyin.</string>
     <string name="creator_notice_risk">Bu sayfayı göstermek veya Android’de Minecraft Bedrock sürümleri arasında geçiş yapmaktan bahsetmek, Minecraft Google Play API üzerinden yasal olarak indirilmiş olsa bile yetkisiz indirme olarak algılanabilir. İndirme işlemi gösterilmese dahi video kaldırılabilir veya Topluluk Kuralları ihtarı verilebilir.</string>
     <string name="creator_notice_ownership">Google hesabınız Minecraft’a sahip değilse oyunu başlatıcıdan indirip yükleyemezsiniz.</string>
-    <string name="creator_notice_source_text">LeviLauncher, doğrudan Google Play’den indirmek için Minecraft’a sahip bir hesap kullanır. Aşağıdaki kaynak kod, LeviLauncher’ın Google Play API üzerinden nasıl indirme yaptığını gösterir.</string>
+    <string name="creator_notice_source_text">EoN Launcher V2, doğrudan Google Play’den indirmek için Minecraft’a sahip bir hesap kullanır. Aşağıdaki kaynak kod, EoN Launcher V2’ın Google Play API üzerinden nasıl indirme yaptığını gösterir.</string>
     <string name="creator_notice_source_link">Play API kaynak kodunu görüntüle</string>
     <string name="creator_notice_remember">Bir daha gösterme</string>
     <string name="creator_notice_acknowledge">Tamam, anladım</string>

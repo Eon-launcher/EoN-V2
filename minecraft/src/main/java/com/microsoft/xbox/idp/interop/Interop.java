@@ -89,7 +89,7 @@ public class Interop {
     }
 
     public static void RegisterWithGNS(Context context) {
-        Log.i("XSAPI.Android", "trying to register..");
+        // Modified by EoN Launcher V2: an empty token safely disables Firebase-backed registration.
         NotificationListenerService.initialize(context);
         NotificationListenerService.requestDeviceRegistrationToken(token -> {
             if (token == null || token.isEmpty()) {

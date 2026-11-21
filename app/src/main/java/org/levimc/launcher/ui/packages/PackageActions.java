@@ -374,6 +374,11 @@ public final class PackageActions {
 
     public static void deleteModFolder(Activity a, GameVersion v, Mod mod, @Nullable Done done) {
         Done once = once(done);
+        if (mod.isBuiltIn()) {
+            Toast.makeText(a, R.string.mod_builtin_locked, Toast.LENGTH_SHORT).show();
+            once.onDone(false);
+            return;
+        }
         String folder = mod.getId();
         WeakReference<Activity> ref = new WeakReference<>(a);
         PackageService.EXECUTOR.execute(() -> {

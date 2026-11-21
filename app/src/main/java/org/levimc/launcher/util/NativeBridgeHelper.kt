@@ -2,8 +2,11 @@ package org.levimc.launcher.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.Process
+import android.util.Log
 import org.json.JSONObject
 import org.levimc.launcher.core.minecraft.LauncherApplication
 import androidx.core.content.edit
@@ -16,6 +19,11 @@ import androidx.annotation.Keep
 object NativeBridgeHelper {
     @Volatile
     private var gxcoreLoaded = false
+
+    @Volatile
+    @JvmStatic
+    var lastGxCoreError: Throwable? = null
+        private set
 
     @JvmStatic
     fun getAppContext(): Context {
@@ -34,12 +42,37 @@ object NativeBridgeHelper {
                 try {
                     System.loadLibrary("gxcore")
                     gxcoreLoaded = true
+                    lastGxCoreError = null
                     true
-                } catch (_: Throwable) {
+                } catch (error: Throwable) {
+                    lastGxCoreError = error
+                    Log.e("EON", "Failed to load gxcore", error)
+                    logNativeLibraryDiagnostics()
                     false
                 }
             }
         }
+    }
+
+    private fun logNativeLibraryDiagnostics() {
+        val context = getAppContext()
+        val nativeLibraryDir = context.applicationInfo.nativeLibraryDir
+        val libraries = java.io.File(nativeLibraryDir)
+            .listFiles()
+            ?.filter { it.isFile && it.name.endsWith(".so") }
+            ?.map { it.name }
+            ?.sorted()
+            ?: emptyList()
+        val primaryAbi = if (Process.is64Bit()) {
+            Build.SUPPORTED_64_BIT_ABIS.firstOrNull()
+        } else {
+            Build.SUPPORTED_32_BIT_ABIS.firstOrNull()
+        }
+        Log.e(
+            "EON",
+            "gxcore load diagnostics: nativeLibraryDir=$nativeLibraryDir, " +
+                "libraries=$libraries, primaryAbi=$primaryAbi"
+        )
     }
 
     @JvmStatic

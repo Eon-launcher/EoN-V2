@@ -2,6 +2,7 @@
 <!-- Strings of the package manager integration. Keep aligned with
      values/strings_pkg.xml: same keys, order and comments. -->
 <resources>
+    <!-- Modified by EoN Launcher V2: rebrand user-facing app copy. -->
     <!-- Workspace guards (launch, backup, restore, instance deletion) -->
     <string name="pkg_err_workspace_busy">Bu örnekte bir paket işlemi yürütülüyor. Bitmesini bekleyin ve tekrar deneyin.</string>
     <string name="pkg_err_recover_failed">Yarıda kalan bir paket işlemi kurtarılamadı: %1$s</string>
@@ -75,7 +76,7 @@
     <string name="pkg_err_invalid_github_proxy">Geçerli bir HTTP(S) URL\'si girin</string>
     <string name="pkg_err_write_file">Dosya yazılamadı</string>
     <string name="pkg_err_index_timeout">Mod kataloğu zamanında yanıt vermedi</string>
-    <string name="pkg_err_index_unavailable">Mod kataloğuna (levimc.org) ulaşılamıyor</string>
+    <string name="pkg_err_index_unavailable">Mod kataloğuna  ulaşılamıyor</string>
     <string name="pkg_err_package_not_found">Paket mod kataloğunda bulunamadı</string>
     <string name="pkg_err_fetch_ll_db">LeviLamina sürüm veritabanı alınamadı</string>
     <string name="pkg_err_invalid_version_format">Geçersiz oyun sürümü biçimi</string>
@@ -104,7 +105,7 @@
     <string name="pkg_err_cause_corrupt">İndirilen dosya hasarlı veya eksik. Paket yöneticisi ayarlarında paket önbelleğini temizleyin ve tekrar deneyin.</string>
 
     <!-- Browse and package screens (PackagesActivity, BrowseFragment, PackageActivity, InstallDialog) -->
-    <string name="pkg_title_mods">LeviMC Modları</string>
+    <string name="pkg_title_mods">EoN Launcher V2 Modları</string>
     <string name="pkg_tab_browse">Göz At</string>
     <string name="pkg_tab_installed">Yüklü</string>
     <string name="pkg_tab_details">Ayrıntılar</string>
@@ -181,8 +182,8 @@
 
     <!-- Developer guide -->
     <string name="pkg_guide_open">Geliştirici Kılavuzu</string>
-    <string name="pkg_guide_title">LeviMC Modları Geliştirici Kılavuzu</string>
-    <string name="pkg_guide_description">Modunuzun LeviMC Mods sayfasında görünmesini istiyorsanız, belgelerde açıklandığı gibi bir lip.toml ile yayınlayın.</string>
+    <string name="pkg_guide_title">EoN Launcher V2 Modları Geliştirici Kılavuzu</string>
+    <string name="pkg_guide_description">Modunuzun EoN Launcher V2 Mods sayfasında görünmesini istiyorsanız, belgelerde açıklandığı gibi bir lip.toml ile yayınlayın.</string>
     <string name="pkg_guide_manifest_hint">Bu pencere yalnızca geliştiriciler için kısa bir özettir. Alan adları, zorunlu girdiler, örnekler ve doğrulama kuralları resmi belgelerde tanımlanmıştır.</string>
     <string name="pkg_guide_variant_hint">Başlatıcı bir paketi yalnızca lip.toml dosyasındaki en son sürümde bu cihazın platformunda istemci tarafında çalışan bir girdi varsa listeler: side = \"client\" ve platform = \"android-arm64\". İstemci girdilerinin tamamı başka platformlar (örneğin \"win-x64\") için olan paketler listelenmez. Başlatıcı önce \"client\" adlı varyantı, ardından varsayılan \"\" varyantını, sonra diğerlerini alfabetik sırayla yükler.</string>
     <string name="pkg_guide_android_hint">Eski sürümler de aynı kurala uyar: bir sürüm yalnızca lip.toml dosyasında bu cihazın platformu için bir istemci girdisi varsa yüklenebilir. Başka platformlara yönelik girdiler burada yüklenemez.</string>

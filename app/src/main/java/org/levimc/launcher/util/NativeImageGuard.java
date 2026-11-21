@@ -51,7 +51,7 @@ public final class NativeImageGuard {
             throw new IOException("Native library is empty: " + output.getName());
         }
         if (!NativeBridgeHelper.ensureGxCoreLoaded()) {
-            throw new IOException("Failed to load native image preparation");
+            throw new IOException(nativeImagePreparationLoadError());
         }
         if (!NativeBridgeHelper.rewriteImage(stagedFile.getAbsolutePath(), stagedFile.getAbsolutePath())) {
             throw new IOException("Failed to prepare native library: " + output.getName());
@@ -193,6 +193,15 @@ public final class NativeImageGuard {
 
     private static String inputPath(String path) {
         return path;
+    }
+
+    private static String nativeImagePreparationLoadError() {
+        Throwable error = NativeBridgeHelper.getLastGxCoreError();
+        if (error == null) {
+            return "Failed to load native image preparation";
+        }
+        String detail = error.getClass().getSimpleName() + ": " + error.getMessage();
+        return "Failed to load native image preparation: " + detail;
     }
 
     private static final class FileState {
