@@ -34,6 +34,9 @@ Evidence labels:
    `ActorManagerList`, and `RenderLevel` signatures are absent from this
    checkout. Therefore the requested player argument, field offsets, and
    signature bytes cannot be verified from those references.
+6. **GUESS / UNVERIFIED:** All seven user-supplied player field offsets remain
+   unverified; no pointer-chain edge or semantic field label beyond the
+   supplied `player->level` claim is asserted.
 
 ## Open questions and next steps
 
