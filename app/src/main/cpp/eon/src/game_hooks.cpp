@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <array>
 #include <atomic>
+#include <chrono>
 #include <cinttypes>
 #include <cmath>
 #include <cstdio>
@@ -84,12 +85,12 @@ struct ReadableRange {
 class ReadableMemory {
 public:
     bool load() {
-        ranges_.clear();
         std::ifstream maps("/proc/self/maps");
         if (!maps) {
             return false;
         }
 
+        std::vector<ReadableRange> ranges;
         std::string line;
         while (std::getline(maps, line)) {
             std::uintptr_t begin = 0;
@@ -98,15 +99,35 @@ public:
             if (std::sscanf(line.c_str(), "%" SCNxPTR "-%" SCNxPTR " %4s",
                             &begin, &end, permissions) == 3 &&
                 permissions[0] == 'r' && end > begin) {
-                ranges_.push_back({begin, end});
+                ranges.push_back({begin, end});
             }
         }
-        return !ranges_.empty();
+        if (ranges.empty()) {
+            return false;
+        }
+
+        std::lock_guard lock(mutex_);
+        ranges_ = std::move(ranges);
+        lastRefresh_ = std::chrono::steady_clock::now();
+        return true;
+    }
+
+    bool refreshIfNeeded() {
+        {
+            std::lock_guard lock(mutex_);
+            if (!ranges_.empty() &&
+                std::chrono::steady_clock::now() - lastRefresh_ <
+                        std::chrono::milliseconds(500)) {
+                return true;
+            }
+        }
+        return load();
     }
 
     template <typename T>
     std::optional<T> read(std::uintptr_t address) const {
-        if (!contains(address, sizeof(T))) {
+        std::lock_guard lock(mutex_);
+        if (!containsLocked(address, sizeof(T))) {
             return std::nullopt;
         }
         T value{};
@@ -116,6 +137,12 @@ public:
     }
 
     bool contains(std::uintptr_t address, std::size_t size) const {
+        std::lock_guard lock(mutex_);
+        return containsLocked(address, size);
+    }
+
+private:
+    bool containsLocked(std::uintptr_t address, std::size_t size) const {
         if (address < 4096 || size == 0 ||
             address > UINTPTR_MAX - size) {
             return false;
@@ -132,8 +159,9 @@ public:
         return address >= range.begin && address + size <= range.end;
     }
 
-private:
+    mutable std::mutex mutex_;
     std::vector<ReadableRange> ranges_;
+    std::chrono::steady_clock::time_point lastRefresh_{};
 };
 
 ReadableMemory gReadableMemory;
@@ -353,6 +381,10 @@ bool readEspWorldFrame(EspWorldFrame& frame,
         return frameUnavailable(unavailableReason,
                                 "verified game hooks are not installed");
     }
+    if (!gReadableMemory.refreshIfNeeded()) {
+        return frameUnavailable(unavailableReason,
+                                "could not refresh the process memory map");
+    }
 
     const auto localPlayer =
             reinterpret_cast<std::uintptr_t>(
@@ -365,9 +397,13 @@ bool readEspWorldFrame(EspWorldFrame& frame,
     const auto& memory = gReadableMemory;
     const auto localLevel =
             memory.read<std::uintptr_t>(localPlayer + kActorLevelOffset);
-    if (!localLevel || !*localLevel) {
+    if (!localLevel) {
         return frameUnavailable(unavailableReason,
-                                "local player level is unavailable");
+                                "local player level field at +0x1F0 is not readable");
+    }
+    if (!*localLevel) {
+        return frameUnavailable(unavailableReason,
+                                "local player level pointer at +0x1F0 is null");
     }
     const auto actorManager =
             memory.read<std::uintptr_t>(*localLevel + kLevelActorManagerOffset);
