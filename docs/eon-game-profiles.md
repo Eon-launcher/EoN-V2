@@ -58,10 +58,10 @@ verified. No raw fields or ABI assumptions were copied from the reference.
 ESP has a separate Android ARM64 path. It installs NormalTick and RenderLevel
 hooks only when the loaded `libminecraftpe.so` GNU Build ID is
 `eb291b883dfdfaff70c4999c2eabd61885ae3e15`, then resolves the three expected
-functions by signature. It reads actor bounds and camera state, projects
-visible bounds onto the preloader HUD surface, and submits boxes and distances
-as HUD draw commands. If the build ID, signatures, or hooks are unavailable,
-ESP cannot be enabled.
+functions by signature. It reads actor bounds and camera state, projects the
+eight corners of each visible bound onto the preloader HUD surface, and submits
+white wireframe boxes as HUD draw commands. If the build ID, signatures, or
+hooks are unavailable, ESP cannot be enabled.
 
 This gate identifies the exact library image, not the game account, server, or
 world. The actor/renderer field offsets and function ABIs are specific to that

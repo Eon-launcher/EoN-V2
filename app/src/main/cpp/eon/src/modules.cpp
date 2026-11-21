@@ -5,6 +5,8 @@
 
 #include <pl/ModMenu.hpp>
 
+#include <algorithm>
+#include <array>
 #include <cstddef>
 #include <string>
 #include <string_view>
@@ -72,7 +74,15 @@ void EspModule::onTick() {
                                             " actor bounds acquired.");
                 lastFrameStatus = "ready";
             }
-            commands.reserve(frame.entities.size() * 2);
+            constexpr std::array<std::array<std::size_t, 2>, 12> edges{{
+                    {{0, 1}}, {{1, 3}}, {{3, 2}}, {{2, 0}},
+                    {{4, 5}}, {{5, 7}}, {{7, 6}}, {{6, 4}},
+                    {{0, 4}}, {{1, 5}}, {{2, 6}}, {{3, 7}},
+            }};
+            constexpr std::size_t maxHudDrawCommands = 4096;
+            commands.reserve(std::min(
+                    frame.entities.size(),
+                    maxHudDrawCommands / edges.size()) * edges.size());
             std::size_t projectedBoxes = 0;
             for (const auto& bounds : frame.entities) {
                 const auto projected = esp::projectBounds(
@@ -81,29 +91,24 @@ void EspModule::onTick() {
                 if (!projected) {
                     continue;
                 }
+                if (commands.size() + edges.size() > maxHudDrawCommands) {
+                    break;
+                }
                 ++projectedBoxes;
 
-                pl::modmenu::DrawCommand box;
-                box.type = pl::modmenu::DrawCommandType::Rect;
-                box.x = projected->left;
-                box.y = projected->top;
-                box.w = projected->right - projected->left;
-                box.h = projected->bottom - projected->top;
-                box.color = 0xFF40FF80;
-                box.size = 2.0f;
-                commands.push_back(std::move(box));
-
-                pl::modmenu::DrawCommand distance;
-                distance.type = pl::modmenu::DrawCommandType::Text;
-                distance.x = projected->left;
-                distance.y = projected->top - 16.0f;
-                distance.h = 14.0f;
-                distance.size = 14.0f;
-                distance.color = 0xFFFFFFFF;
-                distance.text =
-                        std::to_string(static_cast<int>(projected->distance)) +
-                        "m";
-                commands.push_back(std::move(distance));
+                for (const auto& edge : edges) {
+                    const auto& start = projected->corners[edge[0]];
+                    const auto& end = projected->corners[edge[1]];
+                    pl::modmenu::DrawCommand line;
+                    line.type = pl::modmenu::DrawCommandType::Line;
+                    line.x = start.x;
+                    line.y = start.y;
+                    line.w = end.x - start.x;
+                    line.h = end.y - start.y;
+                    line.color = 0xFFFFFFFF;
+                    line.size = 2.0f;
+                    commands.push_back(std::move(line));
+                }
             }
             static int lastDrawState = -1;
             const int drawState = projectedBoxes == 0 ? 0 : 1;

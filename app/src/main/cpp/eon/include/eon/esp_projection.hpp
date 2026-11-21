@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <limits>
 #include <optional>
 
 namespace eon::esp {
@@ -26,11 +27,13 @@ struct Camera {
     float verticalFovDegrees{70.0f};
 };
 
-struct ScreenRect {
-    float left{};
-    float top{};
-    float right{};
-    float bottom{};
+struct ScreenPoint {
+    float x{};
+    float y{};
+};
+
+struct ProjectedBounds {
+    std::array<ScreenPoint, 8> corners;
     float distance{};
 };
 
@@ -39,11 +42,9 @@ inline bool finite(const Vec3& value) noexcept {
            std::isfinite(value.z);
 }
 
-inline std::optional<ScreenRect> projectBounds(const Bounds& bounds,
-                                               const Camera& camera,
-                                               float screenWidth,
-                                               float screenHeight,
-                                               float maximumDistance) noexcept {
+inline std::optional<ProjectedBounds> projectBounds(
+        const Bounds& bounds, const Camera& camera, float screenWidth,
+        float screenHeight, float maximumDistance) noexcept {
     if (!finite(bounds.minimum) || !finite(bounds.maximum) ||
         !finite(camera.position) || !std::isfinite(camera.yawDegrees) ||
         !std::isfinite(camera.pitchDegrees) ||
@@ -87,11 +88,12 @@ inline std::optional<ScreenRect> projectBounds(const Bounds& bounds,
         return std::nullopt;
     }
 
-    float minimumX = screenWidth;
-    float minimumY = screenHeight;
-    float maximumX = 0.0f;
-    float maximumY = 0.0f;
-    bool hasVisibleCorner = false;
+    ProjectedBounds result;
+    result.distance = distance;
+    float minimumX = std::numeric_limits<float>::max();
+    float minimumY = std::numeric_limits<float>::max();
+    float maximumX = std::numeric_limits<float>::lowest();
+    float maximumY = std::numeric_limits<float>::lowest();
     for (unsigned mask = 0; mask < 8; ++mask) {
         const Vec3 point{
                 (mask & 1u) ? bounds.maximum.x : bounds.minimum.x,
@@ -106,35 +108,26 @@ inline std::optional<ScreenRect> projectBounds(const Bounds& bounds,
         const float depth = -relX * sinYaw * cosPitch -
                             relY * sinPitch + relZ * cosYaw * cosPitch;
         if (!std::isfinite(depth) || depth <= 0.05f) {
-            continue;
+            return std::nullopt;
         }
 
         const float x = screenWidth * 0.5f + right * focalX / depth;
         const float y = screenHeight * 0.5f - up * focalY / depth;
         if (!std::isfinite(x) || !std::isfinite(y)) {
-            continue;
+            return std::nullopt;
         }
+        result.corners[mask] = {x, y};
         minimumX = std::min(minimumX, x);
         minimumY = std::min(minimumY, y);
         maximumX = std::max(maximumX, x);
         maximumY = std::max(maximumY, y);
-        hasVisibleCorner = true;
     }
 
-    if (!hasVisibleCorner || maximumX < 0.0f || minimumX > screenWidth ||
+    if (maximumX < 0.0f || minimumX > screenWidth ||
         maximumY < 0.0f || minimumY > screenHeight) {
         return std::nullopt;
     }
 
-    ScreenRect result{
-            std::clamp(minimumX, 0.0f, screenWidth),
-            std::clamp(minimumY, 0.0f, screenHeight),
-            std::clamp(maximumX, 0.0f, screenWidth),
-            std::clamp(maximumY, 0.0f, screenHeight),
-            distance};
-    if (result.right <= result.left || result.bottom <= result.top) {
-        return std::nullopt;
-    }
     return result;
 }
 
