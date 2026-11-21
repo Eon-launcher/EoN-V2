@@ -37,6 +37,9 @@ Evidence labels:
 6. **GUESS / UNVERIFIED:** All seven user-supplied player field offsets remain
    unverified; no pointer-chain edge or semantic field label beyond the
    supplied `player->level` claim is asserted.
+7. **LIKELY leads only:** String evidence identifies FOV, HUD, block-render,
+   and actor/bounds concepts, but no feature hook address or runtime
+   decision-making path. Details and offsets are in [features.md](./features.md).
 
 ## Open questions and next steps
 
