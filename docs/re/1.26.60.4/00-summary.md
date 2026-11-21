@@ -22,9 +22,11 @@ Evidence labels:
    relocation-backed Itanium RTTI for several requested classes. The RTTI
    name-pointer relocations identify exact typeinfo addresses; the related
    candidate vtable prefixes are listed in [classes.json](./classes.json).
-3. **LIKELY:** Some candidate vtables contain secondary-base tables (negative
-   offset-to-top values). There are multiple tables for several classes, so
-   the primary table must not be inferred solely from the class name.
+3. **LIKELY:** The RTTI-backed prefixes and contiguous slot addresses in
+   [vtables.md](./vtables.md) are vtable candidates. Some are secondary-base
+   tables (negative offset-to-top values); the primary table must not be
+   inferred solely from the class name. Slot-zero disassembly is available
+   without a semantic method name.
 4. **CONFIRMED:** No Ghidra analysis was run: available memory was 7.8 GiB,
    below the requested 16 GiB threshold. `llvm-objdump` supports AArch64 and
    was available; LIEF and Capstone were not.
@@ -46,6 +48,7 @@ Evidence labels:
   alone do not prove a FOV, HUD, block-visibility, or entity-iteration hook.
 - Generate and verify signatures only after identifying each target routine.
 
-See [classes.md](./classes.md), [player-chain.md](./player-chain.md),
+See [classes.md](./classes.md), [vtables.md](./vtables.md),
+[player-chain.md](./player-chain.md),
 [features.md](./features.md), and [signatures.json](./signatures.json) for the
 current per-stage evidence and limitations.

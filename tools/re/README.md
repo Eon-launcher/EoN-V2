@@ -22,6 +22,9 @@ python3 tools/re/scan_rtti.py libminecraftpe.so
 python3 tools/re/scan_rtti.py libminecraftpe.so --classes-only
 python3 tools/re/scan_rtti.py libminecraftpe.so --classes-only \
   > docs/re/1.26.60.4/classes.json
+python3 tools/re/dump_vtables.py libminecraftpe.so \
+  docs/re/1.26.60.4/classes.json \
+  --output docs/re/1.26.60.4/vtables.md
 ```
 
 `scan_rtti.py` reads ELF64 section headers and `.rela.dyn`, locates exact
@@ -29,6 +32,11 @@ Itanium class-name strings in `.rodata`, and follows relative relocations to
 typeinfo name pointers and RTTI-backed table prefixes. A candidate is not
 automatically the primary vtable; multiple tables may be secondary or
 construction tables.
+
+`dump_vtables.py` lists contiguous function slots and disassembles up to the
+requested number of instructions at each unique slot-0 address. It stops
+earlier at a `ret` or unconditional `b`; it cannot assign a virtual method
+name without symbols or call-site evidence.
 
 Use `llvm-objdump` for a bounded function disassembly. For example:
 

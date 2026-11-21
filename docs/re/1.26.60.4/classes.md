@@ -72,7 +72,7 @@ typeinfo, with a following function pointer when one was available.
 Multiple candidates for a typeinfo are expected where a class has secondary
 bases or construction tables. The addresses do not by themselves distinguish
 the primary vtable from construction or secondary tables. See
-[vtable-stage notes](./00-summary.md#open-questions-and-next-steps).
+[vtables.md](./vtables.md) for slot addresses and bounded disassembly.
 
 ## Strings that identify relevant components
 

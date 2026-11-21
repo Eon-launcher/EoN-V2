@@ -133,14 +133,33 @@ def main():
                         offset_to_top = struct.unpack_from(
                             "<q", blob, table_file_offset
                         )[0]
+                        slots = []
+                        for slot_index in range(1024):
+                            target = relocs_by_place.get(
+                                table + 16 + slot_index * 8
+                            )
+                            if target is None or not any(
+                                start <= target < end
+                                for start, end in executable_ranges
+                            ):
+                                break
+                            slots.append(
+                                {
+                                    "index": slot_index,
+                                    "function": f"0x{target:x}",
+                                }
+                            )
+                        slots_truncated = len(slots) == 1024
                         candidates.append(
                             {
                                 "address": f"0x{table:x}",
                                 "rtti_pointer_location": f"0x{rtti_reloc:x}",
                                 "offset_to_top": offset_to_top,
-                                "slot0_function": (
-                                    f"0x{slot0:x}" if slot0 is not None else None
-                                ),
+                                "slots": slots,
+                                "slots_truncated": slots_truncated,
+                                "slot0_function": slots[0]["function"]
+                                if slots
+                                else None,
                                 "confidence": "LIKELY",
                             }
                         )
