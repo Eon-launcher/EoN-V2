@@ -143,6 +143,7 @@ public:
 
 private:
     bool containsLocked(std::uintptr_t address, std::size_t size) const {
+        address &= 0x00FFFFFFFFFFFFFFull;
         if (address < 4096 || size == 0 ||
             address > UINTPTR_MAX - size) {
             return false;
@@ -394,28 +395,49 @@ bool readEspWorldFrame(EspWorldFrame& frame,
                                 "waiting for the local player tick");
     }
 
-    static bool dumped = false;
-    if (!dumped) {
-        dumped = true;
-        auto describe = [](std::uintptr_t a) -> std::string {
+    static bool probed = false;
+    if (!probed) {
+        probed = true;
+        constexpr std::uintptr_t kMask = 0x00FFFFFFFFFFFFFFull;
+        std::uintptr_t base = 0;
+        {
             std::ifstream m("/proc/self/maps");
             std::string l;
             while (std::getline(m, l)) {
-                std::uintptr_t b = 0, e = 0;
-                if (std::sscanf(l.c_str(), "%" SCNxPTR "-%" SCNxPTR, &b, &e) == 2
-                    && a >= b && a < e) return l;
+                if (l.find("libminecraftpe.so") != std::string::npos) {
+                    std::uintptr_t b = 0;
+                    if (std::sscanf(l.c_str(), "%" SCNxPTR "-", &b) == 1) {
+                        base = b;
+                        break;
+                    }
+                }
             }
-            return "not mapped";
-        };
-        char buf[64];
-        std::snprintf(buf, sizeof buf, "player=0x%" PRIxPTR, localPlayer);
-        logEspEvent("INFO", std::string(buf) + " -> " + describe(localPlayer));
-        if (auto vt = gReadableMemory.read<std::uintptr_t>(localPlayer)) {
-            std::snprintf(buf, sizeof buf, "vtable=0x%" PRIxPTR, *vt);
-            logEspEvent("INFO", std::string(buf) + " -> " + describe(*vt));
-        } else {
-            logEspEvent("WARN", "player object not readable");
         }
+        char buf[200];
+        std::snprintf(buf, sizeof buf, "probe: libminecraftpe base=0x%" PRIxPTR,
+                      base);
+        logEspEvent("INFO", buf);
+        int lines = 0;
+        for (std::size_t off = 0; off < 0x800 && lines < 80; off += 8) {
+            auto v = gReadableMemory.read<std::uintptr_t>(localPlayer + off);
+            if (!v || (*v & kMask) < 0x10000) {
+                continue;
+            }
+            auto w = gReadableMemory.read<std::uintptr_t>(*v);
+            if (!w) {
+                continue;
+            }
+            std::uintptr_t rel = (*w & kMask) - base;
+            if (rel >= 0x13680000 && rel < 0x14010000) {
+                std::snprintf(buf, sizeof buf,
+                              "probe: player+0x%zx -> obj 0x%" PRIxPTR
+                              " vptr=base+0x%" PRIxPTR,
+                              off, *v, rel);
+                logEspEvent("INFO", buf);
+                ++lines;
+            }
+        }
+        logEspEvent("INFO", "probe: done");
     }
 
     const auto& memory = gReadableMemory;
