@@ -625,8 +625,8 @@
     <string name="dialog_positive_exit">Exit</string>
     <string name="show_logcat_overlay">Logcat overlay</string>
     <string name="eon_esp_logs_title">EON ESP diagnostics</string>
-    <string name="eon_esp_logs_description">Recent ESP runtime events and failure reasons. Logs are kept in memory and reset when the launcher process closes.</string>
-    <string name="eon_esp_logs_empty">No EON ESP logs captured yet. Load EON in a game, then return here.</string>
+    <string name="eon_esp_logs_description">Recent ESP runtime events and failure reasons for the most recently launched instance. Logs are saved with its EON mod.</string>
+    <string name="eon_esp_logs_empty">No EON ESP logs captured yet. Launch a game with EON enabled, then refresh this page.</string>
     <string name="eon_esp_logs_not_loaded">EON is not loaded in this launcher session yet.</string>
     <string name="eon_esp_copy_logs">Copy logs</string>
     <string name="eon_esp_download_logs">Download log</string>

@@ -18,6 +18,8 @@ public final class EonBuiltInModInstaller {
     public static final String MOD_ID = "eon";
     private static final String TAG = "EON";
     private static final String ENTRY_FILE = "libeon.so";
+    private static final String DIAGNOSTICS_PREFS = "eon_diagnostics";
+    private static final String ESP_LOG_PATH_KEY = "esp_log_path";
     private static final String MANIFEST = "{\n"
             + "  \"type\": \"preload-native\",\n"
             + "  \"name\": \"EON (Built-in)\",\n"
@@ -97,8 +99,70 @@ public final class EonBuiltInModInstaller {
         copyFile(source, libraryTemp);
         replaceFile(libraryTemp, library);
 
+        File configDir = new File(packageDir, "config");
+        File espLogFile = new File(configDir, "esp.log");
+        if (!configDir.isDirectory() && !configDir.mkdirs()) {
+            Log.w(TAG, "Failed to create the EON diagnostics directory");
+        } else {
+            String launchMarker = System.currentTimeMillis()
+                    + " [INFO] EON staged for Minecraft "
+                    + version.versionCode + "; awaiting native initialization.\n";
+            try (FileOutputStream output = new FileOutputStream(espLogFile, false)) {
+                output.write(launchMarker.getBytes(
+                        java.nio.charset.StandardCharsets.UTF_8));
+                output.getFD().sync();
+            } catch (IOException error) {
+                Log.w(TAG, "Failed to initialize the EON ESP diagnostics file",
+                        error);
+            }
+        }
+        boolean logPathSaved = context.getSharedPreferences(
+                        DIAGNOSTICS_PREFS, Context.MODE_PRIVATE)
+                .edit()
+                .putString(ESP_LOG_PATH_KEY, espLogFile.getAbsolutePath())
+                .commit();
+        if (!logPathSaved) {
+            Log.w(TAG, "Failed to save the EON ESP diagnostics path");
+        }
+
         Log.i(TAG, "Staged built-in native mod for instance " + version.directoryName);
         return true;
+    }
+
+    public static File getEspLogFile(Context context) {
+        String path = context.getSharedPreferences(
+                        DIAGNOSTICS_PREFS, Context.MODE_PRIVATE)
+                .getString(ESP_LOG_PATH_KEY, null);
+        return path == null || path.trim().isEmpty() ? null : new File(path);
+    }
+
+    public static synchronized void appendEspDiagnostic(
+            Context context, String level, String message) {
+        File logFile = getEspLogFile(context);
+        if (logFile == null) {
+            return;
+        }
+
+        String line = System.currentTimeMillis() + " [" + level + "] "
+                + message.replace('\n', ' ').replace('\r', ' ') + "\n";
+        byte[] bytes = line.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        if (bytes.length > 4096) {
+            Log.w(TAG, "Skipped an oversized EON ESP diagnostic");
+            return;
+        }
+        try {
+            File parent = logFile.getParentFile();
+            if (parent != null && !parent.isDirectory() && !parent.mkdirs()) {
+                throw new IOException("Could not create diagnostics directory");
+            }
+            boolean append = logFile.length() + bytes.length <= 256 * 1024;
+            try (FileOutputStream output = new FileOutputStream(logFile, append)) {
+                output.write(bytes);
+                output.getFD().sync();
+            }
+        } catch (IOException error) {
+            Log.w(TAG, "Failed to append an EON ESP diagnostic", error);
+        }
     }
 
     private static void copyFile(File source, File target) throws IOException {

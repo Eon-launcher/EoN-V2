@@ -499,6 +499,9 @@ void unregisterMenuModules() {
 class EonLifecycle {
 public:
     bool load(pl::mod::ModContext& context) {
+        if (!eon::configureEspLogFile(context.configDir() / "esp.log")) {
+            context.logger().warn("EON ESP diagnostics could not be persisted.");
+        }
         if (eon_init() != static_cast<int>(kModules.size())) {
             context.logger().error("EON did not initialize all native modules.");
             return false;

@@ -447,6 +447,11 @@ object MinecraftRuntimePreparer {
                     val progress = 80 + ((index - 1) * 15 / total.coerceAtLeast(1))
                     val label = "$index/$total"
                     modLoadLabels[mod] = label
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "INFO", "Loading EON native library."
+                        )
+                    }
                     listener.onProgress(progress, "Loading native mods", "$label ${mod.displayName}")
                     trace.mark("Native mod load started", "$label ${mod.displayName}")
                 }
@@ -454,6 +459,11 @@ object MinecraftRuntimePreparer {
                 override fun onModLoadFinished(mod: Mod) {
                     val label = modLoadLabels.remove(mod)?.let { "$it " }.orEmpty()
                     loadedModIds.add(mod.id)
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "INFO", "EON native library loaded."
+                        )
+                    }
                     listener.onLog("Loaded mod: $label${mod.displayName}")
                     trace.mark("Native mod load finished", mod.displayName)
                 }
@@ -461,11 +471,25 @@ object MinecraftRuntimePreparer {
                 override fun onModLoadSkipped(mod: Mod, minecraftVersion: String) {
                     val label = modLoadLabels.remove(mod)?.let { "$it " }.orEmpty()
                     skippedIncompatibleMods.add(mod.displayName)
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "WARN",
+                            "EON skipped as incompatible with Minecraft "
+                                + minecraftVersion + "."
+                        )
+                    }
                     listener.onLog("Skipped incompatible mod ${label}${mod.displayName} for Minecraft $minecraftVersion")
                     trace.warning("Native mod skipped as incompatible", "${mod.displayName}: $minecraftVersion")
                 }
 
                 override fun onModLoadFailed(mod: Mod, error: Throwable) {
+                    if (mod.id == EonBuiltInModInstaller.MOD_ID) {
+                        EonBuiltInModInstaller.appendEspDiagnostic(
+                            context, "ERROR",
+                            "EON native load failed: "
+                                + (error.message ?: error.javaClass.simpleName)
+                        )
+                    }
                     trace.warning("Native mod load failed", "${mod.displayName}: ${error.message ?: error.javaClass.simpleName}")
                     listener.onLog("Failed to load mod ${mod.displayName}: ${error.message ?: error.javaClass.simpleName}")
                 }

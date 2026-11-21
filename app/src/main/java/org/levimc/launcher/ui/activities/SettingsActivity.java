@@ -46,6 +46,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import org.levimc.launcher.R;
 import org.levimc.launcher.core.crash.CrashReporter;
 import org.levimc.launcher.core.discord.DiscordPresence;
+import org.levimc.launcher.core.mods.EonBuiltInModInstaller;
 import org.levimc.launcher.core.mods.EonNative;
 import org.levimc.launcher.preloader.PreloaderSignatureRulesManager;
 import org.levimc.launcher.settings.FeatureSettings;
@@ -68,9 +69,11 @@ import org.levimc.launcher.util.UiSettings;
 import org.levimc.launcher.util.WallpaperFolder;
 
 import java.lang.ref.WeakReference;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -605,17 +608,37 @@ public class SettingsActivity extends BaseActivity {
     private String refreshEonEspLogs() {
         String logs;
         try {
-            logs = EonNative.getEspLogs();
+            logs = readPersistentEonEspLogs();
+            if (logs == null || logs.isEmpty()) {
+                logs = EonNative.getEspLogs();
+            }
             if (logs == null || logs.isEmpty()) {
                 logs = getString(R.string.eon_esp_logs_empty);
             }
         } catch (UnsatisfiedLinkError error) {
             logs = getString(R.string.eon_esp_logs_not_loaded);
+        } catch (IOException error) {
+            Log.e("SettingsActivity", "Could not read persistent EON ESP logs.", error);
+            logs = "Could not read EON ESP log file: " + error.getMessage();
         }
         eonEspLogsView.setText(logs);
         eonEspLogsScroll.post(
                 () -> eonEspLogsScroll.fullScroll(View.FOCUS_DOWN));
         return logs;
+    }
+
+    private String readPersistentEonEspLogs() throws IOException {
+        File logFile = EonBuiltInModInstaller.getEspLogFile(this);
+        if (logFile == null || !logFile.exists()) {
+            return null;
+        }
+        if (!logFile.isFile() || !logFile.canRead()) {
+            throw new IOException("diagnostics file is not readable");
+        }
+        if (logFile.length() > 256 * 1024) {
+            throw new IOException("diagnostics file exceeds the 256 KiB limit");
+        }
+        return new String(Files.readAllBytes(logFile.toPath()), StandardCharsets.UTF_8);
     }
 
     private void saveEonEspLogs(Uri uri) {
